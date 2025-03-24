@@ -7,12 +7,12 @@ import { memo } from "react"
 
 const footerLinks = {
   solutions: [
-    { href: "/solutions", label: "Project Management" },
-    { href: "/solutions", label: "Safety Compliance" },
-    { href: "/solutions", label: "Resource Planning" },
-    { href: "/solutions", label: "Quality Control" },
-    { href: "/solutions", label: "Cost Management" },
-    { href: "/solutions", label: "Analytics & Reporting" },
+    { href: "/solutions#project-management", label: "Project Management" },
+    { href: "/solutions#safety-compliance", label: "Safety Compliance" },
+    { href: "/solutions#resource-planning", label: "Resource Planning" },
+    { href: "/solutions#quality-control", label: "Quality Control" },
+    { href: "/solutions#cost-management", label: "Cost Management" },
+    { href: "/solutions#analytics", label: "Analytics & Reporting" },
   ],
   company: [
     { href: "/about", label: "About Us" },
@@ -69,7 +69,7 @@ const FooterSection = memo(({
     ) : (
       <ul className="space-y-3 text-sm" role="list">
         {links.map(({ href, label }) => (
-          <li key={href}>
+          <li key={`${href}-${label}`}>
             <FooterLink href={href} label={label} />
           </li>
         ))}
