@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button"
+import CTA from "@/components/cta"
+
 export default function IndustriesPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -24,10 +27,82 @@ export default function IndustriesPage() {
               Industries We Serve
             </h1>
             <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-              Discover how our solutions are tailored to meet the unique needs of different industries.
+              From residential homes to large-scale infrastructure projects, we provide comprehensive solutions tailored to your industry needs.
             </p>
           </div>
+
+          {/* Industries Grid */}
+          <div className="grid gap-8 md:grid-cols-3">
+            {/* Residential Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Residential Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Custom homes, multi-family developments, and residential renovations with a focus on quality and comfort.
+                </p>
+              </div>
+            </div>
+
+            {/* Commercial Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Commercial Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Office buildings, retail spaces, and commercial facilities designed for optimal business operations.
+                </p>
+              </div>
+            </div>
+
+            {/* Industrial Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Industrial Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Manufacturing facilities, warehouses, and industrial complexes built for efficiency and durability.
+                </p>
+              </div>
+            </div>
+
+            {/* Infrastructure Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Infrastructure Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Roads, bridges, and public utilities that connect and serve communities.
+                </p>
+              </div>
+            </div>
+
+            {/* Heavy Civil Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Heavy Civil Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Large-scale civil engineering projects including dams, airports, and major transportation systems.
+                </p>
+              </div>
+            </div>
+
+            {/* Institutional Construction */}
+            <div className="group relative overflow-hidden rounded-lg bg-card p-6 shadow-sm transition-all hover:shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-medium">Institutional Construction</h3>
+                <p className="text-base text-muted-foreground">
+                  Educational facilities, healthcare buildings, and government structures built to serve public needs.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div className="relative z-10">
+        <CTA />
       </div>
     </div>
   )
