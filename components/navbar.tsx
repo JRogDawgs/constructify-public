@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import DemoModal from "./demo-modal"
+import AuthModal from "./auth-modal"
 
 const navigationLinks = [
   { href: "/solutions", label: "Solutions" },
@@ -14,10 +15,14 @@ const navigationLinks = [
 ]
 
 export default function Navbar() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
-  const handleModalOpen = () => setIsModalOpen(true)
-  const handleModalClose = () => setIsModalOpen(false)
+  const handleDemoModalOpen = () => setIsDemoModalOpen(true)
+  const handleDemoModalClose = () => setIsDemoModalOpen(false)
+
+  const handleAuthModalOpen = () => setIsAuthModalOpen(true)
+  const handleAuthModalClose = () => setIsAuthModalOpen(false)
 
   const memoizedNavLinks = useMemo(() => (
     navigationLinks.map(({ href, label }) => (
@@ -49,7 +54,7 @@ export default function Navbar() {
             </Button>
             <Button 
               size="sm"
-              onClick={handleModalOpen}
+              onClick={handleDemoModalOpen}
               aria-label="Get a Demo"
             >
               Get a Demo
@@ -57,17 +62,23 @@ export default function Navbar() {
             <Button 
               size="sm" 
               className="bg-[#ffd700] text-black hover:bg-[#FFD700]/90"
-              asChild
+              onClick={handleAuthModalOpen}
+              aria-label="Log in or sign up"
             >
-              <Link href="/login" aria-label="Login">Login</Link>
+              Login
             </Button>
           </div>
         </div>
       </header>
 
       <DemoModal 
-        isOpen={isModalOpen} 
-        onClose={handleModalClose} 
+        isOpen={isDemoModalOpen} 
+        onClose={handleDemoModalClose} 
+      />
+
+      <AuthModal 
+        isOpen={isAuthModalOpen}
+        onClose={handleAuthModalClose}
       />
     </>
   )
