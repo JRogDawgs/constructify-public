@@ -232,20 +232,69 @@ export default function SignUpPage() {
                         </Select>
                       </div>
                       <div className="space-y-2 sm:col-span-2">
-                        <Label htmlFor="plan">Plan Selection</Label>
-                        <Select 
-                          required 
-                          onValueChange={setSelectedPlan}
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select your plan" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="starter">Starter - $299/month</SelectItem>
-                            <SelectItem value="professional">Professional - $799/month</SelectItem>
-                            <SelectItem value="enterprise">Enterprise - $1,999/month</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Label htmlFor="plan" className="text-lg font-semibold">Plan Selection</Label>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                          <div
+                            className={`relative cursor-pointer rounded-lg border p-4 transition-all hover:border-primary ${
+                              selectedPlan === "starter" ? "border-primary bg-primary/5" : ""
+                            }`}
+                            onClick={() => setSelectedPlan("starter")}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                setSelectedPlan("starter")
+                              }
+                            }}
+                          >
+                            <div className="space-y-2">
+                              <h3 className="font-semibold">Starter</h3>
+                              <p className="text-2xl font-bold">$299</p>
+                              <p className="text-sm text-muted-foreground">/month</p>
+                            </div>
+                          </div>
+                          <div
+                            className={`relative cursor-pointer rounded-lg border p-4 transition-all hover:border-primary ${
+                              selectedPlan === "professional" ? "border-primary bg-primary/5" : ""
+                            }`}
+                            onClick={() => setSelectedPlan("professional")}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                setSelectedPlan("professional")
+                              }
+                            }}
+                          >
+                            <div className="space-y-2">
+                              <h3 className="font-semibold">Professional</h3>
+                              <p className="text-2xl font-bold">$799</p>
+                              <p className="text-sm text-muted-foreground">/month</p>
+                            </div>
+                          </div>
+                          <div
+                            className={`relative cursor-pointer rounded-lg border p-4 transition-all hover:border-primary ${
+                              selectedPlan === "enterprise" ? "border-primary bg-primary/5" : ""
+                            }`}
+                            onClick={() => setSelectedPlan("enterprise")}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                setSelectedPlan("enterprise")
+                              }
+                            }}
+                          >
+                            <div className="space-y-2">
+                              <h3 className="font-semibold">Enterprise</h3>
+                              <p className="text-2xl font-bold">$1,999</p>
+                              <p className="text-sm text-muted-foreground">/month</p>
+                            </div>
+                          </div>
+                        </div>
+                        {!selectedPlan && (
+                          <p className="mt-2 text-sm text-destructive">Please select a plan to continue</p>
+                        )}
                       </div>
                     </div>
                   </div>
