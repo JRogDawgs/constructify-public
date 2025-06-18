@@ -10,6 +10,7 @@ export interface UserProfile {
   createdAt: any;
   lastLoginAt: any;
   provider: string;
+  role?: string; // Added role field for admin functionality
 }
 
 // Create or update user document in Firestore

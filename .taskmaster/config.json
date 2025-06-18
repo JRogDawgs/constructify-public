@@ -3,5 +3,11 @@
   "output": "tasks.json",
   "mainModel": "claude-3.5-sonnet",
   "researchModel": "claude-3.5-sonnet",
-  "fallbackModel": "gpt-4"
+  "fallbackModel": "gpt-4",
+  "taskFile": "tasks.json",
+  "checkInterval": 5000,
+  "logActivity": true,
+  "autoStatusTracking": true,
+  "defaultAssignee": "Jeff Rogers",
+  "projectName": "Constructify - Google Auth System"
 } 

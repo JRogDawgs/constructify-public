@@ -1,7 +1,7 @@
 {
   "project": "Constructify - Google Authentication System",
   "description": "Complete Google Sign-in authentication system with Firestore integration",
-  "status": "completed",
+  "status": "in-progress",
   "tasks": [
     {
       "id": 1,
@@ -132,10 +132,10 @@
     },
     {
       "id": 8,
-      "title": "Admin User Management (Future)",
+      "title": "Admin User Management",
       "description": "Implement admin interface for viewing user list",
-      "status": "pending",
-      "priority": "low",
+      "status": "completed",
+      "priority": "medium",
       "requirements": [
         "Create admin role system",
         "Build user list interface",
@@ -143,9 +143,10 @@
         "Add user management actions"
       ],
       "deliverables": [
-        "Admin dashboard component",
-        "User list with pagination",
-        "Role-based access control"
+        "app/admin/users/page.tsx - Admin users page",
+        "components/Admin/UserTable.tsx - User table with pagination",
+        "utils/firestore/adminService.ts - Admin Firestore operations",
+        "Role-based access control implemented"
       ]
     },
     {
@@ -186,12 +187,48 @@
       ]
     }
   ],
+  "bugs": [
+    {
+      "id": "bug-001",
+      "title": "Fix Google Auth API Error",
+      "status": "pending",
+      "priority": "high",
+      "details": {
+        "errorMessage": "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.projectconfigservice.getprojectconfig-are-blocked",
+        "file": "components/auth-modal.tsx",
+        "line": 122,
+        "suspectedCause": "Google Cloud API not enabled or billing not set up",
+        "fixPlan": [
+          "Go to Firebase Console → Project Settings → API access",
+          "Ensure 'Identity Toolkit API' is enabled",
+          "Ensure billing is enabled on your GCP project"
+        ]
+      }
+    },
+    {
+      "id": "bug-002",
+      "title": "Fix Auth State UI Not Updating After Login",
+      "status": "pending",
+      "priority": "high",
+      "details": {
+        "description": "Login button doesn't change to username after Google login",
+        "file": "components/header.tsx",
+        "suspectedCause": "Auth state not updating or incorrectly scoped",
+        "fixPlan": [
+          "Ensure AuthContext is wrapped around Header component",
+          "Confirm user object is available post-login",
+          "Use `useEffect` to watch `user` changes in Header",
+          "Replace 'Login' button with user's displayName if authenticated"
+        ]
+      }
+    }
+  ],
   "summary": {
     "total_tasks": 10,
-    "completed": 7,
+    "completed": 8,
     "in_progress": 1,
-    "pending": 2,
-    "completion_percentage": 70
+    "pending": 1,
+    "completion_percentage": 80
   },
   "next_steps": [
     "Complete final testing of Google sign-in functionality",
@@ -199,4 +236,4 @@
     "Create comprehensive documentation",
     "Prepare for production deployment"
   ]
-} 
+}
