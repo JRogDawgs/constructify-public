@@ -122,8 +122,21 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       await signInWithGoogle()
       toast.success("Successfully signed in with Google!")
       onClose()
-    } catch (error) {
-      toast.error("Failed to sign in with Google. Please try again.")
+    } catch (error: any) {
+      console.error("Google Sign-in Error:", error)
+      
+      // Handle specific Firebase errors
+      if (error?.code?.includes('identitytoolkit') || error?.message?.includes('identitytoolkit')) {
+        toast.error("Firebase setup required. Please check the Firebase Setup Guide in docs/FIREBASE_SETUP_GUIDE.md")
+      } else if (error?.code === 'auth/popup-blocked') {
+        toast.error("Popup blocked. Please allow popups and try again.")
+      } else if (error?.code === 'auth/popup-closed-by-user') {
+        toast.error("Sign-in cancelled.")
+      } else if (error?.code === 'auth/network-request-failed') {
+        toast.error("Network error. Please check your connection.")
+      } else {
+        toast.error("Failed to sign in with Google. Please try again.")
+      }
     }
   }
 

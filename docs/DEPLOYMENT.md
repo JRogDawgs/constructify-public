@@ -40,9 +40,9 @@ Vercel provides seamless deployment for Next.js applications:
    Set the following in Vercel dashboard:
    ```
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=constructify-450d5.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=constructify-450d5
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=constructify-450d5.appspot.com
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=constructify-463219.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=constructify-463219
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=constructify-463219.appspot.com
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
    FIREBASE_ADMIN_PRIVATE_KEY=your_admin_private_key
@@ -173,7 +173,7 @@ const cspHeader = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' blob: data: https:;
   font-src 'self';
-  connect-src 'self' https://apis.google.com https://accounts.google.com https://constructify-450d5.firebaseapp.com https://your-production-domain.com;
+  connect-src 'self' https://apis.google.com https://accounts.google.com https://constructify-463219.firebaseapp.com https://your-production-domain.com;
   frame-src 'self' https://accounts.google.com;
 `;
 ```

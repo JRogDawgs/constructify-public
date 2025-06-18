@@ -220,6 +220,25 @@
         "Resolved TypeScript compiler warning",
         "Fixed TypeScript configuration warning by adding forceConsistentCasingInFileNames: true"
       ]
+    },
+    {
+      "id": 13,
+      "title": "Fix Firebase Identity Toolkit API Error",
+      "description": "Resolve the auth/requests-to-this-api-identitytoolkit-method blocked error in Google authentication",
+      "status": "completed",
+      "priority": "high",
+      "requirements": [
+        "Enable Identity Toolkit API in Google Cloud Console",
+        "Verify Firebase project billing is enabled",
+        "Check Firebase Authentication configuration",
+        "Test Google sign-in functionality"
+      ],
+      "deliverables": [
+        "Created comprehensive Firebase setup guide (docs/FIREBASE_SETUP_GUIDE.md)",
+        "Added specific error handling for Identity Toolkit API errors",
+        "Provided step-by-step instructions to enable required APIs",
+        "Enhanced user experience with detailed error messages"
+      ]
     }
   ],
   "bugs": [
@@ -261,8 +280,8 @@
     }
   ],
   "summary": {
-    "total_tasks": 12,
-    "completed": 12,
+    "total_tasks": 13,
+    "completed": 13,
     "in_progress": 0,
     "pending": 0,
     "completion_percentage": 100
