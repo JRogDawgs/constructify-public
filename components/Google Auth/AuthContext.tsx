@@ -11,6 +11,8 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider,
   signOut as firebaseSignOut,
   User,
@@ -35,6 +37,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const auth = getAuth(app);
 
   useEffect(() => {
+    // Check for redirect result first
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          console.log('✅ Google sign-in redirect successful:', result.user.email);
+          const profile = await createOrUpdateUser(result.user);
+          setUserProfile(profile);
+          console.log('✅ User profile saved to Firestore');
+        }
+      } catch (error: any) {
+        console.error('❌ Redirect sign-in error:', error);
+      }
+    };
+    
+    checkRedirectResult();
+
     const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
       setUser(firebaseUser);
       
@@ -64,17 +83,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         prompt: 'select_account'
       });
       
-      console.log('🔄 Starting Google sign-in...');
-      const result = await signInWithPopup(auth, provider);
-      console.log('✅ Google sign-in successful:', result.user.email);
+      console.log('🔄 Starting Google sign-in redirect...');
+      // Use redirect instead of popup to avoid CORS issues
+      await signInWithRedirect(auth, provider);
+      // Note: The redirect will happen immediately, so this function won't continue
       
-      // Store/update user in Firestore
-      if (result.user) {
-        console.log('🔄 Saving user to Firestore...');
-        const profile = await createOrUpdateUser(result.user);
-        setUserProfile(profile);
-        console.log('✅ User profile saved to Firestore');
-      }
     } catch (error: any) {
       console.error('❌ Google sign-in error:', error);
       console.error('Error code:', error.code);
@@ -87,7 +100,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.error('2. Environment variables in .env.local');
         console.error('3. Google OAuth configuration');
       }
-    } finally {
       setLoading(false);
     }
   };

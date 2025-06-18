@@ -10,6 +10,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// Debug: Log what we're actually getting
+console.log('🔍 Firebase Config Debug:');
+console.log('API Key:', firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 10)}...` : 'MISSING');
+console.log('Project ID:', firebaseConfig.projectId || 'MISSING');
+console.log('Auth Domain:', firebaseConfig.authDomain || 'MISSING');
+
 // Validate Firebase configuration
 if (
   !firebaseConfig.apiKey ||
