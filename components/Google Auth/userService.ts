@@ -11,6 +11,24 @@ export interface UserProfile {
   lastLoginAt: any;
   provider: string;
   role?: string; // Added role field for admin functionality
+  
+  // Extended profile fields
+  phone?: string;
+  location?: string;
+  bio?: string;
+  company?: string;
+  position?: string;
+  profileType?: 'individual' | 'company'; // Profile type differentiation
+  
+  // Company-specific fields (when profileType === 'company')
+  companyName?: string;
+  companyLogo?: string;
+  licenseNumber?: string;
+  certifications?: string[];
+  
+  // Individual-specific fields  
+  skills?: string[];
+  certifications_individual?: string[];
 }
 
 // Create or update user document in Firestore

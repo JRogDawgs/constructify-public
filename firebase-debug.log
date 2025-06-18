@@ -1,0 +1,21 @@
+[debug] [2025-06-18T18:31:25.210Z] ----------------------------------------------------------------------
+[debug] [2025-06-18T18:31:25.212Z] Command:       C:\nvm\nodejs\node.exe C:\nvm\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-06-18T18:31:25.212Z] CLI Version:   14.7.0
+[debug] [2025-06-18T18:31:25.212Z] Platform:      win32
+[debug] [2025-06-18T18:31:25.212Z] Node Version:  v20.14.0
+[debug] [2025-06-18T18:31:25.213Z] Time:          Wed Jun 18 2025 14:31:25 GMT-0400 (Eastern Daylight Time)
+[debug] [2025-06-18T18:31:25.213Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-18T18:31:25.217Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-18T18:31:25.218Z] > authorizing via signed-in user (jrogbudawgs@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\jrogs\Desktop\code\constructify-1
+
