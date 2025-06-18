@@ -16,9 +16,11 @@ import {
   User,
 } from 'firebase/auth';
 import { app } from './firebase';
+import { createOrUpdateUser, getUserProfile, UserProfile } from './userService';
 
 interface AuthContextType {
   user: User | null;
+  userProfile: UserProfile | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -28,12 +30,27 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth(app);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+    const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
       setUser(firebaseUser);
+      
+      if (firebaseUser) {
+        try {
+          // Get user profile from Firestore
+          const profile = await getUserProfile(firebaseUser.uid);
+          setUserProfile(profile);
+        } catch (error) {
+          console.error('Error loading user profile:', error);
+          setUserProfile(null);
+        }
+      } else {
+        setUserProfile(null);
+      }
+      
       setLoading(false);
     });
     return () => unsubscribe();
@@ -43,7 +60,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      
+      // Store/update user in Firestore
+      if (result.user) {
+        const profile = await createOrUpdateUser(result.user);
+        setUserProfile(profile);
+      }
     } catch (error) {
       console.error('Google sign-in error:', error);
     } finally {
@@ -55,6 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       await firebaseSignOut(auth);
+      setUserProfile(null);
     } catch (error) {
       console.error('Sign-out error:', error);
     } finally {
@@ -63,7 +87,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, userProfile, loading, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );
