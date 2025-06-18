@@ -150,11 +150,181 @@ export interface EmployeeProfile {
     filingStatus: string;
     dependents: number;
     w4Submitted?: boolean;
+    stateWithholding?: number;
+    federalWithholding?: number;
+    additionalWithholding?: number;
   };
-  directDeposit?: {
-    bankName: string;
-    accountType: string;
-    last4?: string;
+
+  // 💰 COMPREHENSIVE BANKING & FINANCIAL INFORMATION
+  bankingInfo?: {
+    // Primary Direct Deposit Account
+    primaryAccount: {
+      bankName: string;
+      routingNumber: string;
+      accountNumber: string; // Encrypted in production
+      accountType: 'Checking' | 'Savings';
+      accountHolderName: string;
+      isVerified: boolean;
+      verificationDate?: string;
+      depositPercentage: number; // Percentage of paycheck (usually 100% for primary)
+    };
+    
+    // Secondary Account (for savings, etc.)
+    secondaryAccount?: {
+      bankName: string;
+      routingNumber: string;
+      accountNumber: string; // Encrypted in production
+      accountType: 'Checking' | 'Savings';
+      accountHolderName: string;
+      isVerified: boolean;
+      verificationDate?: string;
+      depositPercentage: number; // Remaining percentage
+    };
+    
+    // Emergency/Backup Payment Methods
+    backupPaymentMethods?: {
+      payrollCard?: {
+        cardNumber: string; // Last 4 digits only
+        provider: string; // "ADP", "Paychex", etc.
+        isActive: boolean;
+      };
+      cashPayment?: {
+        authorized: boolean;
+        reason?: string;
+        approvedBy?: string;
+      };
+    };
+  };
+
+  // 💳 EXPENSE & CORPORATE CARD INFORMATION
+  expenseManagement?: {
+    corporateCard?: {
+      cardNumber: string; // Last 4 digits only
+      cardType: 'Visa' | 'Mastercard' | 'Amex';
+      issuer: string;
+      issuedDate: string;
+      expirationDate: string;
+      creditLimit: number;
+      isActive: boolean;
+      spendingCategories: ('Fuel' | 'Materials' | 'Tools' | 'Travel' | 'Meals' | 'Equipment')[];
+    };
+    
+    // Expense Reimbursement
+    reimbursementInfo?: {
+      preferredMethod: 'Direct Deposit' | 'Check' | 'Corporate Card Credit';
+      reimbursementSchedule: 'Weekly' | 'Bi-weekly' | 'Monthly';
+      mileageRate?: number; // Current IRS rate
+      perDiem?: {
+        dailyRate: number;
+        includesMeals: boolean;
+        includesLodging: boolean;
+      };
+    };
+    
+    // Expense History
+    recentExpenses?: {
+      date: string;
+      amount: number;
+      category: string;
+      description: string;
+      receiptUrl?: string;
+      status: 'Pending' | 'Approved' | 'Reimbursed' | 'Denied';
+      approvedBy?: string;
+    }[];
+  };
+
+  // 💰 PAYROLL & COMPENSATION DETAILS
+  compensationDetails?: {
+    basePay: {
+      hourlyRate?: number;
+      annualSalary?: number;
+      payType: 'Hourly' | 'Salary' | 'Contract';
+    };
+    
+    overtimeRules: {
+      overtimeRate: number; // Usually 1.5x
+      doubleTimeRate?: number; // Usually 2.0x
+      weeklyOvertimeThreshold: number; // Usually 40 hours
+      dailyOvertimeThreshold?: number; // Some states require
+    };
+    
+    bonuses?: {
+      performanceBonus?: number;
+      safetyBonus?: number;
+      completionBonus?: number;
+      referralBonus?: number;
+      holidayBonus?: number;
+    };
+    
+    deductions?: {
+      healthInsurance?: number;
+      dentalInsurance?: number;
+      visionInsurance?: number;
+      lifeInsurance?: number;
+      retirement401k?: number;
+      unionDues?: number;
+      toolRental?: number;
+      uniformCosts?: number;
+      parkingFees?: number;
+      other?: {
+        description: string;
+        amount: number;
+      }[];
+    };
+  };
+
+  // 📊 FINANCIAL ANALYTICS & TRACKING
+  financialMetrics?: {
+    yearToDate: {
+      grossPay: number;
+      netPay: number;
+      overtimeHours: number;
+      overtimePay: number;
+      bonusPay: number;
+      reimbursements: number;
+      taxesWithheld: number;
+      benefitsDeducted: number;
+    };
+    
+    lastPayPeriod?: {
+      payPeriodStart: string;
+      payPeriodEnd: string;
+      regularHours: number;
+      overtimeHours: number;
+      grossPay: number;
+      netPay: number;
+      payDate: string;
+    };
+    
+    averages?: {
+      weeklyHours: number;
+      weeklyPay: number;
+      monthlyPay: number;
+      effectiveHourlyRate: number; // Including bonuses
+    };
+  };
+
+  // 🏦 VENDOR & CONTRACTOR PAYMENTS (for contractors)
+  vendorPaymentInfo?: {
+    businessInfo: {
+      businessName?: string;
+      ein?: string; // Employer Identification Number
+      businessType: 'Sole Proprietorship' | 'LLC' | 'Corporation' | 'Partnership';
+      businessAddress?: string;
+    };
+    
+    paymentTerms: {
+      invoiceTerms: 'Net 15' | 'Net 30' | 'Net 45' | 'Net 60' | 'Due on Receipt';
+      preferredPaymentMethod: 'ACH' | 'Check' | 'Wire Transfer' | 'Corporate Card';
+      minimumPaymentAmount?: number;
+    };
+    
+    tax1099Info?: {
+      requiresForm1099: boolean;
+      w9OnFile: boolean;
+      w9Date?: string;
+      backupWithholding?: boolean;
+    };
   };
 
   // Work History
@@ -223,9 +393,11 @@ export interface EmployeeProfile {
     health: boolean;
     dental: boolean;
     vision: boolean;
-    401k: {
+    retirement401k: {
       participating: boolean;
       contributionPercent?: number;
+      employerMatch?: number;
+      vestingSchedule?: string;
     };
     vacationDays?: number;
     sickDays?: number;
