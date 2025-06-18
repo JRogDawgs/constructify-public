@@ -163,10 +163,61 @@ Our comprehensive suite includes:
 
 ## Getting Started
 
+### For Users
 1. Visit our website at [Constructify](https://constructify.com)
 2. Choose your pricing plan
 3. Sign up for an account
 4. Start managing your construction projects more efficiently
+
+### For Developers
+
+#### Prerequisites
+- Node.js 18+ installed
+- Firebase project set up
+- Environment variables configured
+
+#### Installation
+```bash
+# Clone the repository
+git clone https://github.com/monster3230/constructify.git
+cd constructify
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Firebase configuration
+
+# Run development server
+npm run dev
+```
+
+#### Authentication System
+This project includes a complete Google Authentication system with Firebase integration:
+
+- **Google Sign-In**: OAuth integration with Firebase Auth
+- **User Management**: Firestore-based user profiles with role-based access
+- **Admin Panel**: Administrative interface for user management
+- **Security**: CSP headers, authentication middleware, and secure API routes
+
+For detailed documentation, see:
+- [Authentication Guide](docs/AUTHENTICATION.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+
+#### Project Status
+- ✅ Firebase Project Setup
+- ✅ Frontend Firebase Configuration  
+- ✅ Authentication Context Implementation
+- ✅ User Service Layer
+- ✅ UI Integration
+- ✅ Security Middleware
+- ✅ Application Layout Integration
+- ✅ Admin User Management
+- ✅ Testing & Validation
+- ✅ Documentation & Deployment Guide
+
+**Current Status: Production Ready** (90% complete)
 
 ## Support
 
