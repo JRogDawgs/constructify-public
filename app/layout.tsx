@@ -4,6 +4,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import MouseMoveEffect from "@/components/mouse-move-effect"
 import { ThemeProvider } from "@/components/theme-provider"
+import { AuthProvider } from "@/components/Google Auth/AuthContext"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Toaster } from "sonner"
@@ -30,15 +31,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1">
-              <MouseMoveEffect />
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
+          <AuthProvider>
+            <div className="relative min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-1">
+                <MouseMoveEffect />
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
@@ -46,5 +49,3 @@ export default function RootLayout({
 }
 
 
-
-import './globals.css'
