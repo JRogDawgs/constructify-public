@@ -23,7 +23,7 @@ export default function Hero() {
             muted
             playsInline
             className="h-full w-full object-cover"
-            poster="/images/construction-bg-poster.jpg"
+            poster="/placeholder.jpg"
             preload="auto"
           >
             <source src="/videos/construction-bg.mp4" type="video/mp4" />

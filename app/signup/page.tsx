@@ -345,7 +345,14 @@ export default function SignUpPage() {
                   {/* Terms and Next Button */}
                   <div className="space-y-4">
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="terms" className="h-4 w-4 rounded border-gray-300" required />
+                      <input 
+                        type="checkbox" 
+                        id="terms" 
+                        className="h-4 w-4 rounded border-gray-300" 
+                        required 
+                        aria-label="Accept terms and conditions"
+                        title="Check to accept terms and conditions"
+                      />
                       <Label htmlFor="terms" className="text-sm text-muted-foreground">
                         I agree to the{" "}
                         <a href="/terms" className="text-primary hover:underline">

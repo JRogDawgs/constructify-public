@@ -40,12 +40,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Check for redirect result first
     const checkRedirectResult = async () => {
       try {
+        console.log('🔄 Checking for redirect result...');
         const result = await getRedirectResult(auth);
+        console.log('🔍 Redirect result:', result);
         if (result?.user) {
           console.log('✅ Google sign-in redirect successful:', result.user.email);
           const profile = await createOrUpdateUser(result.user);
           setUserProfile(profile);
           console.log('✅ User profile saved to Firestore');
+        } else {
+          console.log('ℹ️ No redirect result found');
         }
       } catch (error: any) {
         console.error('❌ Redirect sign-in error:', error);
@@ -55,6 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkRedirectResult();
 
     const unsubscribe = onAuthStateChanged(auth, async firebaseUser => {
+      console.log('🔍 Auth state changed:', firebaseUser ? firebaseUser.email : 'No user');
       setUser(firebaseUser);
       
       if (firebaseUser) {
@@ -62,6 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           // Get user profile from Firestore
           const profile = await getUserProfile(firebaseUser.uid);
           setUserProfile(profile);
+          console.log('✅ User profile loaded:', profile);
         } catch (error) {
           console.error('Error loading user profile:', error);
           setUserProfile(null);

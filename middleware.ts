@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     'Content-Security-Policy',
     "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://securetoken.googleapis.com; " +
     "connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://accounts.google.com; " +
-            "frame-src 'self' https://accounts.google.com https://constructify-463219.firebaseapp.com; " +
+            "frame-src 'self' https://accounts.google.com https://constructify-463219-ee7d8.firebaseapp.com; " +
     "img-src 'self' data: https:; " +
     "style-src 'self' 'unsafe-inline';"
   );
