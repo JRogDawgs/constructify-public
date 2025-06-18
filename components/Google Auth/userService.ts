@@ -35,239 +35,239 @@ export interface UserProfile {
 // 🧠 AI-Ready Comprehensive Employee Data Model
 export interface EmployeeProfile {
   // Identity
-  id: string
-  profileType: 'individual' | 'company'
-  fullName: string
-  preferredName?: string
-  dateOfBirth?: string
-  ssnEncrypted?: string
+  id: string;
+  profileType: 'individual' | 'company';
+  fullName: string;
+  preferredName?: string;
+  dateOfBirth?: string;
+  ssnEncrypted?: string;
 
   // Contact Info
-  email: string
-  secondaryEmail?: string
-  phoneMobile: string
-  phoneHome?: string
-  phoneWork?: string
-  address: string
-  mailingAddress?: string
-  location?: string // city/state for filtering
-  profilePhotoUrl?: string
-  bio?: string
+  email: string;
+  secondaryEmail?: string;
+  phoneMobile: string;
+  phoneHome?: string;
+  phoneWork?: string;
+  address: string;
+  mailingAddress?: string;
+  location?: string; // city/state for filtering
+  profilePhotoUrl?: string;
+  bio?: string;
 
   // Emergency
   emergencyContacts: {
-    name: string
-    relationship: string
-    phone: string
-    address?: string
-  }[]
+    name: string;
+    relationship: string;
+    phone: string;
+    address?: string;
+  }[];
   medicalInfo?: {
-    allergies?: string
-    medications?: string
-    conditions?: string
-    restrictions?: string
-  }
+    allergies?: string;
+    medications?: string;
+    conditions?: string;
+    restrictions?: string;
+  };
 
   // Employment
-  employeeId: string
-  hireDate: string
-  status: 'Full-time' | 'Part-time' | 'Contractor' | 'Temp'
-  jobTitle: string
-  department?: string
-  supervisorId?: string
-  payRate?: number
-  payFrequency?: 'Weekly' | 'Bi-weekly' | 'Monthly'
+  employeeId: string;
+  hireDate: string;
+  status: 'Full-time' | 'Part-time' | 'Contractor' | 'Temp';
+  jobTitle: string;
+  department?: string;
+  supervisorId?: string;
+  payRate?: number;
+  payFrequency?: 'Weekly' | 'Bi-weekly' | 'Monthly';
   unionMembership?: {
-    unionName: string
-    localNumber: string
-    memberId: string
-  }
+    unionName: string;
+    localNumber: string;
+    memberId: string;
+  };
 
   // Skills & Certifications
-  primaryTrade: string
-  secondarySkills?: string[]
-  yearsExperience?: number
-  skillLevel?: 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor'
+  primaryTrade: string;
+  secondarySkills?: string[];
+  yearsExperience?: number;
+  skillLevel?: 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor';
   certifications?: {
-    name: string
-    type: 'OSHA' | 'Safety' | 'Equipment' | 'Trade' | 'Other'
-    level?: string
-    issueDate: string
-    expirationDate?: string
-    certId?: string
-  }[]
+    name: string;
+    type: 'OSHA' | 'Safety' | 'Equipment' | 'Trade' | 'Other';
+    level?: string;
+    issueDate: string;
+    expirationDate?: string;
+    certId?: string;
+  }[];
 
   // Safety & Compliance
   safetyTrainingRecords?: {
-    name: string
-    completedOn: string
-    renewBy?: string
-  }[]
+    name: string;
+    completedOn: string;
+    renewBy?: string;
+  }[];
   drugTests?: {
-    date: string
-    result: 'Pass' | 'Fail'
-  }[]
+    date: string;
+    result: 'Pass' | 'Fail';
+  }[];
   backgroundCheck?: {
-    date: string
-    passed: boolean
-    notes?: string
-  }
+    date: string;
+    passed: boolean;
+    notes?: string;
+  };
   incidents?: {
-    date: string
-    description: string
-    outcome?: string
-  }[]
+    date: string;
+    description: string;
+    outcome?: string;
+  }[];
   ppeRequirements?: {
-    hardHatSize?: string
-    bootSize?: string
-    other?: string[]
-  }
+    hardHatSize?: string;
+    bootSize?: string;
+    other?: string[];
+  };
 
   // Legal & Docs
-  workAuthorizationStatus?: 'Citizen' | 'Green Card' | 'Work Visa'
-  i9FormStatus?: 'Submitted' | 'Missing'
+  workAuthorizationStatus?: 'Citizen' | 'Green Card' | 'Work Visa';
+  i9FormStatus?: 'Submitted' | 'Missing';
   driversLicense?: {
-    number: string
-    state: string
-    expiration: string
-    type?: 'Standard' | 'CDL'
-  }
+    number: string;
+    state: string;
+    expiration: string;
+    type?: 'Standard' | 'CDL';
+  };
   insurance?: {
-    health?: string
-    dental?: string
-    vision?: string
-    life?: string
-  }
+    health?: string;
+    dental?: string;
+    vision?: string;
+    life?: string;
+  };
   workersComp?: {
-    policyNumber: string
+    policyNumber: string;
     claims?: {
-      date: string
-      type: string
-      outcome?: string
-    }[]
-  }
+      date: string;
+      type: string;
+      outcome?: string;
+    }[];
+  };
   taxInfo?: {
-    filingStatus: string
-    dependents: number
-    w4Submitted?: boolean
-  }
+    filingStatus: string;
+    dependents: number;
+    w4Submitted?: boolean;
+  };
   directDeposit?: {
-    bankName: string
-    accountType: string
-    last4?: string
-  }
+    bankName: string;
+    accountType: string;
+    last4?: string;
+  };
 
   // Work History
   previousEmployers?: {
-    companyName: string
-    jobTitle: string
-    startDate: string
-    endDate?: string
-    reasonForLeaving?: string
-  }[]
+    companyName: string;
+    jobTitle: string;
+    startDate: string;
+    endDate?: string;
+    reasonForLeaving?: string;
+  }[];
   projectHistory?: {
-    projectId: string
-    name: string
-    role: string
-    startDate: string
-    endDate?: string
-    performanceNotes?: string
-  }[]
+    projectId: string;
+    name: string;
+    role: string;
+    startDate: string;
+    endDate?: string;
+    performanceNotes?: string;
+  }[];
   performanceReviews?: {
-    date: string
-    reviewer: string
-    rating: number
-    goals?: string
-    notes?: string
-  }[]
+    date: string;
+    reviewer: string;
+    rating: number;
+    goals?: string;
+    notes?: string;
+  }[];
   disciplinaryActions?: {
-    date: string
-    issue: string
-    resolution: string
-  }[]
+    date: string;
+    issue: string;
+    resolution: string;
+  }[];
 
   // Equipment
   assignedEquipment?: {
-    name: string
-    id: string
-    issueDate: string
-    returnDate?: string
-  }[]
-  personalTools?: string[]
-  equipmentTraining?: string[]
+    name: string;
+    id: string;
+    issueDate: string;
+    returnDate?: string;
+  }[];
+  personalTools?: string[];
+  equipmentTraining?: string[];
   uniformPPE?: {
-    shirtSize?: string
-    pantSize?: string
-    bootSize?: string
+    shirtSize?: string;
+    pantSize?: string;
+    bootSize?: string;
     issueDates?: {
-      item: string
-      date: string
-    }[]
-  }
+      item: string;
+      date: string;
+    }[];
+  };
 
   // Schedule
   availability?: {
-    daysAvailable: string[]
-    shift: 'Day' | 'Night' | 'Swing'
-  }
+    daysAvailable: string[];
+    shift: 'Day' | 'Night' | 'Swing';
+  };
   timeOffRequests?: {
-    type: 'Vacation' | 'Sick' | 'Personal'
-    dateStart: string
-    dateEnd: string
-    status: 'Approved' | 'Pending' | 'Denied'
-  }[]
-  overtimeAuthorized?: boolean
+    type: 'Vacation' | 'Sick' | 'Personal';
+    dateStart: string;
+    dateEnd: string;
+    status: 'Approved' | 'Pending' | 'Denied';
+  }[];
+  overtimeAuthorized?: boolean;
 
   // Benefits
   benefits?: {
-    health: boolean
-    dental: boolean
-    vision: boolean
+    health: boolean;
+    dental: boolean;
+    vision: boolean;
     401k: {
-      participating: boolean
-      contributionPercent?: number
-    }
-    vacationDays?: number
-    sickDays?: number
-    personalDays?: number
-  }
+      participating: boolean;
+      contributionPercent?: number;
+    };
+    vacationDays?: number;
+    sickDays?: number;
+    personalDays?: number;
+  };
 
   // Technology
   login?: {
-    username: string
-    passwordHash: string
-  }
-  systemAccessLevel: 'Admin' | 'Manager' | 'Field'
-  appPermissions?: string[]
-  issuedDevices?: string[]
-  softwareLicenses?: string[]
+    username: string;
+    passwordHash: string;
+  };
+  systemAccessLevel: 'Admin' | 'Manager' | 'Field';
+  appPermissions?: string[];
+  issuedDevices?: string[];
+  softwareLicenses?: string[];
 
   // Current Project
   currentProject?: {
-    id: string
-    name: string
-    role: string
-    startDate: string
-    hourlyRateOverride?: number
-    supervisor?: string
-  }
+    id: string;
+    name: string;
+    role: string;
+    startDate: string;
+    hourlyRateOverride?: number;
+    supervisor?: string;
+  };
 
   // Communication
-  contactPreference?: 'Email' | 'Text' | 'Phone'
-  preferredLanguage?: string
-  commsWindow?: string // "8am–5pm"
+  contactPreference?: 'Email' | 'Text' | 'Phone';
+  preferredLanguage?: string;
+  commsWindow?: string; // "8am–5pm"
   socialProfiles?: {
-    linkedin?: string
-    other?: string
-  }
+    linkedin?: string;
+    other?: string;
+  };
 
   // Metadata for AI queries and system management
-  createdAt: any
-  lastLoginAt: any
-  lastUpdatedAt?: any
-  lastUpdatedBy?: string
-  provider: string
-  role?: string
+  createdAt: any;
+  lastLoginAt: any;
+  lastUpdatedAt?: any;
+  lastUpdatedBy?: string;
+  provider: string;
+  role?: string;
 }
 
 // Create or update user document in Firestore
