@@ -1,6 +1,9 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
+// Temporary debug import - REMOVE AFTER TESTING
+import './debug.js';
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -10,11 +13,15 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// Validate Firebase configuration
 if (
   !firebaseConfig.apiKey ||
   !firebaseConfig.authDomain ||
   !firebaseConfig.projectId
 ) {
+  console.error('❌ Missing Firebase environment variables:');
+  console.error('Required: NEXT_PUBLIC_FIREBASE_API_KEY, NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, NEXT_PUBLIC_FIREBASE_PROJECT_ID');
+  console.error('Check your .env.local file');
   throw new Error('❌ Missing Firebase env vars. Check your .env.local!');
 }
 

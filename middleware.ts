@@ -10,9 +10,19 @@ export function middleware(request: NextRequest) {
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
+  // Add Content Security Policy for Google APIs and Firebase
+  response.headers.set(
+    'Content-Security-Policy',
+    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://securetoken.googleapis.com; " +
+    "connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://accounts.google.com; " +
+    "frame-src 'self' https://accounts.google.com https://constructify-450d5.firebaseapp.com; " +
+    "img-src 'self' data: https:; " +
+    "style-src 'self' 'unsafe-inline';"
+  );
+  
   // Add security headers
   response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN'); // Changed from DENY to allow Google OAuth popup
   response.headers.set('X-XSS-Protection', '1; mode=block');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   

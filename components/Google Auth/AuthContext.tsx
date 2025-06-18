@@ -60,15 +60,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+      
+      console.log('🔄 Starting Google sign-in...');
       const result = await signInWithPopup(auth, provider);
+      console.log('✅ Google sign-in successful:', result.user.email);
       
       // Store/update user in Firestore
       if (result.user) {
+        console.log('🔄 Saving user to Firestore...');
         const profile = await createOrUpdateUser(result.user);
         setUserProfile(profile);
+        console.log('✅ User profile saved to Firestore');
       }
-    } catch (error) {
-      console.error('Google sign-in error:', error);
+    } catch (error: any) {
+      console.error('❌ Google sign-in error:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      
+      // Handle specific Firebase Auth errors
+      if (error.code === 'auth/internal-error') {
+        console.error('🔧 This is usually a configuration issue. Check:');
+        console.error('1. Firebase project settings');
+        console.error('2. Environment variables in .env.local');
+        console.error('3. Google OAuth configuration');
+      }
     } finally {
       setLoading(false);
     }
