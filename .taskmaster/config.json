@@ -1,0 +1,7 @@
+{
+  "tasksFile": ".taskmaster/docs/prd.txt",
+  "output": "tasks.json",
+  "mainModel": "claude-3.5-sonnet",
+  "researchModel": "claude-3.5-sonnet",
+  "fallbackModel": "gpt-4"
+} 

@@ -1,0 +1,5 @@
+Build a user authentication system for Constructify:
+- Google Sign-in only
+- Store user profile data in Firestore
+- Track login timestamps
+- Admins can view user list 
