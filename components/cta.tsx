@@ -35,7 +35,7 @@ export default function CTA() {
           <Link href="/signup" aria-label="Get started with Constructify">
             <Button 
               size="lg" 
-              className="mt-4 transition-all hover:scale-105"
+              className="mt-4 bg-constructify-gold-gradient hover:bg-constructify-gold-dark text-black font-semibold border-0 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
             >
               Get Started Today
             </Button>

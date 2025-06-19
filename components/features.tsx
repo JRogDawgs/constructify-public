@@ -52,13 +52,14 @@ FeatureCard.displayName = "FeatureCard"
 export default function Features() {
   return (
     <section 
-      className="container space-y-16 py-24 md:py-32"
+      className="bg-constructify-tan-gradient py-24 md:py-32"
       aria-labelledby="features-title"
     >
+      <div className="container space-y-16">
       <div className="mx-auto max-w-[58rem] text-center">
         <h2 
           id="features-title"
-          className="font-medium text-3xl leading-[1.1] sm:text-3xl md:text-5xl"
+          className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight"
         >
           Cutting-Edge Solutions
         </h2>
@@ -68,11 +69,11 @@ export default function Features() {
       </div>
       <div 
         className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2"
-        role="list"
       >
         {features.map((feature) => (
           <FeatureCard key={feature.id} feature={feature} />
         ))}
+      </div>
       </div>
     </section>
   )

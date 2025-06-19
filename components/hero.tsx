@@ -46,8 +46,13 @@ export default function Hero() {
             />
           </div>
           
-          {/* Hero Content - Moved Down */}
-          <div className="space-y-6 mt-8">
+          {/* Elegant Continuous Spacer Line */}
+          <div className="w-full max-w-2xl">
+            <div className="h-0.5 bg-gradient-to-r from-transparent via-white/40 via-white/70 via-white/40 to-transparent animate-pulse shadow-sm"></div>
+          </div>
+          
+          {/* Hero Content - Properly Spaced */}
+          <div className="space-y-6">
             <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-3xl font-medium tracking-tight text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
               <span className="text-[80%] font-light">{t('hero.subtitle')}</span>
             </h1>
