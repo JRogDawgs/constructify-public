@@ -53,14 +53,10 @@ import {
   Upload,
   Download,
   Lock,
-      AlertCircle,
-    Camera,
-    Scan,
-    CheckCircle,
-    Star,
-    Target,
-    TrendingUp,
-    Building
+  AlertCircle,
+  Camera,
+  Scan,
+  CheckCircle
   } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
 import { getEmployeeProfile, createOrUpdateEmployeeProfile, type EmployeeProfile } from '@/components/Google Auth/userService';
