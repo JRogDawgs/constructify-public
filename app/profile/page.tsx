@@ -71,6 +71,10 @@ export default function ProfilePage() {
   const [showAddTrainingModal, setShowAddTrainingModal] = useState(false);
   const [showBankingModal, setShowBankingModal] = useState(false);
   const [showEditPersonalModal, setShowEditPersonalModal] = useState(false);
+  const [showSafetyModal, setShowSafetyModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showIncidentModal, setShowIncidentModal] = useState(false);
+  const [showComprehensiveModal, setShowComprehensiveModal] = useState(false);
 
   // Form states
   const [newCertification, setNewCertification] = useState({
@@ -117,6 +121,120 @@ export default function ProfilePage() {
     profileType: 'individual' // 'individual' or 'company'
   });
 
+  // Banking form state
+  const [bankingInfo, setBankingInfo] = useState({
+    bankName: '',
+    accountType: 'Checking' as 'Checking' | 'Savings',
+    accountHolderName: '',
+    routingNumber: '',
+    accountNumber: '',
+    depositPercentage: 100
+  });
+
+  // Safety incident form state
+  const [newIncident, setNewIncident] = useState({
+    date: '',
+    description: '',
+    outcome: ''
+  });
+
+  // Settings form state
+  const [settingsData, setSettingsData] = useState({
+    profileType: 'individual' as 'individual' | 'company',
+    contactPreference: 'Email' as 'Email' | 'Text' | 'Phone',
+    preferredLanguage: 'English',
+    commsWindow: '8am–5pm'
+  });
+
+  // Comprehensive profile form state - ALL fields from yesterday
+  const [comprehensiveData, setComprehensiveData] = useState({
+    // Personal Information
+    fullName: '',
+    preferredName: '',
+    dateOfBirth: '',
+    email: '',
+    secondaryEmail: '',
+    phoneMobile: '',
+    phoneHome: '',
+    phoneWork: '',
+    address: '',
+    mailingAddress: '',
+    location: '',
+    bio: '',
+    profilePhotoUrl: '',
+
+    // Emergency Contacts
+    emergencyContacts: [] as Array<{
+      name: string;
+      relationship: string;
+      phone: string;
+      address: string;
+    }>,
+
+    // Employment Information
+    employeeId: '',
+    hireDate: '',
+    status: 'Full-time' as 'Full-time' | 'Part-time' | 'Contractor' | 'Temp',
+    jobTitle: '',
+    department: '',
+    supervisorId: '',
+    payRate: '',
+    payFrequency: 'Bi-weekly' as 'Weekly' | 'Bi-weekly' | 'Monthly',
+
+    // Skills & Certifications
+    primaryTrade: '',
+    secondarySkills: [] as string[],
+    yearsExperience: '',
+    skillLevel: 'Apprentice' as 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor',
+    certifications: [] as Array<{
+      name: string;
+      type: 'OSHA' | 'Safety' | 'Equipment' | 'Trade' | 'Other';
+      level: string;
+      issueDate: string;
+      expirationDate: string;
+      certId: string;
+    }>,
+
+    // Banking Information
+    bankName: '',
+    accountType: 'Checking' as 'Checking' | 'Savings',
+    accountHolderName: '',
+    routingNumber: '',
+    accountNumber: '',
+    depositPercentage: 100,
+
+    // Legal & Documentation
+    workAuthorizationStatus: 'Citizen' as 'Citizen' | 'Green Card' | 'Work Visa',
+    i9FormStatus: 'Missing' as 'Submitted' | 'Missing',
+    driversLicenseNumber: '',
+    driversLicenseState: '',
+    driversLicenseExpiration: '',
+    driversLicenseType: 'Standard' as 'Standard' | 'CDL',
+
+    // Insurance Information
+    healthInsurance: '',
+    dentalInsurance: '',
+    visionInsurance: '',
+    lifeInsurance: '',
+
+    // Personal Equipment & PPE
+    hardHatSize: '',
+    bootSize: '',
+    shirtSize: '',
+    pantSize: '',
+    personalTools: [] as string[],
+
+    // Social & Communication
+    linkedinProfile: '',
+    contactPreference: 'Email' as 'Email' | 'Text' | 'Phone',
+    preferredLanguage: 'English',
+    commsWindow: '8am–5pm',
+
+    // Settings
+    profileType: 'individual' as 'individual' | 'company',
+    systemAccessLevel: 'Field' as 'Admin' | 'Manager' | 'Field'
+  });
+
   // Redirect if not authenticated
   useEffect(() => {
     if (!loading && !user) {
@@ -127,7 +245,7 @@ export default function ProfilePage() {
   // Load comprehensive employee data
   useEffect(() => {
     const loadEmployeeData = async () => {
-      if (user && !loadingEmployee) {
+      if (user && !loadingEmployee && !employeeData) {
         setLoadingEmployee(true);
         try {
           const empData = await getEmployeeProfile(user.uid);
@@ -157,7 +275,7 @@ export default function ProfilePage() {
     };
 
     loadEmployeeData();
-  }, [user, loadingEmployee]);
+  }, [user]); // Removed loadingEmployee from dependencies to prevent infinite loop
 
   // Initialize profile data
   useEffect(() => {
@@ -174,6 +292,108 @@ export default function ProfilePage() {
       });
     }
   }, [user, userProfile]);
+
+  // Initialize form states when employee data is loaded
+  useEffect(() => {
+    if (employeeData) {
+      // Initialize banking info
+      if (employeeData.bankingInfo?.primaryAccount) {
+        setBankingInfo({
+          bankName: employeeData.bankingInfo.primaryAccount.bankName || '',
+          accountType: employeeData.bankingInfo.primaryAccount.accountType || 'Checking',
+          accountHolderName: employeeData.bankingInfo.primaryAccount.accountHolderName || '',
+          routingNumber: employeeData.bankingInfo.primaryAccount.routingNumber || '',
+          accountNumber: employeeData.bankingInfo.primaryAccount.accountNumber || '',
+          depositPercentage: employeeData.bankingInfo.primaryAccount.depositPercentage || 100
+        });
+      }
+
+      // Initialize settings data
+      setSettingsData({
+        profileType: employeeData.profileType || 'individual',
+        contactPreference: employeeData.contactPreference || 'Email',
+        preferredLanguage: employeeData.preferredLanguage || 'English',
+        commsWindow: employeeData.commsWindow || '8am–5pm'
+      });
+
+      // Initialize comprehensive form data
+      setComprehensiveData({
+        // Personal Information
+        fullName: employeeData.fullName || '',
+        preferredName: employeeData.preferredName || '',
+        dateOfBirth: employeeData.dateOfBirth || '',
+        email: employeeData.email || '',
+        secondaryEmail: employeeData.secondaryEmail || '',
+        phoneMobile: employeeData.phoneMobile || '',
+        phoneHome: employeeData.phoneHome || '',
+        phoneWork: employeeData.phoneWork || '',
+        address: employeeData.address || '',
+        mailingAddress: employeeData.mailingAddress || '',
+        location: employeeData.location || '',
+        bio: employeeData.bio || '',
+        profilePhotoUrl: employeeData.profilePhotoUrl || '',
+
+        // Emergency Contacts
+        emergencyContacts: employeeData.emergencyContacts || [],
+
+        // Employment Information
+        employeeId: employeeData.employeeId || '',
+        hireDate: employeeData.hireDate || '',
+        status: employeeData.status || 'Full-time',
+        jobTitle: employeeData.jobTitle || '',
+        department: employeeData.department || '',
+        supervisorId: employeeData.supervisorId || '',
+        payRate: employeeData.payRate?.toString() || '',
+        payFrequency: employeeData.payFrequency || 'Bi-weekly',
+
+        // Skills & Certifications
+        primaryTrade: employeeData.primaryTrade || '',
+        secondarySkills: employeeData.secondarySkills || [],
+        yearsExperience: employeeData.yearsExperience?.toString() || '',
+        skillLevel: employeeData.skillLevel || 'Apprentice',
+        certifications: employeeData.certifications || [],
+
+        // Banking Information
+        bankName: employeeData.bankingInfo?.primaryAccount?.bankName || '',
+        accountType: employeeData.bankingInfo?.primaryAccount?.accountType || 'Checking',
+        accountHolderName: employeeData.bankingInfo?.primaryAccount?.accountHolderName || '',
+        routingNumber: employeeData.bankingInfo?.primaryAccount?.routingNumber || '',
+        accountNumber: employeeData.bankingInfo?.primaryAccount?.accountNumber || '',
+        depositPercentage: employeeData.bankingInfo?.primaryAccount?.depositPercentage || 100,
+
+        // Legal & Documentation
+        workAuthorizationStatus: employeeData.workAuthorizationStatus || 'Citizen',
+        i9FormStatus: employeeData.i9FormStatus || 'Missing',
+        driversLicenseNumber: employeeData.driversLicense?.number || '',
+        driversLicenseState: employeeData.driversLicense?.state || '',
+        driversLicenseExpiration: employeeData.driversLicense?.expiration || '',
+        driversLicenseType: employeeData.driversLicense?.type || 'Standard',
+
+        // Insurance Information
+        healthInsurance: employeeData.insurance?.health || '',
+        dentalInsurance: employeeData.insurance?.dental || '',
+        visionInsurance: employeeData.insurance?.vision || '',
+        lifeInsurance: employeeData.insurance?.life || '',
+
+        // Personal Equipment & PPE
+        hardHatSize: employeeData.ppeRequirements?.hardHatSize || '',
+        bootSize: employeeData.ppeRequirements?.bootSize || '',
+        shirtSize: employeeData.uniformPPE?.shirtSize || '',
+        pantSize: employeeData.uniformPPE?.pantSize || '',
+        personalTools: employeeData.personalTools || [],
+
+        // Social & Communication
+        linkedinProfile: employeeData.socialProfiles?.linkedin || '',
+        contactPreference: employeeData.contactPreference || 'Email',
+        preferredLanguage: employeeData.preferredLanguage || 'English',
+        commsWindow: employeeData.commsWindow || '8am–5pm',
+
+        // Settings
+        profileType: employeeData.profileType || 'individual',
+        systemAccessLevel: employeeData.systemAccessLevel || 'Field'
+      });
+    }
+  }, [employeeData]);
 
   // Save functions
   const savePersonalInfo = async () => {
@@ -404,6 +624,234 @@ export default function ProfilePage() {
     setIsEditing(false);
   };
 
+  // Banking functions
+  const saveBankingInfo = async () => {
+    if (!user) return;
+    
+    setSaving(true);
+    try {
+      const updatedData: Partial<EmployeeProfile> = {
+        bankingInfo: {
+          primaryAccount: {
+            bankName: bankingInfo.bankName,
+            accountType: bankingInfo.accountType,
+            accountHolderName: bankingInfo.accountHolderName,
+            routingNumber: bankingInfo.routingNumber,
+            accountNumber: bankingInfo.accountNumber,
+            depositPercentage: bankingInfo.depositPercentage,
+            isVerified: false,
+            verificationDate: undefined
+          }
+        },
+        lastUpdatedAt: new Date(),
+        lastUpdatedBy: user.uid
+      };
+
+      await createOrUpdateEmployeeProfile(user, updatedData);
+      
+      // Reload employee data
+      const refreshedData = await getEmployeeProfile(user.uid);
+      setEmployeeData(refreshedData);
+      
+      setShowBankingModal(false);
+      console.log('✅ Banking info saved successfully');
+    } catch (error) {
+      console.error('❌ Error saving banking info:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Safety incident functions
+  const addIncident = async () => {
+    if (!user || !employeeData) return;
+    
+    setSaving(true);
+    try {
+      const updatedIncidents = [
+        ...(employeeData.incidents || []),
+        {
+          date: newIncident.date,
+          description: newIncident.description,
+          outcome: newIncident.outcome
+        }
+      ];
+
+      const updatedData: Partial<EmployeeProfile> = {
+        incidents: updatedIncidents,
+        lastUpdatedAt: new Date(),
+        lastUpdatedBy: user.uid
+      };
+
+      await createOrUpdateEmployeeProfile(user, updatedData);
+      
+      // Reload employee data
+      const refreshedData = await getEmployeeProfile(user.uid);
+      setEmployeeData(refreshedData);
+      
+      // Reset form
+      setNewIncident({
+        date: '',
+        description: '',
+        outcome: ''
+      });
+      
+      setShowIncidentModal(false);
+      console.log('✅ Incident added successfully');
+    } catch (error) {
+      console.error('❌ Error adding incident:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Settings functions
+  const saveSettings = async () => {
+    if (!user) return;
+    
+    setSaving(true);
+    try {
+      const updatedData: Partial<EmployeeProfile> = {
+        profileType: settingsData.profileType,
+        contactPreference: settingsData.contactPreference,
+        preferredLanguage: settingsData.preferredLanguage,
+        commsWindow: settingsData.commsWindow,
+        lastUpdatedAt: new Date(),
+        lastUpdatedBy: user.uid
+      };
+
+      await createOrUpdateEmployeeProfile(user, updatedData);
+      
+      // Reload employee data
+      const refreshedData = await getEmployeeProfile(user.uid);
+      setEmployeeData(refreshedData);
+      
+      setShowSettingsModal(false);
+      console.log('✅ Settings saved successfully');
+    } catch (error) {
+      console.error('❌ Error saving settings:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Comprehensive profile save function
+  const saveComprehensiveProfile = async () => {
+    if (!user) return;
+    
+    setSaving(true);
+    try {
+      const updatedData: Partial<EmployeeProfile> = {
+        // Personal Information
+        fullName: comprehensiveData.fullName,
+        preferredName: comprehensiveData.preferredName,
+        dateOfBirth: comprehensiveData.dateOfBirth,
+        email: comprehensiveData.email,
+        secondaryEmail: comprehensiveData.secondaryEmail,
+        phoneMobile: comprehensiveData.phoneMobile,
+        phoneHome: comprehensiveData.phoneHome,
+        phoneWork: comprehensiveData.phoneWork,
+        address: comprehensiveData.address,
+        mailingAddress: comprehensiveData.mailingAddress,
+        location: comprehensiveData.location,
+        bio: comprehensiveData.bio,
+        profilePhotoUrl: comprehensiveData.profilePhotoUrl,
+
+        // Emergency Contacts
+        emergencyContacts: comprehensiveData.emergencyContacts,
+
+        // Employment Information
+        employeeId: comprehensiveData.employeeId || user.uid,
+        hireDate: comprehensiveData.hireDate,
+        status: comprehensiveData.status,
+        jobTitle: comprehensiveData.jobTitle,
+        department: comprehensiveData.department,
+        supervisorId: comprehensiveData.supervisorId,
+        payRate: comprehensiveData.payRate ? parseFloat(comprehensiveData.payRate) : undefined,
+        payFrequency: comprehensiveData.payFrequency,
+
+        // Skills & Certifications
+        primaryTrade: comprehensiveData.primaryTrade,
+        secondarySkills: comprehensiveData.secondarySkills,
+        yearsExperience: comprehensiveData.yearsExperience ? parseInt(comprehensiveData.yearsExperience) : undefined,
+        skillLevel: comprehensiveData.skillLevel,
+        certifications: comprehensiveData.certifications,
+
+        // Banking Information
+        bankingInfo: {
+          primaryAccount: {
+            bankName: comprehensiveData.bankName,
+            accountType: comprehensiveData.accountType,
+            accountHolderName: comprehensiveData.accountHolderName,
+            routingNumber: comprehensiveData.routingNumber,
+            accountNumber: comprehensiveData.accountNumber,
+            depositPercentage: comprehensiveData.depositPercentage,
+            isVerified: false,
+            verificationDate: undefined
+          }
+        },
+
+        // Legal & Documentation
+        workAuthorizationStatus: comprehensiveData.workAuthorizationStatus,
+        i9FormStatus: comprehensiveData.i9FormStatus,
+        driversLicense: {
+          number: comprehensiveData.driversLicenseNumber,
+          state: comprehensiveData.driversLicenseState,
+          expiration: comprehensiveData.driversLicenseExpiration,
+          type: comprehensiveData.driversLicenseType
+        },
+
+        // Insurance Information
+        insurance: {
+          health: comprehensiveData.healthInsurance,
+          dental: comprehensiveData.dentalInsurance,
+          vision: comprehensiveData.visionInsurance,
+          life: comprehensiveData.lifeInsurance
+        },
+
+        // Personal Equipment & PPE
+        ppeRequirements: {
+          hardHatSize: comprehensiveData.hardHatSize,
+          bootSize: comprehensiveData.bootSize
+        },
+        uniformPPE: {
+          shirtSize: comprehensiveData.shirtSize,
+          pantSize: comprehensiveData.pantSize
+        },
+        personalTools: comprehensiveData.personalTools,
+
+        // Social & Communication
+        socialProfiles: {
+          linkedin: comprehensiveData.linkedinProfile
+        },
+        contactPreference: comprehensiveData.contactPreference,
+        preferredLanguage: comprehensiveData.preferredLanguage,
+        commsWindow: comprehensiveData.commsWindow,
+
+        // Settings
+        profileType: comprehensiveData.profileType,
+        systemAccessLevel: comprehensiveData.systemAccessLevel,
+
+        // Metadata
+        lastUpdatedAt: new Date(),
+        lastUpdatedBy: user.uid
+      };
+
+      await createOrUpdateEmployeeProfile(user, updatedData);
+      
+      // Reload employee data
+      const refreshedData = await getEmployeeProfile(user.uid);
+      setEmployeeData(refreshedData);
+      
+      setShowComprehensiveModal(false);
+      console.log('✅ Comprehensive profile saved successfully');
+    } catch (error) {
+      console.error('❌ Error saving comprehensive profile:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
@@ -518,18 +966,11 @@ export default function ProfilePage() {
                   ) : (
                     <>
                       <Button 
-                        onClick={() => setShowEditPersonalModal(true)} 
+                        onClick={() => setShowComprehensiveModal(true)} 
                         className="bg-constructify-gold-gradient hover:bg-constructify-gold-dark text-black font-semibold border-0 shadow-lg transform hover:scale-105 transition-all duration-200 px-6 py-3"
                       >
                         <Edit className="h-4 w-4 mr-2" />
-                        {t('profile.actions.editProfile')}
-                      </Button>
-                      <Button 
-                        onClick={() => setShowAddContactModal(true)} 
-                        className="bg-constructify-gold-gradient hover:bg-constructify-gold-dark text-black font-semibold border-0 shadow-lg transform hover:scale-105 transition-all duration-200 px-6 py-3"
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Contact
+                        {employeeData ? 'Edit Profile' : 'Set Up Profile'}
                       </Button>
                     </>
                   )}
@@ -971,12 +1412,23 @@ export default function ProfilePage() {
                 </CardHeader>
                 <CardContent className="p-8 space-y-6">
                   {/* Primary Banking Account */}
-                  {employeeData?.bankingInfo?.primaryAccount && (
-                    <div className="space-y-3">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
                       <Label className="text-lg font-semibold text-slate-700 flex items-center gap-2">
                         <Banknote className="h-5 w-5 text-emerald-600" />
                         Primary Direct Deposit Account
                       </Label>
+                      <Button 
+                        onClick={() => setShowBankingModal(true)}
+                        size="sm"
+                        className="bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-700 hover:to-green-800 text-white"
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        {employeeData?.bankingInfo?.primaryAccount ? 'Edit Banking' : 'Add Banking Info'}
+                      </Button>
+                    </div>
+                    
+                    {employeeData?.bankingInfo?.primaryAccount ? (
                       <div className="p-6 bg-gradient-to-br from-emerald-50 to-green-50 rounded-lg border border-emerald-100">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           <div>
@@ -997,10 +1449,22 @@ export default function ProfilePage() {
                               {employeeData.bankingInfo.primaryAccount.isVerified ? 'Verified' : 'Pending Verification'}
                             </Badge>
                           </div>
+                                                  </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div className="p-8 text-center bg-gradient-to-r from-gray-50 to-emerald-50 rounded-lg border border-emerald-100">
+                          <Banknote className="h-12 w-12 text-emerald-400 mx-auto mb-3" />
+                          <p className="text-slate-600 mb-4">No banking information added yet</p>
+                          <Button 
+                            onClick={() => setShowBankingModal(true)}
+                            className="bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-700 hover:to-green-800 text-white"
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Add Banking Information
+                          </Button>
+                        </div>
+                      )}
                     </div>
-                  )}
 
                   {/* Payroll Information */}
                   {employeeData?.compensationDetails && (
@@ -1394,7 +1858,7 @@ export default function ProfilePage() {
                   )}
 
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between p-6 border border-red-200 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-center justify-between p-6 border border-red-200 rounded-xl bg-gradient-to-r from-red-50 to-orange-50 hover:shadow-lg transition-all duration-300 cursor-pointer" onClick={() => setShowIncidentModal(true)}>
                       <div className="flex items-center gap-4">
                         <div className="bg-gradient-to-br from-red-600 to-orange-700 text-white rounded-full w-12 h-12 flex items-center justify-center">
                           <AlertTriangle className="h-6 w-6" />
@@ -1404,9 +1868,21 @@ export default function ProfilePage() {
                           <p className="text-slate-600">Report a new safety incident or near miss</p>
                         </div>
                       </div>
-                      <Badge className="bg-gradient-to-r from-red-600 to-orange-700 text-white border-0 shadow-lg px-4 py-2">
-                        {employeeData?.incidents?.length || 0} total incidents
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-gradient-to-r from-red-600 to-orange-700 text-white border-0 shadow-lg px-4 py-2">
+                          {employeeData?.incidents?.length || 0} total incidents
+                        </Badge>
+                        <Button
+                          size="sm"
+                          className="bg-gradient-to-r from-red-600 to-orange-700 hover:from-red-700 hover:to-orange-800 text-white"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowIncidentModal(true);
+                          }}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between p-6 border border-emerald-200 rounded-xl bg-gradient-to-r from-emerald-50 to-green-50 hover:shadow-lg transition-all duration-300">
@@ -1441,6 +1917,21 @@ export default function ProfilePage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 space-y-6">
+                  <div className="flex justify-between items-center mb-6">
+                    <Label className="text-lg font-semibold text-slate-700 flex items-center gap-2">
+                      <Settings className="h-5 w-5 text-slate-600" />
+                      Account Preferences
+                    </Label>
+                    <Button 
+                      onClick={() => setShowSettingsModal(true)}
+                      size="sm"
+                      className="bg-gradient-to-r from-slate-600 to-gray-700 hover:from-slate-700 hover:to-gray-800 text-white"
+                    >
+                      <Edit className="h-4 w-4 mr-1" />
+                      Edit Settings
+                    </Button>
+                  </div>
+                  
                   <div className="space-y-6">
                     <div className="flex items-center justify-between p-6 border border-slate-200 rounded-xl bg-gradient-to-r from-slate-50 to-gray-50 hover:shadow-lg transition-all duration-300">
                       <div className="flex items-center gap-4">
@@ -1453,7 +1944,7 @@ export default function ProfilePage() {
                         </div>
                       </div>
                       <Badge className="bg-gradient-to-r from-slate-600 to-gray-700 text-white border-0 shadow-lg px-4 py-2">
-                        {profileData.profileType === 'company' ? 'Company' : 'Individual'}
+                        {employeeData?.profileType === 'company' ? 'Company' : 'Individual'}
                       </Badge>
                     </div>
 
@@ -1847,6 +2338,816 @@ export default function ProfilePage() {
             >
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Plus className="h-4 w-4 mr-2" />}
               Add Training
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Banking Information Modal */}
+      <Dialog open={showBankingModal} onOpenChange={setShowBankingModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Banknote className="h-5 w-5 text-emerald-600" />
+              Banking Information
+            </DialogTitle>
+            <DialogDescription>
+              Add or update your direct deposit banking information.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="bank-name">Bank Name</Label>
+              <Input
+                id="bank-name"
+                value={bankingInfo.bankName}
+                onChange={(e) => setBankingInfo({...bankingInfo, bankName: e.target.value})}
+                placeholder="e.g., Wells Fargo, Chase Bank"
+              />
+            </div>
+            <div>
+              <Label htmlFor="account-holder">Account Holder Name</Label>
+              <Input
+                id="account-holder"
+                value={bankingInfo.accountHolderName}
+                onChange={(e) => setBankingInfo({...bankingInfo, accountHolderName: e.target.value})}
+                placeholder="Full name on account"
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="account-type">Account Type</Label>
+                <Select value={bankingInfo.accountType} onValueChange={(value: 'Checking' | 'Savings') => setBankingInfo({...bankingInfo, accountType: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select account type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Checking">Checking</SelectItem>
+                    <SelectItem value="Savings">Savings</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="deposit-percentage">Deposit Percentage</Label>
+                <Input
+                  id="deposit-percentage"
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={bankingInfo.depositPercentage}
+                  onChange={(e) => setBankingInfo({...bankingInfo, depositPercentage: parseInt(e.target.value) || 100})}
+                  placeholder="100"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="routing-number">Routing Number</Label>
+                <Input
+                  id="routing-number"
+                  value={bankingInfo.routingNumber}
+                  onChange={(e) => setBankingInfo({...bankingInfo, routingNumber: e.target.value})}
+                  placeholder="9-digit routing number"
+                  maxLength={9}
+                />
+              </div>
+              <div>
+                <Label htmlFor="account-number">Account Number</Label>
+                <Input
+                  id="account-number"
+                  value={bankingInfo.accountNumber}
+                  onChange={(e) => setBankingInfo({...bankingInfo, accountNumber: e.target.value})}
+                  placeholder="Account number"
+                  type="password"
+                />
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowBankingModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={saveBankingInfo} 
+              disabled={saving || !bankingInfo.bankName || !bankingInfo.accountHolderName || !bankingInfo.routingNumber || !bankingInfo.accountNumber}
+              className="bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-700 hover:to-green-800 text-white"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+              Save Banking Info
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Safety Incident Modal */}
+      <Dialog open={showIncidentModal} onOpenChange={setShowIncidentModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-red-600" />
+              Report Safety Incident
+            </DialogTitle>
+            <DialogDescription>
+              Report a safety incident, near miss, or workplace injury.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="incident-date">Incident Date</Label>
+              <Input
+                id="incident-date"
+                type="date"
+                value={newIncident.date}
+                onChange={(e) => setNewIncident({...newIncident, date: e.target.value})}
+              />
+            </div>
+            <div>
+              <Label htmlFor="incident-description">Description</Label>
+              <Textarea
+                id="incident-description"
+                value={newIncident.description}
+                onChange={(e) => setNewIncident({...newIncident, description: e.target.value})}
+                placeholder="Describe what happened, where it occurred, and any contributing factors..."
+                rows={4}
+              />
+            </div>
+            <div>
+              <Label htmlFor="incident-outcome">Outcome/Resolution (Optional)</Label>
+              <Textarea
+                id="incident-outcome"
+                value={newIncident.outcome}
+                onChange={(e) => setNewIncident({...newIncident, outcome: e.target.value})}
+                placeholder="Describe any injuries, actions taken, or follow-up required..."
+                rows={3}
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowIncidentModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={addIncident} 
+              disabled={saving || !newIncident.date || !newIncident.description}
+              className="bg-gradient-to-r from-red-600 to-orange-700 hover:from-red-700 hover:to-orange-800 text-white"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <AlertTriangle className="h-4 w-4 mr-2" />}
+              Report Incident
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Settings Modal */}
+      <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-slate-600" />
+              Account Settings
+            </DialogTitle>
+            <DialogDescription>
+              Update your account preferences and settings.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="profile-type">Profile Type</Label>
+              <Select value={settingsData.profileType} onValueChange={(value: 'individual' | 'company') => setSettingsData({...settingsData, profileType: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select profile type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="individual">Individual</SelectItem>
+                  <SelectItem value="company">Company</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="contact-preference">Contact Preference</Label>
+              <Select value={settingsData.contactPreference} onValueChange={(value: 'Email' | 'Text' | 'Phone') => setSettingsData({...settingsData, contactPreference: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select contact preference" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Email">Email</SelectItem>
+                  <SelectItem value="Text">Text Message</SelectItem>
+                  <SelectItem value="Phone">Phone Call</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="preferred-language">Preferred Language</Label>
+                <Select value={settingsData.preferredLanguage} onValueChange={(value) => setSettingsData({...settingsData, preferredLanguage: value})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="English">English</SelectItem>
+                    <SelectItem value="Spanish">Spanish</SelectItem>
+                    <SelectItem value="French">French</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="comms-window">Communication Window</Label>
+                <Input
+                  id="comms-window"
+                  value={settingsData.commsWindow}
+                  onChange={(e) => setSettingsData({...settingsData, commsWindow: e.target.value})}
+                  placeholder="e.g., 8am–5pm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowSettingsModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={saveSettings} 
+              disabled={saving}
+              className="bg-gradient-to-r from-slate-600 to-gray-700 hover:from-slate-700 hover:to-gray-800 text-white"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+              Save Settings
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Comprehensive Profile Setup/Edit Modal */}
+      <Dialog open={showComprehensiveModal} onOpenChange={setShowComprehensiveModal}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl">
+              <User className="h-6 w-6 text-blue-600" />
+              {employeeData ? 'Edit Complete Profile' : 'Set Up Your Profile'}
+            </DialogTitle>
+            <DialogDescription>
+              {employeeData 
+                ? 'Update all your profile information in one place.' 
+                : 'Welcome! Let\'s set up your complete profile to get you started.'}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-8">
+            {/* Personal Information Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <User className="h-5 w-5 text-blue-600" />
+                Personal Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="comp-fullName">Full Name *</Label>
+                  <Input
+                    id="comp-fullName"
+                    value={comprehensiveData.fullName}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, fullName: e.target.value})}
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-preferredName">Preferred Name</Label>
+                  <Input
+                    id="comp-preferredName"
+                    value={comprehensiveData.preferredName}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, preferredName: e.target.value})}
+                    placeholder="Johnny"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-dateOfBirth">Date of Birth</Label>
+                  <Input
+                    id="comp-dateOfBirth"
+                    type="date"
+                    value={comprehensiveData.dateOfBirth}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, dateOfBirth: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-email">Email *</Label>
+                  <Input
+                    id="comp-email"
+                    type="email"
+                    value={comprehensiveData.email}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, email: e.target.value})}
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-secondaryEmail">Secondary Email</Label>
+                  <Input
+                    id="comp-secondaryEmail"
+                    type="email"
+                    value={comprehensiveData.secondaryEmail}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, secondaryEmail: e.target.value})}
+                    placeholder="personal@example.com"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-phoneMobile">Mobile Phone *</Label>
+                  <Input
+                    id="comp-phoneMobile"
+                    value={comprehensiveData.phoneMobile}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, phoneMobile: e.target.value})}
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-phoneHome">Home Phone</Label>
+                  <Input
+                    id="comp-phoneHome"
+                    value={comprehensiveData.phoneHome}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, phoneHome: e.target.value})}
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-phoneWork">Work Phone</Label>
+                  <Input
+                    id="comp-phoneWork"
+                    value={comprehensiveData.phoneWork}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, phoneWork: e.target.value})}
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-location">City, State</Label>
+                  <Input
+                    id="comp-location"
+                    value={comprehensiveData.location}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, location: e.target.value})}
+                    placeholder="Austin, TX"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="comp-address">Address</Label>
+                  <Textarea
+                    id="comp-address"
+                    value={comprehensiveData.address}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, address: e.target.value})}
+                    placeholder="123 Main St, Austin, TX 78701"
+                    rows={2}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-mailingAddress">Mailing Address (if different)</Label>
+                  <Textarea
+                    id="comp-mailingAddress"
+                    value={comprehensiveData.mailingAddress}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, mailingAddress: e.target.value})}
+                    placeholder="P.O. Box 123, Austin, TX 78701"
+                    rows={2}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="comp-bio">Bio</Label>
+                <Textarea
+                  id="comp-bio"
+                  value={comprehensiveData.bio}
+                  onChange={(e) => setComprehensiveData({...comprehensiveData, bio: e.target.value})}
+                  placeholder="Tell us about yourself..."
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            {/* Employment Information Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <Briefcase className="h-5 w-5 text-emerald-600" />
+                Employment Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="comp-jobTitle">Job Title *</Label>
+                  <Input
+                    id="comp-jobTitle"
+                    value={comprehensiveData.jobTitle}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, jobTitle: e.target.value})}
+                    placeholder="Construction Worker"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-primaryTrade">Primary Trade *</Label>
+                  <Input
+                    id="comp-primaryTrade"
+                    value={comprehensiveData.primaryTrade}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, primaryTrade: e.target.value})}
+                    placeholder="Carpentry, Electrical, Plumbing, etc."
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-skillLevel">Skill Level</Label>
+                  <Select value={comprehensiveData.skillLevel} onValueChange={(value: 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor') => setComprehensiveData({...comprehensiveData, skillLevel: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select skill level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Apprentice">Apprentice</SelectItem>
+                      <SelectItem value="Journeyman">Journeyman</SelectItem>
+                      <SelectItem value="Master">Master</SelectItem>
+                      <SelectItem value="Supervisor">Supervisor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-yearsExperience">Years Experience</Label>
+                  <Input
+                    id="comp-yearsExperience"
+                    type="number"
+                    value={comprehensiveData.yearsExperience}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, yearsExperience: e.target.value})}
+                    placeholder="5"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-hireDate">Hire Date</Label>
+                  <Input
+                    id="comp-hireDate"
+                    type="date"
+                    value={comprehensiveData.hireDate}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, hireDate: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-status">Employment Status</Label>
+                  <Select value={comprehensiveData.status} onValueChange={(value: 'Full-time' | 'Part-time' | 'Contractor' | 'Temp') => setComprehensiveData({...comprehensiveData, status: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Full-time">Full-time</SelectItem>
+                      <SelectItem value="Part-time">Part-time</SelectItem>
+                      <SelectItem value="Contractor">Contractor</SelectItem>
+                      <SelectItem value="Temp">Temporary</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-department">Department</Label>
+                  <Input
+                    id="comp-department"
+                    value={comprehensiveData.department}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, department: e.target.value})}
+                    placeholder="Construction, Maintenance, etc."
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-payRate">Pay Rate ($/hour)</Label>
+                  <Input
+                    id="comp-payRate"
+                    type="number"
+                    step="0.01"
+                    value={comprehensiveData.payRate}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, payRate: e.target.value})}
+                    placeholder="25.00"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-payFrequency">Pay Frequency</Label>
+                  <Select value={comprehensiveData.payFrequency} onValueChange={(value: 'Weekly' | 'Bi-weekly' | 'Monthly') => setComprehensiveData({...comprehensiveData, payFrequency: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select frequency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Weekly">Weekly</SelectItem>
+                      <SelectItem value="Bi-weekly">Bi-weekly</SelectItem>
+                      <SelectItem value="Monthly">Monthly</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+
+            {/* Banking Information Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <Banknote className="h-5 w-5 text-emerald-600" />
+                Banking Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="comp-bankName">Bank Name</Label>
+                  <Input
+                    id="comp-bankName"
+                    value={comprehensiveData.bankName}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, bankName: e.target.value})}
+                    placeholder="Wells Fargo, Chase, etc."
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-accountHolderName">Account Holder Name</Label>
+                  <Input
+                    id="comp-accountHolderName"
+                    value={comprehensiveData.accountHolderName}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, accountHolderName: e.target.value})}
+                    placeholder="Full name on account"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-accountType">Account Type</Label>
+                  <Select value={comprehensiveData.accountType} onValueChange={(value: 'Checking' | 'Savings') => setComprehensiveData({...comprehensiveData, accountType: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select account type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Checking">Checking</SelectItem>
+                      <SelectItem value="Savings">Savings</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-routingNumber">Routing Number</Label>
+                  <Input
+                    id="comp-routingNumber"
+                    value={comprehensiveData.routingNumber}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, routingNumber: e.target.value})}
+                    placeholder="123456789"
+                    maxLength={9}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-accountNumber">Account Number</Label>
+                  <Input
+                    id="comp-accountNumber"
+                    type="password"
+                    value={comprehensiveData.accountNumber}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, accountNumber: e.target.value})}
+                    placeholder="Account number"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-depositPercentage">Deposit Percentage</Label>
+                  <Input
+                    id="comp-depositPercentage"
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={comprehensiveData.depositPercentage}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, depositPercentage: parseInt(e.target.value) || 100})}
+                    placeholder="100"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Legal & Documentation Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <FileText className="h-5 w-5 text-blue-600" />
+                Legal & Documentation
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="comp-workAuth">Work Authorization</Label>
+                  <Select value={comprehensiveData.workAuthorizationStatus} onValueChange={(value: 'Citizen' | 'Green Card' | 'Work Visa') => setComprehensiveData({...comprehensiveData, workAuthorizationStatus: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Citizen">US Citizen</SelectItem>
+                      <SelectItem value="Green Card">Green Card</SelectItem>
+                      <SelectItem value="Work Visa">Work Visa</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-i9Status">I-9 Form Status</Label>
+                  <Select value={comprehensiveData.i9FormStatus} onValueChange={(value: 'Submitted' | 'Missing') => setComprehensiveData({...comprehensiveData, i9FormStatus: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Submitted">Submitted</SelectItem>
+                      <SelectItem value="Missing">Missing</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-dlType">Driver's License Type</Label>
+                  <Select value={comprehensiveData.driversLicenseType} onValueChange={(value: 'Standard' | 'CDL') => setComprehensiveData({...comprehensiveData, driversLicenseType: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Standard">Standard</SelectItem>
+                      <SelectItem value="CDL">CDL</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-dlNumber">Driver's License Number</Label>
+                  <Input
+                    id="comp-dlNumber"
+                    value={comprehensiveData.driversLicenseNumber}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, driversLicenseNumber: e.target.value})}
+                    placeholder="License number"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-dlState">License State</Label>
+                  <Input
+                    id="comp-dlState"
+                    value={comprehensiveData.driversLicenseState}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, driversLicenseState: e.target.value})}
+                    placeholder="TX"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-dlExpiration">License Expiration</Label>
+                  <Input
+                    id="comp-dlExpiration"
+                    type="date"
+                    value={comprehensiveData.driversLicenseExpiration}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, driversLicenseExpiration: e.target.value})}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Insurance Information Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <Shield className="h-5 w-5 text-purple-600" />
+                Insurance Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <Label htmlFor="comp-healthInsurance">Health Insurance</Label>
+                  <Input
+                    id="comp-healthInsurance"
+                    value={comprehensiveData.healthInsurance}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, healthInsurance: e.target.value})}
+                    placeholder="Provider name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-dentalInsurance">Dental Insurance</Label>
+                  <Input
+                    id="comp-dentalInsurance"
+                    value={comprehensiveData.dentalInsurance}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, dentalInsurance: e.target.value})}
+                    placeholder="Provider name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-visionInsurance">Vision Insurance</Label>
+                  <Input
+                    id="comp-visionInsurance"
+                    value={comprehensiveData.visionInsurance}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, visionInsurance: e.target.value})}
+                    placeholder="Provider name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-lifeInsurance">Life Insurance</Label>
+                  <Input
+                    id="comp-lifeInsurance"
+                    value={comprehensiveData.lifeInsurance}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, lifeInsurance: e.target.value})}
+                    placeholder="Provider name"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Personal Equipment & PPE Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <HardHat className="h-5 w-5 text-amber-600" />
+                Personal Equipment & PPE
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <Label htmlFor="comp-hardHatSize">Hard Hat Size</Label>
+                  <Input
+                    id="comp-hardHatSize"
+                    value={comprehensiveData.hardHatSize}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, hardHatSize: e.target.value})}
+                    placeholder="S, M, L, XL"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-bootSize">Boot Size</Label>
+                  <Input
+                    id="comp-bootSize"
+                    value={comprehensiveData.bootSize}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, bootSize: e.target.value})}
+                    placeholder="10, 10.5, 11"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-shirtSize">Shirt Size</Label>
+                  <Input
+                    id="comp-shirtSize"
+                    value={comprehensiveData.shirtSize}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, shirtSize: e.target.value})}
+                    placeholder="S, M, L, XL"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-pantSize">Pant Size</Label>
+                  <Input
+                    id="comp-pantSize"
+                    value={comprehensiveData.pantSize}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, pantSize: e.target.value})}
+                    placeholder="32x30, 34x32"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Communication & Settings Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
+                <Settings className="h-5 w-5 text-slate-600" />
+                Communication & Settings
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="comp-linkedinProfile">LinkedIn Profile</Label>
+                  <Input
+                    id="comp-linkedinProfile"
+                    value={comprehensiveData.linkedinProfile}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, linkedinProfile: e.target.value})}
+                    placeholder="https://linkedin.com/in/username"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-contactPreference">Contact Preference</Label>
+                  <Select value={comprehensiveData.contactPreference} onValueChange={(value: 'Email' | 'Text' | 'Phone') => setComprehensiveData({...comprehensiveData, contactPreference: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select preference" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Email">Email</SelectItem>
+                      <SelectItem value="Text">Text Message</SelectItem>
+                      <SelectItem value="Phone">Phone Call</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-preferredLanguage">Preferred Language</Label>
+                  <Select value={comprehensiveData.preferredLanguage} onValueChange={(value) => setComprehensiveData({...comprehensiveData, preferredLanguage: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select language" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="English">English</SelectItem>
+                      <SelectItem value="Spanish">Spanish</SelectItem>
+                      <SelectItem value="French">French</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="comp-commsWindow">Communication Window</Label>
+                  <Input
+                    id="comp-commsWindow"
+                    value={comprehensiveData.commsWindow}
+                    onChange={(e) => setComprehensiveData({...comprehensiveData, commsWindow: e.target.value})}
+                    placeholder="8am–5pm"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="comp-profileType">Profile Type</Label>
+                  <Select value={comprehensiveData.profileType} onValueChange={(value: 'individual' | 'company') => setComprehensiveData({...comprehensiveData, profileType: value})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="individual">Individual</SelectItem>
+                      <SelectItem value="company">Company</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter className="mt-8">
+            <Button variant="outline" onClick={() => setShowComprehensiveModal(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={saveComprehensiveProfile} 
+              disabled={saving || !comprehensiveData.fullName || !comprehensiveData.email || !comprehensiveData.phoneMobile}
+              className="bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-8"
+            >
+              {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
+              {employeeData ? 'Save All Changes' : 'Complete Profile Setup'}
             </Button>
           </DialogFooter>
         </DialogContent>

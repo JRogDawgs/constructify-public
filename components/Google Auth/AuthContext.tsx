@@ -60,10 +60,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // Listen for auth state changes - OPTIMIZED
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      console.log('🔍 Auth state changed:', firebaseUser ? `${firebaseUser.email}` : 'No user');
+      // Only log if there's actually a change to avoid spam
+      const currentUserEmail = user?.email;
+      const newUserEmail = firebaseUser?.email;
+      
+      if (currentUserEmail !== newUserEmail) {
+        console.log('🔍 Auth state changed:', firebaseUser ? `${firebaseUser.email}` : 'No user');
+      }
       
       if (firebaseUser) {
-        setUser(firebaseUser);
+        // Only update user if it's actually different
+        if (!user || user.uid !== firebaseUser.uid) {
+          setUser(firebaseUser);
+        }
         
         // Only fetch/create user profile if we don't have one or user changed
         if (!userProfile || userProfile.uid !== firebaseUser.uid) {
@@ -112,7 +121,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     
     return () => unsubscribe();
-  }, [auth, userProfile, authInitialized]);
+  }, [auth, authInitialized]); // Removed userProfile from dependencies to prevent re-triggering
 
   const signInWithGoogle = async () => {
     // Don't set global loading state - use local loading in components
