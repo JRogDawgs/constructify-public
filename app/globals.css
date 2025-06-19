@@ -33,10 +33,10 @@
     --constructify-gray: 210 15% 45%;
     --constructify-gray-light: 210 10% 85%;
     
-    /* Constructify Navy Blues for Headers/Footers */
-    --constructify-navy: 220 85% 25%;
-    --constructify-navy-dark: 225 90% 20%;
-    --constructify-navy-medium: 215 80% 30%;
+    /* Constructify Navy Blues for Headers/Footers - Much Darker */
+    --constructify-navy: 220 60% 15%;
+    --constructify-navy-dark: 225 70% 12%;
+    --constructify-navy-medium: 215 55% 18%;
     
     /* Constructify Gold from Logo - Exact Colors */
     --constructify-gold: 45 25% 65%;
@@ -78,10 +78,10 @@
     --constructify-gray: 210 15% 65%;
     --constructify-gray-light: 210 10% 25%;
     
-    /* Constructify Navy Blues for Dark Mode Headers/Footers */
-    --constructify-navy: 220 85% 30%;
-    --constructify-navy-dark: 225 90% 25%;
-    --constructify-navy-medium: 215 80% 35%;
+    /* Constructify Navy Blues for Dark Mode Headers/Footers - Much Darker */
+    --constructify-navy: 220 60% 18%;
+    --constructify-navy-dark: 225 70% 15%;
+    --constructify-navy-medium: 215 55% 22%;
     
     /* Constructify Gold for Dark Mode - Exact Colors */
     --constructify-gold: 45 25% 70%;
