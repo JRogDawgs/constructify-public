@@ -51,10 +51,91 @@ import {
   Plus,
   Trash2,
   Upload,
-  Download
+  Download,
+  Lock,
+  AlertCircle
 } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
 import { getEmployeeProfile, createOrUpdateEmployeeProfile, type EmployeeProfile } from '@/components/Google Auth/userService';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, auth } from '@/components/Google Auth/firebase';
+
+interface ComprehensiveFormData {
+  // Employee-Controlled Personal Information
+  fullName: string;
+  preferredName: string;
+  dateOfBirth: string;
+  email: string;
+  secondaryEmail: string;
+  phoneMobile: string;
+  phoneHome: string;
+  phoneWork: string;
+  location: string;
+  address: string;
+  mailingAddress: string;
+  bio: string;
+  
+  // Employee-Controlled Professional Information
+  primaryTrade: string;
+  yearsExperience: string;
+  
+  // Employee-Controlled Banking Information (for direct deposit)
+  bankName: string;
+  accountHolderName: string;
+  accountType: 'Checking' | 'Savings' | '';
+  routingNumber: string;
+  accountNumber: string;
+  depositPercentage: number;
+  
+  // Employee-Controlled Legal Information
+  workAuthorizationStatus: 'Citizen' | 'Green Card' | 'Work Visa' | '';
+  i9FormStatus: 'Submitted' | 'Missing' | '';
+  driversLicenseType: 'Standard' | 'CDL' | '';
+  driversLicenseNumber: string;
+  driversLicenseExpiry: string;
+  socialSecurityNumber: string;
+  
+  // Employee-Controlled Emergency Contacts
+  emergencyContacts: Array<{
+    name: string;
+    relationship: string;
+    phone: string;
+    email: string;
+  }>;
+  
+  // Employee-Controlled Certifications & Training
+  certifications: Array<{
+    name: string;
+    issuedBy: string;
+    dateIssued: string;
+    expiryDate: string;
+  }>;
+  
+  // EMPLOYER-CONTROLLED DATA (Read-only for employees)
+  employeeId: string; // Unique system-wide ID
+  currentEmployerId: string;
+  jobTitle: string;
+  department: string;
+  skillLevel: 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor' | '';
+  hireDate: string;
+  status: 'Full-time' | 'Part-time' | 'Contractor' | 'Temp' | '';
+  payRate: string; // READ-ONLY for employee
+  payFrequency: 'Weekly' | 'Bi-weekly' | 'Monthly' | ''; // READ-ONLY for employee
+  
+  // EMPLOYER-CONTROLLED Insurance Information (Read-only for employees)
+  healthInsurance: string; // READ-ONLY for employee
+  dentalInsurance: string; // READ-ONLY for employee
+  visionInsurance: string; // READ-ONLY for employee
+  lifeInsurance: string; // READ-ONLY for employee
+  
+  // Employee-Controlled Preferences
+  languagePreference: 'English' | 'Spanish' | '';
+  notificationPreferences: {
+    email: boolean;
+    sms: boolean;
+    push: boolean;
+  };
+}
 
 export default function ProfilePage() {
   const { t } = useTranslation();
@@ -147,8 +228,8 @@ export default function ProfilePage() {
   });
 
   // Comprehensive profile form state - ALL fields from yesterday
-  const [comprehensiveData, setComprehensiveData] = useState({
-    // Personal Information
+  const [comprehensiveData, setComprehensiveData] = useState<ComprehensiveFormData>({
+    // Employee-Controlled Personal Information
     fullName: '',
     preferredName: '',
     dateOfBirth: '',
@@ -157,82 +238,59 @@ export default function ProfilePage() {
     phoneMobile: '',
     phoneHome: '',
     phoneWork: '',
+    location: '',
     address: '',
     mailingAddress: '',
-    location: '',
     bio: '',
-    profilePhotoUrl: '',
-
-    // Emergency Contacts
-    emergencyContacts: [] as Array<{
-      name: string;
-      relationship: string;
-      phone: string;
-      address: string;
-    }>,
-
-    // Employment Information
-    employeeId: '',
-    hireDate: '',
-    status: 'Full-time' as 'Full-time' | 'Part-time' | 'Contractor' | 'Temp',
-    jobTitle: '',
-    department: '',
-    supervisorId: '',
-    payRate: '',
-    payFrequency: 'Bi-weekly' as 'Weekly' | 'Bi-weekly' | 'Monthly',
-
-    // Skills & Certifications
+    
+    // Employee-Controlled Professional Information
     primaryTrade: '',
-    secondarySkills: [] as string[],
     yearsExperience: '',
-    skillLevel: 'Apprentice' as 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor',
-    certifications: [] as Array<{
-      name: string;
-      type: 'OSHA' | 'Safety' | 'Equipment' | 'Trade' | 'Other';
-      level: string;
-      issueDate: string;
-      expirationDate: string;
-      certId: string;
-    }>,
-
-    // Banking Information
+    
+    // Employee-Controlled Banking Information
     bankName: '',
-    accountType: 'Checking' as 'Checking' | 'Savings',
     accountHolderName: '',
+    accountType: '',
     routingNumber: '',
     accountNumber: '',
     depositPercentage: 100,
-
-    // Legal & Documentation
-    workAuthorizationStatus: 'Citizen' as 'Citizen' | 'Green Card' | 'Work Visa',
-    i9FormStatus: 'Missing' as 'Submitted' | 'Missing',
+    
+    // Employee-Controlled Legal Information
+    workAuthorizationStatus: '',
+    i9FormStatus: '',
+    driversLicenseType: '',
     driversLicenseNumber: '',
-    driversLicenseState: '',
-    driversLicenseExpiration: '',
-    driversLicenseType: 'Standard' as 'Standard' | 'CDL',
-
-    // Insurance Information
-    healthInsurance: '',
-    dentalInsurance: '',
-    visionInsurance: '',
-    lifeInsurance: '',
-
-    // Personal Equipment & PPE
-    hardHatSize: '',
-    bootSize: '',
-    shirtSize: '',
-    pantSize: '',
-    personalTools: [] as string[],
-
-    // Social & Communication
-    linkedinProfile: '',
-    contactPreference: 'Email' as 'Email' | 'Text' | 'Phone',
-    preferredLanguage: 'English',
-    commsWindow: '8am–5pm',
-
-    // Settings
-    profileType: 'individual' as 'individual' | 'company',
-    systemAccessLevel: 'Field' as 'Admin' | 'Manager' | 'Field'
+    driversLicenseExpiry: '',
+    socialSecurityNumber: '',
+    
+    // Employee-Controlled Lists
+    emergencyContacts: [],
+    certifications: [],
+    
+    // EMPLOYER-CONTROLLED DATA (Read-only for employees)
+    employeeId: '', // Will be auto-generated on first save
+    currentEmployerId: '',
+    jobTitle: '',
+    department: '',
+    skillLevel: '',
+    hireDate: '',
+    status: '',
+    payRate: '', // READ-ONLY
+    payFrequency: '', // READ-ONLY
+    
+    // EMPLOYER-CONTROLLED Insurance (Read-only for employees)
+    healthInsurance: '', // READ-ONLY
+    dentalInsurance: '', // READ-ONLY
+    visionInsurance: '', // READ-ONLY
+    lifeInsurance: '', // READ-ONLY
+    
+    // Employee-Controlled Preferences
+    languagePreference: '',
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      push: true
+    }
   });
 
   // Redirect if not authenticated
@@ -248,24 +306,80 @@ export default function ProfilePage() {
       if (user && !loadingEmployee && !employeeData) {
         setLoadingEmployee(true);
         try {
-          const empData = await getEmployeeProfile(user.uid);
-          setEmployeeData(empData);
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (!userDoc.exists()) return;
+
+          const employeeData = userDoc.data();
           
-          // Initialize form data if employee data exists
-          if (empData) {
-            setPersonalInfo({
-              fullName: empData.fullName || '',
-              email: empData.email || '',
-              phoneMobile: empData.phoneMobile || '',
-              location: empData.location || '',
-              bio: empData.bio || '',
-              jobTitle: empData.jobTitle || '',
-              primaryTrade: empData.primaryTrade || '',
-              skillLevel: empData.skillLevel || 'Apprentice'
-            });
-          }
+          // Generate unique employee ID if it doesn't exist
+          const employeeId = employeeData.employeeId || `EMP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
           
-          console.log('📊 Loaded comprehensive employee data:', empData);
+          setComprehensiveData({
+            // Employee-Controlled Personal Information
+            fullName: employeeData.personalInfo?.fullName || '',
+            preferredName: employeeData.personalInfo?.preferredName || '',
+            dateOfBirth: employeeData.personalInfo?.dateOfBirth || '',
+            email: employeeData.personalInfo?.email || user.email || '',
+            secondaryEmail: employeeData.personalInfo?.secondaryEmail || '',
+            phoneMobile: employeeData.personalInfo?.phoneMobile || '',
+            phoneHome: employeeData.personalInfo?.phoneHome || '',
+            phoneWork: employeeData.personalInfo?.phoneWork || '',
+            location: employeeData.personalInfo?.location || '',
+            address: employeeData.personalInfo?.address || '',
+            mailingAddress: employeeData.personalInfo?.mailingAddress || '',
+            bio: employeeData.personalInfo?.bio || '',
+            
+            // Employee-Controlled Professional Information
+            primaryTrade: employeeData.professionalInfo?.primaryTrade || '',
+            yearsExperience: employeeData.professionalInfo?.yearsExperience || '',
+            
+            // Employee-Controlled Banking Information
+            bankName: employeeData.bankingInfo?.bankName || '',
+            accountHolderName: employeeData.bankingInfo?.accountHolderName || '',
+            accountType: employeeData.bankingInfo?.accountType || '',
+            routingNumber: employeeData.bankingInfo?.routingNumber || '',
+            accountNumber: employeeData.bankingInfo?.accountNumber || '',
+            depositPercentage: employeeData.bankingInfo?.depositPercentage || 100,
+            
+            // Employee-Controlled Legal Information
+            workAuthorizationStatus: employeeData.legalInfo?.workAuthorizationStatus || '',
+            i9FormStatus: employeeData.legalInfo?.i9FormStatus || '',
+            driversLicenseType: employeeData.legalInfo?.driversLicenseType || '',
+            driversLicenseNumber: employeeData.legalInfo?.driversLicenseNumber || '',
+            driversLicenseExpiry: employeeData.legalInfo?.driversLicenseExpiry || '',
+            socialSecurityNumber: employeeData.legalInfo?.socialSecurityNumber || '',
+            
+            // Employee-Controlled Lists
+            emergencyContacts: employeeData.emergencyContacts || [],
+            certifications: employeeData.certifications || [],
+            
+            // EMPLOYER-CONTROLLED DATA (Read-only for employees)
+            employeeId: employeeId,
+            currentEmployerId: employeeData.employment?.currentEmployerId || '',
+            jobTitle: employeeData.employment?.jobTitle || '',
+            department: employeeData.employment?.department || '',
+            skillLevel: employeeData.employment?.skillLevel || '',
+            hireDate: employeeData.employment?.hireDate || '',
+            status: employeeData.employment?.status || '',
+            payRate: employeeData.employment?.payRate || '', // READ-ONLY
+            payFrequency: employeeData.employment?.payFrequency || '', // READ-ONLY
+            
+            // EMPLOYER-CONTROLLED Insurance (Read-only for employees)
+            healthInsurance: employeeData.insurance?.health || '', // READ-ONLY
+            dentalInsurance: employeeData.insurance?.dental || '', // READ-ONLY
+            visionInsurance: employeeData.insurance?.vision || '', // READ-ONLY
+            lifeInsurance: employeeData.insurance?.life || '', // READ-ONLY
+            
+            // Employee-Controlled Preferences
+            languagePreference: employeeData.preferences?.language || '',
+            notificationPreferences: employeeData.preferences?.notifications || {
+              email: true,
+              sms: false,
+              push: true
+            }
+          });
+          
+          console.log('📊 Loaded comprehensive employee data:', employeeData);
         } catch (error) {
           console.error('❌ Error loading employee data:', error);
         } finally {
@@ -741,112 +855,91 @@ export default function ProfilePage() {
     
     setSaving(true);
     try {
-      const updatedData: Partial<EmployeeProfile> = {
-        // Personal Information
-        fullName: comprehensiveData.fullName,
-        preferredName: comprehensiveData.preferredName,
-        dateOfBirth: comprehensiveData.dateOfBirth,
-        email: comprehensiveData.email,
-        secondaryEmail: comprehensiveData.secondaryEmail,
-        phoneMobile: comprehensiveData.phoneMobile,
-        phoneHome: comprehensiveData.phoneHome,
-        phoneWork: comprehensiveData.phoneWork,
-        address: comprehensiveData.address,
-        mailingAddress: comprehensiveData.mailingAddress,
-        location: comprehensiveData.location,
-        bio: comprehensiveData.bio,
-        profilePhotoUrl: comprehensiveData.profilePhotoUrl,
+      // Generate unique employee ID if it doesn't exist
+      const employeeId = comprehensiveData.employeeId || `EMP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
-        // Emergency Contacts
-        emergencyContacts: comprehensiveData.emergencyContacts,
-
-        // Employment Information
-        employeeId: comprehensiveData.employeeId || user.uid,
-        hireDate: comprehensiveData.hireDate,
-        status: comprehensiveData.status,
-        jobTitle: comprehensiveData.jobTitle,
-        department: comprehensiveData.department,
-        supervisorId: comprehensiveData.supervisorId,
-        payRate: comprehensiveData.payRate ? parseFloat(comprehensiveData.payRate) : undefined,
-        payFrequency: comprehensiveData.payFrequency,
-
-        // Skills & Certifications
-        primaryTrade: comprehensiveData.primaryTrade,
-        secondarySkills: comprehensiveData.secondarySkills,
-        yearsExperience: comprehensiveData.yearsExperience ? parseInt(comprehensiveData.yearsExperience) : undefined,
-        skillLevel: comprehensiveData.skillLevel,
-        certifications: comprehensiveData.certifications,
-
-        // Banking Information
+      const profileData = {
+        // EMPLOYEE-CONTROLLED DATA ONLY
+        personalInfo: {
+          fullName: comprehensiveData.fullName,
+          preferredName: comprehensiveData.preferredName,
+          dateOfBirth: comprehensiveData.dateOfBirth,
+          email: comprehensiveData.email,
+          secondaryEmail: comprehensiveData.secondaryEmail,
+          phoneMobile: comprehensiveData.phoneMobile,
+          phoneHome: comprehensiveData.phoneHome,
+          phoneWork: comprehensiveData.phoneWork,
+          address: comprehensiveData.address,
+          mailingAddress: comprehensiveData.mailingAddress,
+          location: comprehensiveData.location,
+          bio: comprehensiveData.bio
+        },
+        
+        // Employee-Controlled Professional Information
+        professionalInfo: {
+          primaryTrade: comprehensiveData.primaryTrade,
+          yearsExperience: comprehensiveData.yearsExperience
+        },
+        
+        // Employee-Controlled Banking Information (for direct deposit)
         bankingInfo: {
-          primaryAccount: {
-            bankName: comprehensiveData.bankName,
-            accountType: comprehensiveData.accountType,
-            accountHolderName: comprehensiveData.accountHolderName,
-            routingNumber: comprehensiveData.routingNumber,
-            accountNumber: comprehensiveData.accountNumber,
-            depositPercentage: comprehensiveData.depositPercentage,
-            isVerified: false,
-            verificationDate: undefined
-          }
+          bankName: comprehensiveData.bankName,
+          accountType: comprehensiveData.accountType,
+          accountHolderName: comprehensiveData.accountHolderName,
+          routingNumber: comprehensiveData.routingNumber,
+          accountNumber: comprehensiveData.accountNumber,
+          depositPercentage: comprehensiveData.depositPercentage
         },
-
-        // Legal & Documentation
-        workAuthorizationStatus: comprehensiveData.workAuthorizationStatus,
-        i9FormStatus: comprehensiveData.i9FormStatus,
-        driversLicense: {
-          number: comprehensiveData.driversLicenseNumber,
-          state: comprehensiveData.driversLicenseState,
-          expiration: comprehensiveData.driversLicenseExpiration,
-          type: comprehensiveData.driversLicenseType
+        
+        // Employee-Controlled Legal Information
+        legalInfo: {
+          workAuthorizationStatus: comprehensiveData.workAuthorizationStatus,
+          i9FormStatus: comprehensiveData.i9FormStatus,
+          driversLicenseType: comprehensiveData.driversLicenseType,
+          driversLicenseNumber: comprehensiveData.driversLicenseNumber,
+          driversLicenseExpiry: comprehensiveData.driversLicenseExpiry,
+          socialSecurityNumber: comprehensiveData.socialSecurityNumber
         },
-
-        // Insurance Information
-        insurance: {
-          health: comprehensiveData.healthInsurance,
-          dental: comprehensiveData.dentalInsurance,
-          vision: comprehensiveData.visionInsurance,
-          life: comprehensiveData.lifeInsurance
+        
+        // Employee-Controlled Lists
+        emergencyContacts: comprehensiveData.emergencyContacts,
+        certifications: comprehensiveData.certifications,
+        
+        // Employee-Controlled Preferences
+        preferences: {
+          language: comprehensiveData.languagePreference,
+          notifications: comprehensiveData.notificationPreferences
         },
-
-        // Personal Equipment & PPE
-        ppeRequirements: {
-          hardHatSize: comprehensiveData.hardHatSize,
-          bootSize: comprehensiveData.bootSize
-        },
-        uniformPPE: {
-          shirtSize: comprehensiveData.shirtSize,
-          pantSize: comprehensiveData.pantSize
-        },
-        personalTools: comprehensiveData.personalTools,
-
-        // Social & Communication
-        socialProfiles: {
-          linkedin: comprehensiveData.linkedinProfile
-        },
-        contactPreference: comprehensiveData.contactPreference,
-        preferredLanguage: comprehensiveData.preferredLanguage,
-        commsWindow: comprehensiveData.commsWindow,
-
-        // Settings
-        profileType: comprehensiveData.profileType,
-        systemAccessLevel: comprehensiveData.systemAccessLevel,
-
+        
+        // SYSTEM-CONTROLLED DATA
+        employeeId: employeeId, // Unique system-wide ID for company transfers
+        
+        // NOTE: EMPLOYER-CONTROLLED DATA IS NOT SAVED FROM EMPLOYEE INTERFACE
+        // These fields are read-only for employees and managed by employers:
+        // - employment.jobTitle, department, skillLevel, hireDate, status
+        // - employment.payRate, payFrequency, currentEmployerId
+        // - insurance.health, dental, vision, life
+        
         // Metadata
-        lastUpdatedAt: new Date(),
-        lastUpdatedBy: user.uid
+        lastUpdated: new Date().toISOString(),
+        updatedBy: user.uid
       };
 
-      await createOrUpdateEmployeeProfile(user, updatedData);
+      // Save to Firestore
+      await setDoc(doc(db, 'users', user.uid), profileData, { merge: true });
       
-      // Reload employee data
-      const refreshedData = await getEmployeeProfile(user.uid);
-      setEmployeeData(refreshedData);
+      // Update local state with the new employee ID
+      setComprehensiveData(prev => ({
+        ...prev,
+        employeeId: employeeId
+      }));
       
       setShowComprehensiveModal(false);
+      alert('✅ Profile saved successfully! Your unique Employee ID is: ' + employeeId);
       console.log('✅ Comprehensive profile saved successfully');
     } catch (error) {
       console.error('❌ Error saving comprehensive profile:', error);
+      alert('❌ Error saving profile. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -2596,6 +2689,22 @@ export default function ProfilePage() {
                 ? 'Update all your profile information in one place.' 
                 : 'Welcome! Let\'s set up your complete profile to get you started.'}
             </DialogDescription>
+            
+            {/* Employee ID Display & Company Transfer Info */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+              <div className="flex items-center gap-2 text-blue-800 mb-2">
+                <Shield className="h-4 w-4" />
+                <span className="font-medium">Your Unique Employee ID</span>
+              </div>
+              <div className="font-mono text-lg font-bold text-blue-900 mb-2">
+                {comprehensiveData.employeeId || 'Will be generated upon first save'}
+              </div>
+              <p className="text-sm text-blue-700">
+                This unique ID allows you to easily transfer between companies. When you start with a new employer, 
+                simply provide this ID and your profile information will be available to them. 
+                <strong className="text-blue-800"> Keep this ID safe - it's yours for life!</strong>
+              </p>
+            </div>
           </DialogHeader>
           
           <div className="space-y-8">
@@ -2732,13 +2841,21 @@ export default function ProfilePage() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="comp-jobTitle">Job Title *</Label>
+                  <Label htmlFor="comp-jobTitle" className="flex items-center gap-2">
+                    Job Title
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-jobTitle"
-                    value={comprehensiveData.jobTitle}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, jobTitle: e.target.value})}
-                    placeholder="Construction Worker"
+                    value={comprehensiveData.jobTitle || 'Not assigned by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Your job title is assigned by your employer</p>
                 </div>
                 <div>
                   <Label htmlFor="comp-primaryTrade">Primary Trade *</Label>
@@ -2750,18 +2867,21 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="comp-skillLevel">Skill Level</Label>
-                  <Select value={comprehensiveData.skillLevel} onValueChange={(value: 'Apprentice' | 'Journeyman' | 'Master' | 'Supervisor') => setComprehensiveData({...comprehensiveData, skillLevel: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select skill level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Apprentice">Apprentice</SelectItem>
-                      <SelectItem value="Journeyman">Journeyman</SelectItem>
-                      <SelectItem value="Master">Master</SelectItem>
-                      <SelectItem value="Supervisor">Supervisor</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="comp-skillLevel" className="flex items-center gap-2">
+                    Skill Level
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
+                  <Input
+                    id="comp-skillLevel"
+                    value={comprehensiveData.skillLevel || 'Not assigned by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Your skill level is assigned by your employer</p>
                 </div>
                 <div>
                   <Label htmlFor="comp-yearsExperience">Years Experience</Label>
@@ -2774,60 +2894,91 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="comp-hireDate">Hire Date</Label>
+                  <Label htmlFor="comp-hireDate" className="flex items-center gap-2">
+                    Hire Date
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-hireDate"
-                    type="date"
-                    value={comprehensiveData.hireDate}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, hireDate: e.target.value})}
+                    value={comprehensiveData.hireDate ? new Date(comprehensiveData.hireDate).toLocaleDateString() : 'Not set by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Your hire date is recorded by your employer</p>
                 </div>
                 <div>
-                  <Label htmlFor="comp-status">Employment Status</Label>
-                  <Select value={comprehensiveData.status} onValueChange={(value: 'Full-time' | 'Part-time' | 'Contractor' | 'Temp') => setComprehensiveData({...comprehensiveData, status: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Full-time">Full-time</SelectItem>
-                      <SelectItem value="Part-time">Part-time</SelectItem>
-                      <SelectItem value="Contractor">Contractor</SelectItem>
-                      <SelectItem value="Temp">Temporary</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="comp-status" className="flex items-center gap-2">
+                    Employment Status
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
+                  <Input
+                    id="comp-status"
+                    value={comprehensiveData.status || 'Not set by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Your employment status is managed by your employer</p>
                 </div>
                 <div>
-                  <Label htmlFor="comp-department">Department</Label>
+                  <Label htmlFor="comp-department" className="flex items-center gap-2">
+                    Department
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-department"
-                    value={comprehensiveData.department}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, department: e.target.value})}
-                    placeholder="Construction, Maintenance, etc."
+                    value={comprehensiveData.department || 'Not assigned by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Your department assignment is managed by your employer</p>
                 </div>
                 <div>
-                  <Label htmlFor="comp-payRate">Pay Rate ($/hour)</Label>
+                  <Label htmlFor="comp-payRate" className="flex items-center gap-2">
+                    Pay Rate ($/hour)
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-payRate"
-                    type="number"
-                    step="0.01"
-                    value={comprehensiveData.payRate}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, payRate: e.target.value})}
-                    placeholder="25.00"
+                    type="text"
+                    value={comprehensiveData.payRate ? `$${comprehensiveData.payRate}/hour` : 'Not set by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
+                  <p className="text-xs text-gray-500 mt-1">This information is managed by your employer</p>
                 </div>
                 <div>
-                  <Label htmlFor="comp-payFrequency">Pay Frequency</Label>
-                  <Select value={comprehensiveData.payFrequency} onValueChange={(value: 'Weekly' | 'Bi-weekly' | 'Monthly') => setComprehensiveData({...comprehensiveData, payFrequency: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select frequency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Weekly">Weekly</SelectItem>
-                      <SelectItem value="Bi-weekly">Bi-weekly</SelectItem>
-                      <SelectItem value="Monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label htmlFor="comp-payFrequency" className="flex items-center gap-2">
+                    Pay Frequency
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Employer Only
+                    </Badge>
+                  </Label>
+                  <Input
+                    id="comp-payFrequency"
+                    type="text"
+                    value={comprehensiveData.payFrequency || 'Not set by employer'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">This information is managed by your employer</p>
                 </div>
               </div>
             </div>
@@ -2978,47 +3129,88 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Insurance Information Section */}
+            {/* Insurance Information Section - EMPLOYER CONTROLLED */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2 border-b pb-2">
                 <Shield className="h-5 w-5 text-purple-600" />
                 Insurance Information
+                <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800 ml-2">
+                  <Lock className="h-3 w-3 mr-1" />
+                  Employer Managed
+                </Badge>
               </h3>
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-4">
+                <div className="flex items-center gap-2 text-orange-800 mb-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <span className="font-medium">Insurance Benefits</span>
+                </div>
+                <p className="text-sm text-orange-700">
+                  Your insurance benefits are provided and managed by your employer. Contact your HR department or supervisor for questions about coverage, claims, or changes to your benefits.
+                </p>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                  <Label htmlFor="comp-healthInsurance">Health Insurance</Label>
+                  <Label htmlFor="comp-healthInsurance" className="flex items-center gap-2">
+                    Health Insurance
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Read Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-healthInsurance"
-                    value={comprehensiveData.healthInsurance}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, healthInsurance: e.target.value})}
-                    placeholder="Provider name"
+                    value={comprehensiveData.healthInsurance || 'No health insurance assigned'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="comp-dentalInsurance">Dental Insurance</Label>
+                  <Label htmlFor="comp-dentalInsurance" className="flex items-center gap-2">
+                    Dental Insurance
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Read Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-dentalInsurance"
-                    value={comprehensiveData.dentalInsurance}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, dentalInsurance: e.target.value})}
-                    placeholder="Provider name"
+                    value={comprehensiveData.dentalInsurance || 'No dental insurance assigned'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="comp-visionInsurance">Vision Insurance</Label>
+                  <Label htmlFor="comp-visionInsurance" className="flex items-center gap-2">
+                    Vision Insurance
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Read Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-visionInsurance"
-                    value={comprehensiveData.visionInsurance}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, visionInsurance: e.target.value})}
-                    placeholder="Provider name"
+                    value={comprehensiveData.visionInsurance || 'No vision insurance assigned'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="comp-lifeInsurance">Life Insurance</Label>
+                  <Label htmlFor="comp-lifeInsurance" className="flex items-center gap-2">
+                    Life Insurance
+                    <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Lock className="h-3 w-3 mr-1" />
+                      Read Only
+                    </Badge>
+                  </Label>
                   <Input
                     id="comp-lifeInsurance"
-                    value={comprehensiveData.lifeInsurance}
-                    onChange={(e) => setComprehensiveData({...comprehensiveData, lifeInsurance: e.target.value})}
-                    placeholder="Provider name"
+                    value={comprehensiveData.lifeInsurance || 'No life insurance assigned'}
+                    readOnly
+                    disabled
+                    className="bg-gray-50 text-gray-600 cursor-not-allowed"
                   />
                 </div>
               </div>
