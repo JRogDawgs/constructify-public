@@ -18,11 +18,8 @@ import {
   User,
 } from 'firebase/auth';
 import { app } from './firebase';
-import { createOrUpdateUser, getUserProfile, UserProfile } from './userService';
-
 interface AuthContextType {
   user: User | null;
-  userProfile: UserProfile | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -32,10 +29,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [authInitialized, setAuthInitialized] = useState(false);
   const auth = getAuth(app);
+
+  // Debug: Check immediate auth state
+  useEffect(() => {
+    console.log('🔍 AuthProvider mounted, checking immediate auth state...');
+    console.log('🔍 Current auth.currentUser:', auth.currentUser);
+    console.log('🔍 Auth ready state:', {
+      currentUser: auth.currentUser?.email || 'none',
+      isSignedIn: !!auth.currentUser
+    });
+  }, []);
 
   useEffect(() => {
     let redirectChecked = false;
@@ -45,71 +51,50 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (redirectChecked) return;
       redirectChecked = true;
       
+      console.log('🔍 Checking for redirect result...');
+      
       try {
         const result = await getRedirectResult(auth);
+        console.log('🔍 Redirect result:', result);
+        
         if (result?.user) {
-          console.log('✅ Google sign-in redirect successful:', result.user.email);
-          // User profile will be handled by onAuthStateChanged
+          console.log('✅ Google redirect sign-in successful:', result.user.email);
+          console.log('👤 User details:', {
+            uid: result.user.uid,
+            email: result.user.email,
+            displayName: result.user.displayName,
+            photoURL: result.user.photoURL
+          });
+        } else {
+          console.log('ℹ️ No redirect result found (normal for popup auth or direct navigation)');
         }
       } catch (error: any) {
         console.error('❌ Redirect sign-in error:', error);
+        console.error('Error details:', {
+          code: error.code,
+          message: error.message,
+          stack: error.stack
+        });
       }
     };
     
     checkRedirectResult();
 
-    // Listen for auth state changes - OPTIMIZED
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      // Only log if there's actually a change to avoid spam
-      const currentUserEmail = user?.email;
-      const newUserEmail = firebaseUser?.email;
-      
-      if (currentUserEmail !== newUserEmail) {
-        console.log('🔍 Auth state changed:', firebaseUser ? `${firebaseUser.email}` : 'No user');
-      }
+    // Listen for auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      console.log('🔄 Auth state change detected:', {
+        hasUser: !!firebaseUser,
+        userEmail: firebaseUser?.email,
+        userUID: firebaseUser?.uid,
+        timestamp: new Date().toISOString()
+      });
       
       if (firebaseUser) {
-        // Only update user if it's actually different
-        if (!user || user.uid !== firebaseUser.uid) {
-          setUser(firebaseUser);
-        }
-        
-        // Only fetch/create user profile if we don't have one or user changed
-        if (!userProfile || userProfile.uid !== firebaseUser.uid) {
-          console.log('🔄 Loading user profile...');
-          try {
-            // Try to get existing profile first (faster than create/update)
-            let profile = await getUserProfile(firebaseUser.uid);
-            
-            // Only create/update if profile doesn't exist
-            if (!profile) {
-              console.log('📝 Creating new user profile...');
-              profile = await createOrUpdateUser(firebaseUser);
-            }
-            
-            setUserProfile(profile);
-            console.log('✅ User profile loaded');
-          } catch (error) {
-            console.error('❌ Error loading user profile:', error);
-            
-            // Create minimal profile from Firebase Auth data
-            const basicProfile: UserProfile = {
-              uid: firebaseUser.uid,
-              email: firebaseUser.email || '',
-              displayName: firebaseUser.displayName,
-              photoURL: firebaseUser.photoURL,
-              createdAt: new Date(),
-              lastLoginAt: new Date(),
-              provider: 'google'
-            };
-            
-            setUserProfile(basicProfile);
-            console.log('✅ Using basic profile (Firestore unavailable)');
-          }
-        }
+        console.log('🔐 Firebase user detected');
+        setUser(firebaseUser);
       } else {
+        console.log('🔓 No user detected, clearing state');
         setUser(null);
-        setUserProfile(null);
       }
       
       // Set loading to false after first auth check
@@ -121,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     
     return () => unsubscribe();
-  }, [auth, authInitialized]); // Removed userProfile from dependencies to prevent re-triggering
+  }, [auth, authInitialized]);
 
   const signInWithGoogle = async () => {
     // Don't set global loading state - use local loading in components
@@ -133,25 +118,46 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       console.log('🔄 Starting Google sign-in...');
       
-      // Try popup first
-      const result = await signInWithPopup(auth, provider);
-      console.log('✅ Sign-in successful:', result.user.email);
-      
-      // User profile will be handled by onAuthStateChanged automatically
+      // Try popup first - this is more reliable for development
+      try {
+        const result = await signInWithPopup(auth, provider);
+        console.log('✅ Popup sign-in successful:', result.user.email);
+        
+        return result;
+        
+      } catch (popupError: any) {
+        console.warn('⚠️ Popup sign-in failed:', popupError.code);
+        
+        // Only fallback to redirect for specific popup issues
+        if (popupError.code === 'auth/popup-blocked' || 
+            popupError.code === 'auth/popup-closed-by-user' ||
+            popupError.code === 'auth/cancelled-popup-request') {
+          
+          console.log('🔄 Popup blocked/closed, trying redirect...');
+          const provider = new GoogleAuthProvider();
+          provider.setCustomParameters({
+            prompt: 'select_account'
+          });
+          
+          await signInWithRedirect(auth, provider);
+          // Don't return here - redirect will complete later
+          
+        } else {
+          // For other errors, don't retry with redirect
+          throw popupError;
+        }
+      }
       
     } catch (error: any) {
       console.error('❌ Google sign-in error:', error);
       
-      // Fallback to redirect for popup-blocked scenarios
-      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-        console.log('🔄 Popup blocked, trying redirect...');
-        try {
-          const provider = new GoogleAuthProvider();
-          await signInWithRedirect(auth, provider);
-        } catch (redirectError: any) {
-          console.error('❌ Redirect also failed:', redirectError);
-          throw redirectError;
-        }
+      // Provide specific error messages for common issues
+      if (error.code === 'auth/network-request-failed') {
+        throw new Error('Network connection failed. Please check your internet connection.');
+      } else if (error.code === 'auth/too-many-requests') {
+        throw new Error('Too many sign-in attempts. Please try again later.');
+      } else if (error.code?.includes('identitytoolkit')) {
+        throw new Error('Firebase configuration issue. Please check your Firebase setup.');
       } else {
         throw error;
       }
@@ -161,7 +167,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     try {
       await firebaseSignOut(auth);
-      setUserProfile(null);
       console.log('✅ Sign-out successful');
     } catch (error) {
       console.error('❌ Sign-out error:', error);
@@ -170,7 +175,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
       {children}
     </AuthContext.Provider>
   );

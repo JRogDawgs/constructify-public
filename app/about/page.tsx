@@ -1,5 +1,15 @@
-import { ProfileCard } from "@/components/profile-card"
 import CTA from "@/components/cta"
+
+// Simple profile card component
+const ProfileCard = ({ name, role, description }: { name: string, role: string, description: string }) => (
+  <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+    <div className="space-y-2">
+      <h3 className="text-2xl font-semibold">{name}</h3>
+      <p className="text-sm text-muted-foreground">{role}</p>
+      <p className="text-sm leading-relaxed">{description}</p>
+    </div>
+  </div>
+)
 
 export default function AboutPage() {
   return (
