@@ -32,7 +32,7 @@ export default function Hero() {
             <p>Your browser does not support the video tag.</p>
           </video>
           {/* Overlay */}
-          <div className="absolute inset-0 bg-background/90" aria-hidden="true" />
+          <div className="absolute inset-0 bg-background/75" aria-hidden="true" />
         </div>
 
         {/* Content */}
