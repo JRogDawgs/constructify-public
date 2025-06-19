@@ -1,6 +1,7 @@
 import Hero from "@/components/hero"
 import Features from "@/components/features"
 import CTA from "@/components/cta"
+import Testimonials from "@/components/testimonials"
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
           <Hero />
           <Features />
           <CTA />
+          <Testimonials />
         </div>
       </div>
     </div>
