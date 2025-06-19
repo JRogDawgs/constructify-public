@@ -4,48 +4,84 @@
 
 @layer base {
   :root {
+    /* Constructify Brand Colors - Based on Logo Palette */
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 210 15% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 210 15% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --popover-foreground: 210 15% 15%;
+    --primary: 210 70% 45%; /* Constructify Blue */
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --secondary: 210 20% 92%;
+    --secondary-foreground: 210 15% 15%;
+    --muted: 210 15% 95%;
+    --muted-foreground: 210 10% 55%;
+    --accent: 210 30% 88%;
+    --accent-foreground: 210 15% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 210 70% 45%;
     --radius: 0.5rem;
+    
+    /* Constructify Custom Brand Variables */
+    --constructify-blue: 210 70% 45%;
+    --constructify-blue-dark: 210 80% 35%;
+    --constructify-blue-light: 210 60% 85%;
+    --constructify-gray: 210 15% 45%;
+    --constructify-gray-light: 210 10% 85%;
+    
+    /* Constructify Navy Blues for Headers/Footers */
+    --constructify-navy: 220 85% 25%;
+    --constructify-navy-dark: 225 90% 20%;
+    --constructify-navy-medium: 215 80% 30%;
+    
+    /* Constructify Gold from Logo - Exact Colors */
+    --constructify-gold: 45 25% 65%;
+    --constructify-gold-dark: 40 30% 55%;
+    --constructify-gold-light: 50 20% 75%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    /* Constructify Dark Theme - Maintaining Brand Identity */
+    --background: 210 20% 8%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 210 20% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
+    --popover: 210 20% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
+    --primary: 210 70% 55%; /* Brighter Constructify Blue for dark mode */
+    --primary-foreground: 210 20% 8%;
+    --secondary: 210 15% 18%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --muted: 210 15% 18%;
+    --muted-foreground: 210 8% 65%;
+    --accent: 210 15% 18%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 210 15% 18%;
+    --input: 210 15% 18%;
+    --ring: 210 70% 55%;
+    
+    /* Constructify Dark Mode Custom Variables */
+    --constructify-blue: 210 70% 55%;
+    --constructify-blue-dark: 210 80% 45%;
+    --constructify-blue-light: 210 60% 25%;
+    --constructify-gray: 210 15% 65%;
+    --constructify-gray-light: 210 10% 25%;
+    
+    /* Constructify Navy Blues for Dark Mode Headers/Footers */
+    --constructify-navy: 220 85% 30%;
+    --constructify-navy-dark: 225 90% 25%;
+    --constructify-navy-medium: 215 80% 35%;
+    
+    /* Constructify Gold for Dark Mode - Exact Colors */
+    --constructify-gold: 45 25% 70%;
+    --constructify-gold-dark: 40 30% 60%;
+    --constructify-gold-light: 50 20% 80%;
   }
 }
 
@@ -55,6 +91,67 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Constructify Brand Utilities */
+  .bg-constructify-blue {
+    background-color: hsl(var(--constructify-blue));
+  }
+  .bg-constructify-blue-dark {
+    background-color: hsl(var(--constructify-blue-dark));
+  }
+  .bg-constructify-blue-light {
+    background-color: hsl(var(--constructify-blue-light));
+  }
+  .text-constructify-blue {
+    color: hsl(var(--constructify-blue));
+  }
+  .text-constructify-blue-dark {
+    color: hsl(var(--constructify-blue-dark));
+  }
+  .border-constructify-blue {
+    border-color: hsl(var(--constructify-blue));
+  }
+  
+  /* Constructify Gold Utilities */
+  .bg-constructify-gold {
+    background-color: hsl(var(--constructify-gold));
+  }
+  .bg-constructify-gold-dark {
+    background-color: hsl(var(--constructify-gold-dark));
+  }
+  .text-constructify-gold {
+    color: hsl(var(--constructify-gold));
+  }
+  .border-constructify-gold {
+    border-color: hsl(var(--constructify-gold));
+  }
+  
+  /* Constructify Gradients */
+  .bg-constructify-gradient {
+    background: linear-gradient(135deg, hsl(var(--constructify-blue)) 0%, hsl(var(--constructify-blue-dark)) 100%);
+  }
+  .bg-constructify-gradient-light {
+    background: linear-gradient(135deg, hsl(var(--constructify-blue-light)) 0%, hsl(var(--background)) 100%);
+  }
+  .bg-constructify-gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--constructify-gold)) 0%, hsl(var(--constructify-gold-dark)) 100%);
+  }
+  .bg-constructify-header-gradient {
+    background: linear-gradient(135deg, hsl(var(--constructify-navy-dark)) 0%, hsl(var(--constructify-navy)) 50%, hsl(var(--constructify-navy-medium)) 100%);
+  }
+  
+  /* Navy Blue Utilities */
+  .bg-constructify-navy {
+    background-color: hsl(var(--constructify-navy));
+  }
+  .bg-constructify-navy-dark {
+    background-color: hsl(var(--constructify-navy-dark));
+  }
+  .bg-constructify-navy-medium {
+    background-color: hsl(var(--constructify-navy-medium));
   }
 }
 

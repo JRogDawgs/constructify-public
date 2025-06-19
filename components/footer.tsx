@@ -32,7 +32,7 @@ const footerLinks = {
 const FooterLink = memo(({ href, label, className }: { href: string; label: string; className?: string }) => (
   <Link 
     href={href} 
-    className={`text-foreground/80 transition-colors hover:text-primary ${className || ''}`}
+    className={`text-white/80 transition-colors hover:text-white ${className || ''}`}
     aria-label={label}
   >
     {label}
@@ -49,14 +49,14 @@ const FooterSection = memo(({
   links: Array<{ href: string; label: string; icon?: any }>
 }) => (
   <div className="space-y-4">
-    <h3 className="text-sm font-medium">{title}</h3>
+    <h3 className="text-sm font-medium text-white">{title}</h3>
     {title === "Connect" ? (
       <div className="flex space-x-4">
         {links.map(({ href, icon: Icon, label }) => (
           <Link
             key={href}
             href={href}
-            className="text-foreground/80 transition-colors hover:text-primary"
+            className="text-white/80 transition-colors hover:text-white"
             aria-label={label}
             target="_blank"
             rel="noopener noreferrer"
@@ -84,11 +84,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t bg-background" role="contentinfo">
+    <footer className="border-t border-white/20 bg-constructify-header-gradient shadow-lg" role="contentinfo">
       <div className="container flex flex-col gap-8 py-8 md:flex-row md:py-12">
         <div className="flex-1 space-y-4">
-          <h2 className="font-bold">Constructify</h2>
-          <p className="text-sm text-foreground/80">
+          <div className="flex items-center space-x-3">
+            <img 
+              src="/constructify-logo.png" 
+              alt="Constructify Logo" 
+              className="h-8 w-auto"
+            />
+            <h2 className="font-bold text-white">Constructify</h2>
+          </div>
+          <p className="text-sm text-white/80">
             Pioneering construction solutions for the digital age.
           </p>
         </div>
@@ -99,8 +106,8 @@ export default function Footer() {
           <FooterSection title="Connect" links={footerLinks.social} />
         </div>
       </div>
-      <div className="container border-t py-6">
-        <p className="text-center text-sm text-foreground/80">
+      <div className="container border-t border-white/10 py-6">
+        <p className="text-center text-sm text-white/80">
           © {currentYear} Constructify, Inc. All rights reserved.
         </p>
       </div>

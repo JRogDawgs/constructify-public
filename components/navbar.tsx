@@ -2,8 +2,10 @@
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
+import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import LanguageToggle from "./language-toggle"
 import DemoModal from "./demo-modal"
 import AuthModal from "./auth-modal"
 import { useAuth } from "@/components/Google Auth/AuthContext"
@@ -17,18 +19,19 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { LogOut, User, Settings, Loader2 } from "lucide-react"
 
-const navigationLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/industries", label: "Industries" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/about", label: "About Us" },
-]
-
 export default function Navbar() {
+  const { t } = useTranslation()
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [isSigningOut, setIsSigningOut] = useState(false)
   const { user, userProfile, loading, signOut } = useAuth()
+
+  const navigationLinks = [
+    { href: "/solutions", label: t('nav.solutions') },
+    { href: "/industries", label: t('nav.industries') },
+    { href: "/pricing", label: t('nav.pricing') },
+    { href: "/about", label: t('nav.about') },
+  ]
 
   const handleDemoModalOpen = () => setIsDemoModalOpen(true)
   const handleDemoModalClose = () => setIsDemoModalOpen(false)
@@ -52,7 +55,7 @@ export default function Navbar() {
       <Link
         key={href}
         href={href}
-        className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-9 px-3"
+        className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-white/10 hover:text-white text-white/80 h-9 px-3"
         aria-label={label}
       >
         {label}
@@ -93,13 +96,13 @@ export default function Navbar() {
             <DropdownMenuItem asChild>
               <Link href="/profile" className="flex items-center">
                 <User className="mr-2 h-4 w-4" />
-                Profile
+                {t('nav.profile')}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/settings" className="flex items-center">
                 <Settings className="mr-2 h-4 w-4" />
-                Settings
+                {t('profile.settings.accountSettings')}
               </Link>
             </DropdownMenuItem>
             {userProfile?.role === 'admin' && (
@@ -119,12 +122,12 @@ export default function Navbar() {
               {isSigningOut ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing out...
+                  {t('forms.loading')}
                 </>
               ) : (
                 <>
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sign out
+                  {t('nav.signout')}
                 </>
               )}
             </DropdownMenuItem>
@@ -149,11 +152,12 @@ export default function Navbar() {
       return (
         <Button 
           size="sm" 
-          className="bg-[#ffd700] text-black hover:bg-[#FFD700]/90 font-medium transition-all duration-200 hover:scale-105"
+          className="border-white/30 text-white hover:bg-white hover:text-constructify-blue font-medium transition-all duration-200 hover:scale-105"
           onClick={handleAuthModalOpen}
           aria-label="Log in or sign up"
+          variant="outline"
         >
-          Login
+          {t('nav.signin')}
         </Button>
       )
     }
@@ -161,25 +165,31 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 max-w-screen-2xl items-center">
+          <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-constructify-header-gradient backdrop-blur supports-[backdrop-filter]:bg-constructify-blue/90 shadow-lg">
+      <div className="container flex h-14 max-w-screen-2xl items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2" aria-label="Home">
-            <span className="font-medium">Constructify</span>
+            <img 
+              src="/constructify-logo.png" 
+              alt="Constructify Logo" 
+              className="h-8 w-auto"
+            />
           </Link>
           <nav className="flex flex-1 items-center space-x-6 text-sm font-normal" aria-label="Main navigation">
             {memoizedNavLinks}
           </nav>
           <div className="flex items-center space-x-4">
+            <LanguageToggle />
             <ThemeToggle />
-            <Button variant="ghost" size="sm" aria-label="Contact">
-              Contact
+            <Button variant="ghost" size="sm" aria-label="Contact" className="text-white/80 hover:text-white hover:bg-white/10">
+              {t('nav.contact')}
             </Button>
             <Button 
               size="sm"
               onClick={handleDemoModalOpen}
               aria-label="Get a Demo"
+              className="bg-constructify-gold-gradient hover:bg-constructify-gold-dark text-black font-semibold border-0 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105"
             >
-              Get a Demo
+              {t('nav.getDemo')}
             </Button>
             
             {/* Optimized Authentication Section */}

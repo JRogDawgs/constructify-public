@@ -5,6 +5,7 @@ import type { Metadata } from "next"
 import MouseMoveEffect from "@/components/mouse-move-effect"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/components/Google Auth/AuthContext"
+import I18nProvider from "@/components/i18n-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Toaster } from "sonner"
@@ -31,17 +32,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <div className="relative min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-1">
-                <MouseMoveEffect />
-                {children}
-              </main>
-              <Footer />
-            </div>
-            <Toaster />
-          </AuthProvider>
+          <I18nProvider>
+            <AuthProvider>
+              <div className="relative min-h-screen flex flex-col">
+                <Navbar />
+                <main className="flex-1">
+                  <MouseMoveEffect />
+                  {children}
+                </main>
+                <Footer />
+              </div>
+              <Toaster />
+            </AuthProvider>
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

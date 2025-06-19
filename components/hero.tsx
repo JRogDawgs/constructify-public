@@ -1,12 +1,14 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import DemoModal from "./demo-modal"
 
 export default function Hero() {
+  const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleModalOpen = useCallback(() => setIsModalOpen(true), [])
@@ -34,22 +36,29 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className="container relative z-10 flex max-w-screen-2xl flex-col items-center justify-center space-y-8 py-24 text-center md:py-32">
-          <div className="space-y-4">
-            <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-4xl font-medium tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
-              Constructify
-              <br />
-              <span className="text-[54%] font-light">Safer.&nbsp;&nbsp;&nbsp;Faster.&nbsp;&nbsp;&nbsp;Better.</span>
+        <div className="container relative z-10 flex max-w-screen-2xl flex-col items-center justify-center space-y-12 py-24 text-center md:py-32">
+          {/* Full Logo with Text */}
+          <div className="flex flex-col items-center space-y-6">
+            <img 
+              src="/constructify-full-logo.png" 
+              alt="Constructify - Complete Construction Management Platform" 
+              className="h-40 w-auto md:h-50 lg:h-60 drop-shadow-2xl"
+            />
+          </div>
+          
+          {/* Hero Content - Moved Down */}
+          <div className="space-y-6 mt-8">
+            <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-3xl font-medium tracking-tight text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
+              <span className="text-[80%] font-light">{t('hero.subtitle')}</span>
             </h1>
             <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-              Empowering businesses with cutting-edge software solutions. From AI-driven analytics to seamless project
-              management, we're shaping the future of construction.
+              {t('hero.description')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/solutions">
-              <Button size="lg" className="w-full sm:w-auto">
-                Explore Solutions
+              <Button size="lg" className="w-full sm:w-auto bg-constructify-gold-gradient hover:bg-constructify-gold-dark text-black font-semibold border-0 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
@@ -57,9 +66,9 @@ export default function Hero() {
               variant="outline" 
               size="lg"
               onClick={handleModalOpen}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto border-constructify-gold text-constructify-gold hover:bg-constructify-gold hover:text-black font-semibold transition-all duration-200"
             >
-              Schedule a Demo
+              {t('hero.ctaSecondary')}
             </Button>
           </div>
         </div>
