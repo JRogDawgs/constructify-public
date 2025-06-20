@@ -46,6 +46,8 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MessageSquare, Send, X, Minimize2, Maximize2, Bot, User, Sparkles, Zap } from "lucide-react"
+import { sendAdminNotification, storeUnknownQuestion } from '@/utils/sendAdminNotification'
+import { sendUserReply } from '@/utils/sendUserReply'
 
 interface Message {
   id: string
@@ -628,7 +630,7 @@ function logFeatureRequest(userMessage: string): string {
     }
   }
   
-  return null
+  return ""
 }
 
 // Context-Aware CTA Hooks
@@ -654,7 +656,14 @@ function getContextualCTA(message: string): string | null {
 }
 
 // Enhanced Smart Response System with External Data Integration
-function getIntelligentResponse(userMessage: string): string {
+function getIntelligentResponse(
+  userMessage: string, 
+  conversationContext: string[] = [],
+  isCollectingEmail: boolean = false,
+  pendingQuestion: string = '',
+  setIsCollectingEmail?: (value: boolean) => void,
+  setPendingQuestion?: (value: string) => void
+): string {
   const message = userMessage.toLowerCase()
   const { intent, sentiment, urgency } = detectIntent(userMessage)
   
@@ -756,7 +765,7 @@ function getIntelligentResponse(userMessage: string): string {
   }
   
   // Unknown question fallback with logging
-  logUnknownQuestion(userMessage)
+  logUnknownQuestion(userMessage, conversationContext)
   
   // Check if we're collecting email for a previous unknown question
   if (isCollectingEmail && isValidEmail(userMessage.trim())) {
@@ -773,12 +782,13 @@ function getIntelligentResponse(userMessage: string): string {
       needsFollowUp: true
     }
     
-    // Send detailed notification to admin with user email
-    emailNotificationSystem.notifyAdmin(questionData)
+    // Send detailed notification to admin with user email using new utility
+    sendAdminNotification(questionData)
+    storeUnknownQuestion(questionData)
     
     // Reset email collection state
-    setIsCollectingEmail(false)
-    setPendingQuestion('')
+    if (setIsCollectingEmail) setIsCollectingEmail(false)
+    if (setPendingQuestion) setPendingQuestion('')
     
     return `✅ **Perfect! I've got your email: ${userEmail}**\n\n🚀 **Here's what happens next:**\n\n1. ✉️ **I've notified our experts** about your question immediately\n2. 🔍 **They're researching** a comprehensive answer right now\n3. 📧 **You'll receive a detailed response** within 2 hours at ${userEmail}\n4. 💬 **Need immediate help?** Feel free to ask other questions!\n\n**Thanks for your patience - our team provides incredibly thorough answers that are worth the wait!**`
   }
@@ -792,9 +802,9 @@ function getIntelligentResponse(userMessage: string): string {
   const shouldCollectEmail = !isCollectingEmail && Math.random() > 0.3 // 70% chance to collect email
   
   if (shouldCollectEmail) {
-    setIsCollectingEmail(true)
-    setPendingQuestion(userMessage)
-    return await emailNotificationSystem.collectUserEmail(userMessage)
+    if (setIsCollectingEmail) setIsCollectingEmail(true)
+    if (setPendingQuestion) setPendingQuestion(userMessage)
+    return `🎯 **That's a great question!** I want to make sure you get the most comprehensive answer possible.\n\n**Can you provide your email address?** Our Constructify experts will research this personally and send you a detailed response within 2 hours.\n\n📧 **Just reply with your email** (like: your-email@company.com) and I'll get this to our team immediately!\n\n*Your question: "${userMessage}"*`
   }
   
   // Alternative responses for when not collecting email
@@ -811,11 +821,11 @@ function getIntelligentResponse(userMessage: string): string {
 }
 
 // Enhanced Unknown Question Logging System with Email Integration
-function logUnknownQuestion(userMessage: string): void {
+function logUnknownQuestion(userMessage: string, context: string[] = []): void {
   const unknownQuestion = {
     message: userMessage,
     timestamp: new Date().toISOString(),
-    conversationContext: conversationContext,
+    conversationContext: context,
     sessionId: Date.now().toString(),
     userEmail: null, // Will be collected if user provides it
     status: 'pending_email_collection',
@@ -825,8 +835,9 @@ function logUnknownQuestion(userMessage: string): void {
   // Log to console (in production, this would go to a database/queue for admin review)
   console.log(`🔍 UNKNOWN QUESTION LOGGED:`, unknownQuestion)
   
-  // Trigger admin email notification
-  emailNotificationSystem.notifyAdmin(unknownQuestion)
+  // Trigger admin email notification using new utility
+  sendAdminNotification(unknownQuestion)
+  storeUnknownQuestion(unknownQuestion)
   
   // In production, this would be sent to an admin review system
   // await addToAdminReviewQueue(unknownQuestion)
@@ -837,10 +848,6 @@ function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
-
-// Enhanced user state management for email collection
-const [isCollectingEmail, setIsCollectingEmail] = useState(false)
-const [pendingQuestion, setPendingQuestion] = useState<string>('')
 
 export default function LiveChat() {
   const [isOpen, setIsOpen] = useState(false)
@@ -860,6 +867,8 @@ export default function LiveChat() {
   const [conversationContext, setConversationContext] = useState<string[]>([])
   const [userSatisfaction, setUserSatisfaction] = useState<'positive' | 'negative' | null>(null)
   const [featureRequests, setFeatureRequests] = useState<string[]>([])
+  const [isCollectingEmail, setIsCollectingEmail] = useState(false)
+  const [pendingQuestion, setPendingQuestion] = useState<string>('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -916,7 +925,14 @@ export default function LiveChat() {
     setConversationContext(prev => [...prev, userMessage].slice(-5)) // Keep last 5 messages for context
     
     // Use the intelligent response system
-    return getIntelligentResponse(userMessage)
+    return getIntelligentResponse(
+      userMessage, 
+      conversationContext, 
+      isCollectingEmail, 
+      pendingQuestion, 
+      setIsCollectingEmail, 
+      setPendingQuestion
+    )
   }
 
   const handleSatisfactionFeedback = (feedback: 'positive' | 'negative') => {
