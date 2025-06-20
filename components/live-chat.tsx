@@ -132,22 +132,22 @@ export default function LiveChat() {
       <div className="fixed bottom-6 right-6 z-50">
         <div className="relative">
           {/* Pulsing rings */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-yellow-500 animate-ping opacity-20"></div>
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-yellow-500 animate-pulse opacity-30"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[hsl(225,70%,12%)] to-[hsl(48,8%,85%)] animate-ping opacity-20"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[hsl(225,70%,12%)] to-[hsl(48,8%,85%)] animate-pulse opacity-30"></div>
           
           <Button
             onClick={() => setIsOpen(true)}
-            className="relative h-16 w-16 rounded-full bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 hover:from-blue-700 hover:via-blue-600 hover:to-blue-800 shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 border-2 border-yellow-400/30 hover:border-yellow-400/60"
+            className="relative h-16 w-16 rounded-full bg-gradient-to-br from-[hsl(225,70%,12%)] via-[hsl(220,80%,8%)] to-[hsl(225,70%,12%)] hover:from-[hsl(220,80%,8%)] hover:via-[hsl(225,70%,12%)] hover:to-[hsl(220,80%,8%)] shadow-2xl hover:shadow-[hsl(225,70%,12%)]/50 transition-all duration-500 hover:scale-110 border-2 border-[hsl(48,8%,85%)]/30 hover:border-[hsl(48,8%,85%)]/60"
             aria-label="Open live chat"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400/20 to-blue-600/20 animate-spin-slow"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[hsl(48,8%,85%)]/20 to-[hsl(225,70%,12%)]/20 animate-spin-slow"></div>
             <MessageSquare className="h-7 w-7 text-white relative z-10" />
-            <Sparkles className="absolute top-1 right-1 h-4 w-4 text-yellow-400 animate-pulse" />
+            <Sparkles className="absolute top-1 right-1 h-4 w-4 text-[hsl(48,8%,85%)] animate-pulse" />
           </Button>
           
           {/* Floating notification */}
-          <div className="absolute -top-2 -left-2 h-6 w-6 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center animate-bounce">
-            <span className="text-xs font-black text-blue-900">!</span>
+          <div className="absolute -top-2 -left-2 h-6 w-6 bg-gradient-to-r from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)] rounded-full flex items-center justify-center animate-bounce">
+            <span className="text-xs font-black text-[hsl(225,70%,12%)]">!</span>
           </div>
         </div>
       </div>
@@ -159,39 +159,39 @@ export default function LiveChat() {
       <div className={`relative transition-all duration-500 ${
         isMinimized ? 'h-20 w-80' : 'h-[32rem] w-96'
       }`}>
-        {/* Glowing background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/95 to-blue-900/90 backdrop-blur-2xl rounded-3xl border-2 border-yellow-400/30 shadow-2xl shadow-blue-900/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-blue-600/10 rounded-3xl"></div>
+        {/* Glowing background - Using SIGN IN button navy color */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(225,70%,12%)]/90 via-[hsl(220,80%,8%)]/95 to-[hsl(225,70%,12%)]/90 backdrop-blur-2xl rounded-3xl border-2 border-[hsl(48,8%,85%)]/30 shadow-2xl shadow-[hsl(225,70%,12%)]/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(48,8%,85%)]/10 via-transparent to-[hsl(225,70%,12%)]/10 rounded-3xl"></div>
         
-        {/* Animated border */}
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-yellow-400 via-blue-500 to-yellow-400 p-[2px] animate-pulse">
-          <div className="h-full w-full bg-gradient-to-br from-blue-900/95 via-blue-800/98 to-blue-900/95 rounded-3xl"></div>
+        {/* Animated border - Using GET A DEMO button tan color */}
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-[hsl(48,8%,85%)] via-[hsl(45,12%,78%)] to-[hsl(48,8%,85%)] p-[2px] animate-pulse">
+          <div className="h-full w-full bg-gradient-to-br from-[hsl(225,70%,12%)]/95 via-[hsl(220,80%,8%)]/98 to-[hsl(225,70%,12%)]/95 rounded-3xl"></div>
         </div>
 
         <div className="relative h-full w-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-yellow-400/20">
+          <div className="flex items-center justify-between p-6 border-b border-[hsl(48,8%,85%)]/20">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-lg">
-                  <Bot className="h-5 w-5 text-blue-900" />
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)] flex items-center justify-center shadow-lg">
+                  <Bot className="h-5 w-5 text-[hsl(225,70%,12%)]" />
                 </div>
-                <div className="absolute -top-1 -right-1 h-4 w-4 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-blue-900 animate-pulse"></div>
+                <div className="absolute -top-1 -right-1 h-4 w-4 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-[hsl(225,70%,12%)] animate-pulse"></div>
               </div>
               <div>
-                <h3 className="font-black text-white text-lg bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent">
+                <h3 className="font-black text-white text-lg bg-gradient-to-r from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)] bg-clip-text text-transparent">
                   Constructify AI
                 </h3>
-                <p className="text-sm text-blue-200 font-medium">⚡ Lightning fast replies</p>
+                <p className="text-sm text-gray-300 font-medium">⚡ Lightning fast replies</p>
               </div>
-              <Sparkles className="h-5 w-5 text-yellow-400 animate-pulse" />
+              <Sparkles className="h-5 w-5 text-[hsl(48,8%,85%)] animate-pulse" />
             </div>
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="h-8 w-8 p-0 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10"
+                className="h-8 w-8 p-0 text-[hsl(48,8%,85%)] hover:text-[hsl(45,12%,78%)] hover:bg-[hsl(48,8%,85%)]/10"
               >
                 {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
               </Button>
@@ -199,7 +199,7 @@ export default function LiveChat() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="h-8 w-8 p-0 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10"
+                className="h-8 w-8 p-0 text-[hsl(48,8%,85%)] hover:text-[hsl(45,12%,78%)] hover:bg-[hsl(48,8%,85%)]/10"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -209,7 +209,7 @@ export default function LiveChat() {
           {!isMinimized && (
             <>
               {/* Messages */}
-              <div className="h-80 overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-track-blue-900/20 scrollbar-thumb-yellow-400/50">
+              <div className="h-80 overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-track-[hsl(225,70%,12%)]/20 scrollbar-thumb-[hsl(48,8%,85%)]/50">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -220,19 +220,19 @@ export default function LiveChat() {
                     }`}>
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
                         message.sender === 'user' 
-                          ? 'bg-gradient-to-br from-yellow-400 to-yellow-500' 
-                          : 'bg-gradient-to-br from-blue-600 to-blue-700'
+                          ? 'bg-gradient-to-br from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)]' 
+                          : 'bg-gradient-to-br from-[hsl(225,70%,12%)] to-[hsl(220,80%,8%)]'
                       }`}>
                         {message.sender === 'user' ? (
-                          <User className="h-4 w-4 text-blue-900" />
+                          <User className="h-4 w-4 text-[hsl(225,70%,12%)]" />
                         ) : (
                           <Bot className="h-4 w-4 text-white" />
                         )}
                       </div>
                       <div className={`px-4 py-3 rounded-2xl text-sm font-medium shadow-lg transition-all duration-300 hover:scale-105 ${
                         message.sender === 'user'
-                          ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-blue-900 border border-yellow-300'
-                          : 'bg-gradient-to-br from-white to-blue-50 text-blue-900 border border-blue-200'
+                          ? 'bg-gradient-to-br from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)] text-[hsl(225,70%,12%)] border border-[hsl(45,12%,78%)]'
+                          : 'bg-gradient-to-br from-white to-gray-50 text-[hsl(225,70%,12%)] border border-gray-200'
                       }`}>
                         {message.text}
                       </div>
@@ -243,14 +243,14 @@ export default function LiveChat() {
                 {isTyping && (
                   <div className="flex justify-start">
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
+                      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[hsl(225,70%,12%)] to-[hsl(220,80%,8%)] flex items-center justify-center shadow-lg">
                         <Bot className="h-4 w-4 text-white" />
                       </div>
-                      <div className="bg-gradient-to-br from-white to-blue-50 px-4 py-3 rounded-2xl border border-blue-200 shadow-lg">
+                      <div className="bg-gradient-to-br from-white to-gray-50 px-4 py-3 rounded-2xl border border-gray-200 shadow-lg">
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-yellow-500 rounded-full animate-bounce"></div>
-                          <div className="w-2 h-2 bg-gradient-to-r from-yellow-500 to-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                          <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-yellow-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-2 h-2 bg-gradient-to-r from-[hsl(225,70%,12%)] to-[hsl(48,8%,85%)] rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-gradient-to-r from-[hsl(48,8%,85%)] to-[hsl(225,70%,12%)] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-2 h-2 bg-gradient-to-r from-[hsl(225,70%,12%)] to-[hsl(48,8%,85%)] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                         </div>
                       </div>
                     </div>
@@ -260,7 +260,7 @@ export default function LiveChat() {
               </div>
 
               {/* Input */}
-              <div className="p-6 border-t border-yellow-400/20">
+              <div className="p-6 border-t border-[hsl(48,8%,85%)]/20">
                 <div className="flex gap-3">
                   <div className="relative flex-1">
                     <Input
@@ -268,14 +268,14 @@ export default function LiveChat() {
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder="Type your message..."
-                      className="bg-gradient-to-r from-white/90 to-blue-50/90 border-2 border-yellow-400/30 focus:border-yellow-400 text-blue-900 placeholder:text-blue-600 font-medium rounded-xl h-12 px-4 shadow-lg"
+                      className="bg-gradient-to-r from-white/90 to-gray-50/90 border-2 border-[hsl(48,8%,85%)]/30 focus:border-[hsl(48,8%,85%)] text-[hsl(225,70%,12%)] placeholder:text-gray-600 font-medium rounded-xl h-12 px-4 shadow-lg"
                     />
-                    <Zap className="absolute right-3 top-3 h-6 w-6 text-yellow-500 animate-pulse" />
+                    <Zap className="absolute right-3 top-3 h-6 w-6 text-[hsl(45,12%,78%)] animate-pulse" />
                   </div>
                   <Button
                     onClick={handleSendMessage}
                     disabled={!inputValue.trim()}
-                    className="bg-gradient-to-br from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-blue-900 font-black h-12 w-12 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
+                    className="bg-gradient-to-br from-[hsl(48,8%,85%)] to-[hsl(45,12%,78%)] hover:from-[hsl(45,12%,78%)] hover:to-[hsl(48,8%,85%)] text-[hsl(225,70%,12%)] font-black h-12 w-12 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
                   >
                     <Send className="h-5 w-5" />
                   </Button>
