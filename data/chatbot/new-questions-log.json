@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "description": "Log of unknown questions encountered by the chatbot that need admin review",
+    "lastReviewed": "2024-12-19T00:00:00Z",
+    "totalQuestions": 0,
+    "pendingReview": 0,
+    "approved": 0,
+    "rejected": 0
+  },
+  "pendingQuestions": [
+    {
+      "id": "example-001",
+      "timestamp": "2024-12-19T00:00:00Z",
+      "userMessage": "Example question that wasn't recognized",
+      "conversationContext": ["Previous message 1", "Previous message 2"],
+      "sessionId": "example-session-123",
+      "status": "pending",
+      "adminNotes": "",
+      "suggestedResponse": "",
+      "category": "uncategorized",
+      "priority": "medium"
+    }
+  ],
+  "reviewedQuestions": [
+    {
+      "id": "example-002",
+      "timestamp": "2024-12-19T00:00:00Z",
+      "userMessage": "Example reviewed question",
+      "status": "approved",
+      "adminNotes": "Added to FAQ database",
+      "reviewedBy": "admin@constructify.com",
+      "reviewedAt": "2024-12-19T01:00:00Z",
+      "addedToKnowledgeBase": true,
+      "category": "features",
+      "suggestedResponse": "Approved response that was added to the knowledge base"
+    }
+  ],
+  "categories": [
+    "features",
+    "pricing",
+    "technical",
+    "integrations",
+    "security",
+    "industries",
+    "support",
+    "uncategorized"
+  ],
+  "adminInstructions": {
+    "reviewProcess": "1. Review pending questions weekly, 2. Categorize by topic, 3. Approve/reject with notes, 4. Add approved responses to knowledge base",
+    "priorityLevels": {
+      "high": "Frequently asked questions or critical missing information",
+      "medium": "Important but not urgent questions",
+      "low": "Nice-to-have or rarely asked questions"
+    },
+    "approvalCriteria": "Questions should be relevant to Constructify's platform, commonly asked, and answerable with accurate information"
+  }
+} 

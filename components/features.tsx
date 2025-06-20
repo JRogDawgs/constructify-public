@@ -49,22 +49,9 @@ const FeatureCard = memo(({ feature, index }: { feature: typeof features[0], ind
   
   return (
     <div 
-      className="group relative overflow-hidden rounded-2xl border border-white/20 backdrop-blur-xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
-      style={{
-        background: `linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)`,
-        boxShadow: '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2)',
-        animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-      }}
+      className={`group relative overflow-hidden rounded-2xl border border-white/20 backdrop-blur-xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 feature-card feature-card-delay-${index}`}
       role="article"
       aria-labelledby={`feature-${feature.id}`}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'scale(1.05) translateY(-8px)'
-        e.currentTarget.style.boxShadow = '0 20px 60px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'scale(1) translateY(0)'
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2)'
-      }}
     >
       {/* Animated gradient background */}
       <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -80,8 +67,7 @@ const FeatureCard = memo(({ feature, index }: { feature: typeof features[0], ind
       <div className="relative">
         <h3 
           id={`feature-${feature.id}`} 
-          className="text-xl font-bold text-white mb-3 group-hover:text-white transition-colors duration-300"
-          style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}
+          className="text-xl font-bold text-white mb-3 group-hover:text-white transition-colors duration-300 feature-title-shadow"
         >
           {feature.name}
         </h3>

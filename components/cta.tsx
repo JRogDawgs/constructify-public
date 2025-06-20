@@ -39,10 +39,7 @@ export default function CTA() {
             transition={{ duration: 0.8 }}
           >
             {/* Glass Morphism Container */}
-            <div className="relative overflow-hidden rounded-3xl border-2 border-white/20 backdrop-blur-2xl p-12 md:p-16" style={{
-              background: `linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)`,
-              boxShadow: '0 25px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)'
-            }}>
+            <div className="relative overflow-hidden rounded-3xl border-2 border-white/20 backdrop-blur-2xl p-12 md:p-16 cta-glass-container">
               {/* Animated shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full animate-pulse"></div>
               
@@ -54,12 +51,7 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight" style={{
-                    textShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(147, 51, 234, 0.3)',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #a855f7 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}>
+                  <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight cta-title-gradient">
                     TRANSFORM YOUR
                     <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-400 to-orange-500">
@@ -71,10 +63,7 @@ export default function CTA() {
 
                 {/* Power Description */}
                 <motion.p 
-                  className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium"
-                  style={{
-                    textShadow: '0 2px 8px rgba(0,0,0,0.5)'
-                  }}
+                  className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium cta-description-shadow"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -118,14 +107,7 @@ export default function CTA() {
                   <Link href="/signup" aria-label="Start your free trial">
                     <Button 
                       size="lg"
-                      className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden"
-                      style={{
-                        background: `linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)`,
-                        borderColor: 'rgba(255,255,255,0.3)',
-                        color: '#fefefe',
-                        textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)'
-                      }}
+                      className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-primary-button"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                       <span className="relative z-10 flex items-center gap-3">
@@ -139,15 +121,7 @@ export default function CTA() {
                   <Button 
                     size="lg"
                     onClick={() => setIsDemoModalOpen(true)}
-                    className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden"
-                    style={{
-                      background: `linear-gradient(135deg, hsl(var(--constructify-tan-light)) 0%, hsl(var(--constructify-tan)) 100%)`,
-                      borderColor: `hsl(var(--constructify-tan))`,
-                      color: '#fefefe',
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)',
-                      animation: 'subtle-glow 2s ease-in-out infinite'
-                    }}
+                    className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-secondary-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     <span className="relative z-10 flex items-center gap-3">

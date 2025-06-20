@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-12-19T00:00:00Z",
+    "source": "External Constructify Platform",
+    "description": "Additional FAQ data and platform features from the main Constructify site"
+  },
+  "faqs": {
+    "advanced_project_features": "Advanced project management features including BIM integration, 4D scheduling, and real-time cost tracking with automated variance reporting.",
+    "enterprise_integrations": "Enterprise integrations with leading construction software including Procore, Autodesk, PlanGrid, and custom ERP systems.",
+    "advanced_analytics": "Advanced analytics and business intelligence with predictive modeling, trend analysis, and custom dashboard creation.",
+    "mobile_offline_capabilities": "Full offline mobile capabilities allowing field workers to continue operations without internet connectivity with automatic sync when reconnected."
+  },
+  "advancedFeatures": {
+    "bimIntegration": "Building Information Modeling (BIM) integration with 3D model viewing, clash detection, and automated quantity takeoffs.",
+    "iotDevices": "IoT device integration for equipment monitoring, environmental sensors, and automated safety alerts.",
+    "machineLearning": "Machine learning algorithms for predictive maintenance, risk assessment, and resource optimization.",
+    "blockchainCompliance": "Blockchain-based compliance tracking for immutable audit trails and smart contract automation."
+  },
+  "additionalVerticals": {
+    "hvac": "Specialized HVAC contractor features including ductwork tracking, system commissioning, and energy efficiency reporting.",
+    "plumbing": "Plumbing-specific tools for pipe tracking, pressure testing, and water quality compliance monitoring.",
+    "electrical": "Electrical contractor features with circuit tracking, load calculations, and electrical safety compliance.",
+    "roofing": "Roofing project management with weather tracking, material optimization, and warranty management."
+  },
+  "newIndustries": {
+    "hospitalityConstruction": "Hotels, restaurants, and entertainment venues with specialized permitting and health code compliance.",
+    "dataCenter": "Data center construction with specialized cooling, power, and security requirements.",
+    "cleanEnergy": "Solar, wind, and renewable energy project management with environmental impact tracking."
+  },
+  "instructions": {
+    "usage": "This file will be populated with additional data from the external Constructify platform when provided by Jeff Rogers.",
+    "integration": "Data from this file will be automatically merged into the chatbot's knowledge base using the externalDataFeed.syncExternalData() method.",
+    "format": "All new entries should follow the existing JSON structure with descriptive keys and detailed explanations."
+  }
+} 
