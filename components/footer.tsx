@@ -32,7 +32,7 @@ const footerLinks = {
 const FooterLink = memo(({ href, label, className }: { href: string; label: string; className?: string }) => (
   <Link 
     href={href} 
-    className={`text-white/80 transition-colors hover:text-white ${className || ''}`}
+    className={`text-white/80 transition-colors hover:text-white text-sm ${className || ''}`}
     style={{
       textShadow: '0 0 8px hsl(var(--constructify-navy-dark)), 0 0 4px hsl(var(--constructify-navy-dark))'
     }}
@@ -51,12 +51,12 @@ const FooterSection = memo(({
   title: string
   links: Array<{ href: string; label: string; icon?: any }>
 }) => (
-  <div className="space-y-4">
-    <h3 className="font-semibold text-white" style={{
+  <div className="space-y-2">
+    <h3 className="font-semibold text-white text-sm" style={{
       textShadow: '0 0 8px hsl(var(--constructify-navy-dark)), 0 0 4px hsl(var(--constructify-navy-dark))'
     }}>{title}</h3>
     {title === "Connect" ? (
-      <div className="flex space-x-4">
+      <div className="flex space-x-3">
         {links.map(({ href, icon: Icon, label }) => (
           <Link
             key={href}
@@ -69,13 +69,21 @@ const FooterSection = memo(({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon className="h-5 w-5" aria-hidden="true" />
+            <Icon className="h-4 w-4" aria-hidden="true" />
             <span className="sr-only">{label}</span>
           </Link>
         ))}
       </div>
+    ) : title === "Solutions" ? (
+      <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+        {links.map(({ href, label }) => (
+          <div key={`${href}-${label}`}>
+            <FooterLink href={href} label={label} />
+          </div>
+        ))}
+      </div>
     ) : (
-      <ul className="space-y-3" role="list">
+      <ul className="space-y-1" role="list">
         {links.map(({ href, label }) => (
           <li key={`${href}-${label}`}>
             <FooterLink href={href} label={label} />
@@ -92,38 +100,67 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="w-full px-6 py-8" role="contentinfo">
-      <div className="mx-auto max-w-screen-2xl">
-        <div className="bg-white/20 backdrop-blur-xl rounded-3xl border-2 border-white/30 p-8" style={{
-          boxShadow: '0 20px 60px rgba(255, 255, 255, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.3)'
+    <footer className="relative w-full px-6 py-4 overflow-hidden" role="contentinfo">
+      {/* Flowing Water-like Gradient Background - Notre Dame Colors */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-800 via-blue-900 via-slate-800 to-slate-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-yellow-400/40 via-blue-800/30 via-blue-900/40 to-slate-900/50 animate-pulse"></div>
+        {/* Flowing wave effect */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute w-full h-full bg-gradient-to-r from-transparent via-yellow-300/20 to-transparent transform -skew-x-12 animate-pulse" style={{
+            animation: 'flow-wave 8s ease-in-out infinite'
+          }}></div>
+          <div className="absolute w-full h-full bg-gradient-to-r from-transparent via-blue-800/30 to-transparent transform skew-x-12 animate-pulse" style={{
+            animation: 'flow-wave 6s ease-in-out infinite reverse'
+          }}></div>
+        </div>
+        {/* Floating bubbles effect */}
+        <div className="absolute top-4 left-8 w-2 h-2 bg-yellow-300/40 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute top-12 right-16 w-3 h-3 bg-blue-800/40 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-8 left-1/4 w-1.5 h-1.5 bg-yellow-400/50 rounded-full animate-bounce" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-16 right-8 w-2.5 h-2.5 bg-blue-900/40 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+      </div>
+      
+      <div className="mx-auto max-w-screen-2xl relative z-10">
+        <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-6" style={{
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.3)'
         }}>
-          <div className="flex flex-col gap-8 md:flex-row">
-            <div className="flex-1 space-y-4">
-              <div className="flex items-center space-x-3">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6 items-start">
+            {/* Logo and Description - Takes 2 columns */}
+            <div className="md:col-span-2 space-y-2">
+              <div className="flex items-center space-x-2">
                 <img 
                   src="/images/3d logo.png" 
                   alt="Constructify Logo" 
-                  className="h-10 w-auto filter drop-shadow-lg"
+                  className="h-8 w-auto filter drop-shadow-lg"
                 />
-                <h2 className="font-bold text-white text-xl" style={{
+                <h2 className="font-bold text-white text-lg" style={{
                   textShadow: '0 0 8px hsl(var(--constructify-navy-dark)), 0 0 4px hsl(var(--constructify-navy-dark))'
                 }}>Constructify</h2>
               </div>
-              <p className="text-white/90 leading-relaxed" style={{
+              <p className="text-white/90 text-sm leading-relaxed" style={{
                 textShadow: '0 0 8px hsl(var(--constructify-navy-dark)), 0 0 4px hsl(var(--constructify-navy-dark))'
               }}>
                 Pioneering construction solutions for the digital age.
               </p>
             </div>
-            <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-4">
+            
+            {/* Solutions - Takes 2 columns with 2-column grid inside */}
+            <div className="md:col-span-2">
               <FooterSection title="Solutions" links={footerLinks.solutions} />
+            </div>
+            
+            {/* Company, Legal, and Social - Takes 2 columns with 3-column grid inside */}
+            <div className="md:col-span-2 grid grid-cols-3 gap-4">
               <FooterSection title="Company" links={footerLinks.company} />
               <FooterSection title="Legal" links={footerLinks.legal} />
               <FooterSection title="Connect" links={footerLinks.social} />
             </div>
           </div>
-          <div className="border-t border-white/20 mt-8 pt-6">
-            <p className="text-center text-white/80" style={{
+          
+          {/* Copyright - Reduced padding */}
+          <div className="border-t border-white/20 mt-4 pt-3">
+            <p className="text-center text-white/80 text-xs" style={{
               textShadow: '0 0 8px hsl(var(--constructify-navy-dark)), 0 0 4px hsl(var(--constructify-navy-dark))'
             }}>
               © {currentYear} Constructify, Inc. All rights reserved.

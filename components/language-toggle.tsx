@@ -37,8 +37,8 @@ export default function LanguageToggle() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          size="sm"
-          className="h-9 px-3 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 border border-white/20 hover:border-white/30"
+          size="lg"
+          className="h-14 px-6 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 border border-white/20 hover:border-white/40 rounded-xl backdrop-blur-sm"
         >
           <Globe className="h-4 w-4 mr-2" />
           <span className="text-lg mr-1">{currentLanguage.flag}</span>

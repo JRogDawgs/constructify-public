@@ -36,7 +36,7 @@ export default function RootLayout({
             <AuthProvider>
               <div className="relative min-h-screen flex flex-col">
                 <Navbar />
-                <main className="flex-1">
+                <main className="flex-1 pt-24">
                   <MouseMoveEffect />
                   {children}
                 </main>

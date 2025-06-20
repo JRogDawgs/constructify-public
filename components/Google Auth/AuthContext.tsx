@@ -16,12 +16,13 @@ import {
   GoogleAuthProvider,
   signOut as firebaseSignOut,
   User,
+  UserCredential,
 } from 'firebase/auth';
 import { app } from './firebase';
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: () => Promise<UserCredential | undefined>;
   signOut: () => Promise<void>;
 }
 

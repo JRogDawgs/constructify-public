@@ -20,13 +20,13 @@ export default function CTA() {
     <>
       <section className="relative w-full py-24 md:py-32 overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-800/20 via-blue-900/20 to-slate-800/20 animate-pulse"></div>
           {/* Floating particles */}
-          <div className="absolute top-20 left-20 w-4 h-4 bg-blue-400/30 rounded-full animate-bounce delay-1000"></div>
-          <div className="absolute top-40 right-32 w-6 h-6 bg-purple-400/30 rounded-full animate-bounce delay-2000"></div>
-          <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-cyan-400/30 rounded-full animate-bounce delay-3000"></div>
-          <div className="absolute bottom-20 right-20 w-5 h-5 bg-blue-400/30 rounded-full animate-bounce delay-500"></div>
+          <div className="absolute top-20 left-20 w-4 h-4 bg-blue-800/30 rounded-full animate-bounce delay-1000"></div>
+          <div className="absolute top-40 right-32 w-6 h-6 bg-blue-900/30 rounded-full animate-bounce delay-2000"></div>
+          <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-slate-700/30 rounded-full animate-bounce delay-3000"></div>
+          <div className="absolute bottom-20 right-20 w-5 h-5 bg-blue-800/30 rounded-full animate-bounce delay-500"></div>
         </div>
 
         <div className="container relative z-10 mx-auto px-6">
@@ -66,7 +66,7 @@ export default function CTA() {
                       CONSTRUCTION EMPIRE
                     </span>
                   </h2>
-                  <div className="w-32 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
+                  <div className="w-32 h-1 bg-gradient-to-r from-blue-800 to-slate-700 mx-auto rounded-full"></div>
                 </motion.div>
 
                 {/* Power Description */}
@@ -99,7 +99,7 @@ export default function CTA() {
                       whileHover={{ y: -5 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <stat.icon className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                      <stat.icon className="h-8 w-8 text-blue-300 mx-auto mb-2" />
                       <div className="text-2xl md:text-3xl font-black text-white">{stat.value}</div>
                       <div className="text-sm text-white/80 font-medium">{stat.label}</div>
                     </motion.div>
@@ -120,16 +120,15 @@ export default function CTA() {
                       size="lg"
                       className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden"
                       style={{
-                        background: `linear-gradient(135deg, hsl(var(--constructify-tan-light)) 0%, hsl(var(--constructify-tan)) 100%)`,
-                        borderColor: `hsl(var(--constructify-tan))`,
+                        background: `linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)`,
+                        borderColor: 'rgba(255,255,255,0.3)',
                         color: '#fefefe',
                         textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
                         fontFamily: 'Arial Black, sans-serif',
-                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)',
-                        animation: 'subtle-glow 2s ease-in-out infinite'
+                        boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)'
                       }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                       <span className="relative z-10 flex items-center gap-3">
                         🚀 START FREE TRIAL
                         <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
@@ -143,15 +142,16 @@ export default function CTA() {
                     onClick={() => setIsDemoModalOpen(true)}
                     className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden"
                     style={{
-                      background: `linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)`,
-                      borderColor: 'rgba(255,255,255,0.3)',
+                      background: `linear-gradient(135deg, hsl(var(--constructify-tan-light)) 0%, hsl(var(--constructify-tan)) 100%)`,
+                      borderColor: `hsl(var(--constructify-tan))`,
                       color: '#fefefe',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
                       fontFamily: 'Arial Black, sans-serif',
-                      boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)'
+                      boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)',
+                      animation: 'subtle-glow 2s ease-in-out infinite'
                     }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     <span className="relative z-10 flex items-center gap-3">
                       🎬 WATCH DEMO
                     </span>

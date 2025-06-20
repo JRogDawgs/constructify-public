@@ -44,20 +44,7 @@ export default function Hero() {
               alt="Constructify Logo" 
               className="h-64 w-auto md:h-80 lg:h-96 drop-shadow-2xl"
             />
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white -mt-6 md:-mt-8 lg:-mt-12" style={{
-              textShadow: `
-                1px 1px 0 hsl(var(--constructify-gold)),
-                2px 2px 0 hsl(var(--constructify-gold)),
-                3px 3px 0 hsl(var(--constructify-gold-dark)),
-                4px 4px 0 hsl(var(--constructify-gold-dark)),
-                5px 5px 0 hsl(var(--constructify-gold-dark)),
-                6px 6px 0 hsl(var(--constructify-gold-dark)),
-                7px 7px 0 hsl(var(--constructify-gold-dark)),
-                8px 8px 0 rgba(0,0,0,0.4),
-                9px 9px 0 rgba(0,0,0,0.4),
-                10px 10px 10px rgba(0,0,0,0.6)
-              `
-            }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white -mt-6 md:-mt-8 lg:-mt-12 hero-title-shadow">
               Constructify
             </h1>
           </div>
@@ -80,22 +67,7 @@ export default function Hero() {
             <Link href="/solutions">
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group"
-                style={{
-                  background: `linear-gradient(135deg, hsl(var(--constructify-tan-light)) 0%, hsl(var(--constructify-tan)) 100%)`,
-                  borderColor: `hsl(var(--constructify-tan))`,
-                  color: '#fefefe',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                  fontFamily: 'Arial Black, sans-serif',
-                  boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3)',
-                  animation: 'subtle-glow 3s ease-in-out infinite'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = `linear-gradient(135deg, hsl(var(--constructify-tan)) 0%, hsl(var(--constructify-tan-light)) 100%)`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = `linear-gradient(135deg, hsl(var(--constructify-tan-light)) 0%, hsl(var(--constructify-tan)) 100%)`
-                }}
+                className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                 {t('hero.ctaPrimary')}
@@ -105,21 +77,7 @@ export default function Hero() {
             <Button 
               size="lg"
               onClick={handleModalOpen}
-              className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group"
-              style={{
-                background: `linear-gradient(135deg, hsl(var(--constructify-navy-dark)) 0%, hsl(220 80% 8%) 100%)`,
-                borderColor: `hsl(var(--constructify-navy-dark))`,
-                color: '#fefefe',
-                textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                fontFamily: 'Arial Black, sans-serif',
-                boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, hsl(220 80% 8%) 0%, hsl(var(--constructify-navy-dark)) 100%)`
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = `linear-gradient(135deg, hsl(var(--constructify-navy-dark)) 0%, hsl(220 80% 8%) 100%)`
-              }}
+              className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-secondary-button"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
               {t('hero.ctaSecondary')}
