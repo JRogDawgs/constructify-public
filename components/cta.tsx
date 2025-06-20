@@ -124,7 +124,6 @@ export default function CTA() {
                         borderColor: 'rgba(255,255,255,0.3)',
                         color: '#fefefe',
                         textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                        fontFamily: 'Arial Black, sans-serif',
                         boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)'
                       }}
                     >
@@ -146,7 +145,6 @@ export default function CTA() {
                       borderColor: `hsl(var(--constructify-tan))`,
                       color: '#fefefe',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      fontFamily: 'Arial Black, sans-serif',
                       boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.2), 0 8px 25px rgba(0,0,0,0.4)',
                       animation: 'subtle-glow 2s ease-in-out infinite'
                     }}

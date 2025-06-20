@@ -8,6 +8,7 @@ import { AuthProvider } from "@/components/Google Auth/AuthContext"
 import I18nProvider from "@/components/i18n-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import LiveChat from "@/components/live-chat"
 import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -42,6 +43,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
               </div>
+              <LiveChat />
               <Toaster />
             </AuthProvider>
           </I18nProvider>

@@ -114,8 +114,8 @@ export default function Navbar() {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <LanguageToggle />
             <ThemeToggle />
+            <LanguageToggle />
             <Button 
               size="lg"
               onClick={handleDemoModalOpen}
