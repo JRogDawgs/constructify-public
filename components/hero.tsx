@@ -44,7 +44,7 @@ export default function Hero() {
               alt="Constructify Logo" 
               className="h-64 w-auto md:h-80 lg:h-96 drop-shadow-2xl"
             />
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white -mt-6 md:-mt-8 lg:-mt-12 hero-title-shadow">
+            <h1 className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white -mt-6 md:-mt-8 lg:-mt-12 hero-title-shadow">
               Constructify
             </h1>
           </div>
