@@ -4,8 +4,11 @@ import { useEffect, useState } from "react"
 
 export default function MouseMoveEffect() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+    
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.clientX, y: event.clientY })
     }
@@ -16,6 +19,10 @@ export default function MouseMoveEffect() {
       window.removeEventListener("mousemove", handleMouseMove)
     }
   }, [])
+
+  if (!mounted) {
+    return null
+  }
 
   return (
     <div

@@ -31,8 +31,8 @@ export default function Hero() {
             <source src="/videos/construction-bg.mp4" type="video/mp4" />
             <p>Your browser does not support the video tag.</p>
           </video>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-background/75" aria-hidden="true" />
+          {/* Dark navy gradient overlay for readability - matches Constructify Field brand */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70" aria-hidden="true" />
         </div>
 
         {/* Content */}

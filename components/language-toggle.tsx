@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -24,8 +24,29 @@ const languages = [
 export default function LanguageToggle() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="lg"
+        className="h-14 px-6 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 border border-white/20 hover:border-white/40 rounded-xl backdrop-blur-sm"
+        disabled
+      >
+        <Globe className="h-4 w-4 mr-2" />
+        <span className="text-lg mr-1">{languages[0].flag}</span>
+        <span className="font-medium">{languages[0].code.toUpperCase()}</span>
+        <ChevronDown className="h-3 w-3 ml-1 opacity-50" />
+      </Button>
+    );
+  }
 
   const changeLanguage = (languageCode: string) => {
     i18n.changeLanguage(languageCode);

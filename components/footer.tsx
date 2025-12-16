@@ -32,7 +32,7 @@ const footerLinks = {
 const FooterLink = memo(({ href, label, className }: { href: string; label: string; className?: string }) => (
   <Link 
     href={href} 
-    className={`text-white/80 transition-colors hover:text-white text-sm footer-text-shadow ${className || ''}`}
+    className={`text-slate-300 transition-colors hover:text-white text-sm ${className || ''}`}
     aria-label={label}
   >
     {label}
@@ -49,14 +49,14 @@ const FooterSection = memo(({
   links: Array<{ href: string; label: string; icon?: any }>
 }) => (
   <div className="space-y-2">
-    <h3 className="font-semibold text-white text-sm footer-text-shadow">{title}</h3>
+    <h3 className="font-semibold text-white text-sm">{title}</h3>
     {title === "Connect" ? (
       <div className="flex space-x-3">
         {links.map(({ href, icon: Icon, label }) => (
           <Link
             key={href}
             href={href}
-            className="text-white/80 transition-all duration-300 hover:text-white hover:scale-110 footer-text-shadow"
+            className="text-slate-300 transition-colors hover:text-white"
             aria-label={label}
             target="_blank"
             rel="noopener noreferrer"
@@ -92,57 +92,40 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative w-full px-6 py-4 overflow-hidden" role="contentinfo">
-      {/* Flowing Water-like Gradient Background - Notre Dame Colors */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-800 via-blue-900 via-slate-800 to-slate-900"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-yellow-400/40 via-blue-800/30 via-blue-900/40 to-slate-900/50 animate-pulse"></div>
-        {/* Flowing wave effect */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute w-full h-full bg-gradient-to-r from-transparent via-yellow-300/20 to-transparent transform -skew-x-12 animate-pulse footer-wave-1"></div>
-          <div className="absolute w-full h-full bg-gradient-to-r from-transparent via-blue-800/30 to-transparent transform skew-x-12 animate-pulse footer-wave-2"></div>
-        </div>
-        {/* Floating bubbles effect */}
-        <div className="absolute top-4 left-8 w-2 h-2 bg-yellow-300/40 rounded-full animate-bounce footer-bubble-delay-0"></div>
-        <div className="absolute top-12 right-16 w-3 h-3 bg-blue-800/40 rounded-full animate-bounce footer-bubble-delay-1"></div>
-        <div className="absolute bottom-8 left-1/4 w-1.5 h-1.5 bg-yellow-400/50 rounded-full animate-bounce footer-bubble-delay-2"></div>
-        <div className="absolute bottom-16 right-8 w-2.5 h-2.5 bg-blue-900/40 rounded-full animate-bounce footer-bubble-delay-0-5"></div>
-      </div>
-      
-      <div className="mx-auto max-w-screen-2xl relative z-10">
-        <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-6 footer-container">
+    <footer className="relative w-full px-6 py-4 bg-slate-900" role="contentinfo">
+      <div className="mx-auto max-w-screen-2xl">
+        <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6 items-start">
             {/* Logo and Description - Takes 2 columns */}
-            <div className="md:col-span-2 space-y-2">
+            <div className="md:col-span-2 space-y-2 p-4 rounded-lg border border-slate-700/50">
               <div className="flex items-center space-x-2">
                 <img 
                   src="/images/3d logo.png" 
                   alt="Constructify Logo" 
                   className="h-8 w-auto filter drop-shadow-lg"
                 />
-                <h2 className="font-bold text-white text-lg footer-text-shadow">Constructify</h2>
+                <h2 className="font-bold text-white text-lg">Constructify</h2>
               </div>
-              <p className="text-white/90 text-sm leading-relaxed footer-text-shadow">
+              <p className="text-slate-300 text-sm leading-relaxed">
                 Pioneering construction solutions for the digital age.
               </p>
             </div>
             
             {/* Solutions - Takes 2 columns with 2-column grid inside */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 p-4 rounded-lg border border-slate-700/50">
               <FooterSection title="Solutions" links={footerLinks.solutions} />
             </div>
             
             {/* Company, Legal, and Social - Takes 2 columns with 3-column grid inside */}
-            <div className="md:col-span-2 grid grid-cols-3 gap-4">
+            <div className="md:col-span-2 grid grid-cols-3 gap-4 p-4 rounded-lg border border-slate-700/50">
               <FooterSection title="Company" links={footerLinks.company} />
               <FooterSection title="Legal" links={footerLinks.legal} />
               <FooterSection title="Connect" links={footerLinks.social} />
             </div>
           </div>
           
-          {/* Copyright - Reduced padding */}
-          <div className="border-t border-white/20 mt-4 pt-3">
-            <p className="text-center text-white/80 text-xs footer-text-shadow">
+          <div className="border-t border-slate-700 mt-4 pt-3">
+            <p className="text-center text-slate-400 text-xs">
               © {currentYear} Constructify, Inc. All rights reserved.
             </p>
           </div>

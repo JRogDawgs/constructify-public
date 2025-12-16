@@ -26,16 +26,6 @@ export default function Navbar() {
   const [isSigningOut, setIsSigningOut] = useState(false)
   const { user, loading, signOut } = useAuth()
 
-  // Debug: Log auth state changes in navbar
-  useEffect(() => {
-    console.log('🧭 Navbar auth state:', {
-      loading,
-      hasUser: !!user,
-      userEmail: user?.email,
-      timestamp: new Date().toISOString()
-    });
-  }, [user, loading]);
-
   const navigationLinks = [
     { href: "/solutions", label: t('nav.solutions') },
     { href: "/industries", label: t('nav.industries') },
@@ -55,7 +45,7 @@ export default function Navbar() {
     try {
       await signOut()
     } catch (error) {
-      console.error('Error signing out:', error)
+      // Error signing out
     } finally {
       setIsSigningOut(false)
     }
@@ -100,7 +90,7 @@ export default function Navbar() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
-        <div className="flex h-24 items-center justify-between px-8 bg-white/20 backdrop-blur-xl border-b-2 border-white/30 navbar-header-container">
+        <div className="flex h-24 items-center justify-between px-8 bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 border-b border-slate-700/50 shadow-lg backdrop-blur-sm navbar-header-container">
           <div className="flex items-center">
             <Link href="/" className="mr-12 flex items-center space-x-3" aria-label="Home">
               <img 

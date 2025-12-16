@@ -2,14 +2,7 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 import type React from "react"
 import type { Metadata } from "next"
-import MouseMoveEffect from "@/components/mouse-move-effect"
-import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from "@/components/Google Auth/AuthContext"
-import I18nProvider from "@/components/i18n-provider"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
-import LiveChat from "@/components/live-chat"
-import { Toaster } from "sonner"
+import ClientLayout from "@/components/client-layout"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,28 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background text-foreground antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <I18nProvider>
-            <AuthProvider>
-              <div className="relative min-h-screen flex flex-col">
-                <Navbar />
-                <main className="flex-1 pt-24">
-                  <MouseMoveEffect />
-                  {children}
-                </main>
-                <Footer />
-              </div>
-              <LiveChat />
-              <Toaster />
-            </AuthProvider>
-          </I18nProvider>
-        </ThemeProvider>
+      <body className={`${inter.className} bg-background text-foreground antialiased`} suppressHydrationWarning>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   )

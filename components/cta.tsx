@@ -19,15 +19,7 @@ export default function CTA() {
   return (
     <>
       <section className="relative w-full py-24 md:py-32 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-800/20 via-blue-900/20 to-slate-800/20 animate-pulse"></div>
-          {/* Floating particles */}
-          <div className="absolute top-20 left-20 w-4 h-4 bg-blue-800/30 rounded-full animate-bounce delay-1000"></div>
-          <div className="absolute top-40 right-32 w-6 h-6 bg-blue-900/30 rounded-full animate-bounce delay-2000"></div>
-          <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-slate-700/30 rounded-full animate-bounce delay-3000"></div>
-          <div className="absolute bottom-20 right-20 w-5 h-5 bg-blue-800/30 rounded-full animate-bounce delay-500"></div>
-        </div>
+        <div className="absolute inset-0 bg-constructify-blue"></div>
 
         <div className="container relative z-10 mx-auto px-6">
           {/* Main CTA Container */}
@@ -38,10 +30,7 @@ export default function CTA() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Glass Morphism Container */}
-            <div className="relative overflow-hidden rounded-3xl border-2 border-white/20 backdrop-blur-2xl p-12 md:p-16 cta-glass-container">
-              {/* Animated shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full animate-pulse"></div>
+            <div className="relative overflow-hidden rounded-3xl p-12 md:p-16">
               
               <div className="text-center space-y-8">
                 {/* Explosive Headline */}
@@ -51,26 +40,23 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight cta-title-gradient">
+                  <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
                     TRANSFORM YOUR
                     <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-400 to-orange-500">
-                      CONSTRUCTION EMPIRE
-                    </span>
+                    CONSTRUCTION EMPIRE
                   </h2>
-                  <div className="w-32 h-1 bg-gradient-to-r from-blue-800 to-slate-700 mx-auto rounded-full"></div>
+                  <div className="w-32 h-1 bg-white/30 mx-auto rounded-full"></div>
                 </motion.div>
 
-                {/* Power Description */}
                 <motion.p 
-                  className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium cta-description-shadow"
+                  className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  Join the construction revolution! 🚀 Experience 40% faster project completion, 
-                  bulletproof safety compliance, and AI-powered insights that turn your data into profit.
+                  Experience faster project completion, comprehensive safety compliance, 
+                  and AI-powered insights that turn your data into profit.
                 </motion.p>
 
                 {/* Stats Grid */}
@@ -84,13 +70,15 @@ export default function CTA() {
                   {stats.map((stat, index) => (
                     <motion.div 
                       key={stat.label}
-                      className="text-center p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105"
-                      whileHover={{ y: -5 }}
-                      transition={{ duration: 0.2 }}
+                      className="text-center p-4 rounded-xl bg-white/10 border border-white/20"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.6 + (index * 0.1) }}
                     >
-                      <stat.icon className="h-8 w-8 text-blue-300 mx-auto mb-2" />
+                      <stat.icon className="h-8 w-8 text-white mx-auto mb-2" />
                       <div className="text-2xl md:text-3xl font-black text-white">{stat.value}</div>
-                      <div className="text-sm text-white/80 font-medium">{stat.label}</div>
+                      <div className="text-sm text-white/80">{stat.label}</div>
                     </motion.div>
                   ))}
                 </motion.div>
