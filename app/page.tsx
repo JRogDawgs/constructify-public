@@ -1,5 +1,7 @@
 import Hero from "@/components/hero"
+import WorkerPathway from "@/components/worker-pathway"
 import Features from "@/components/features"
+import CeeboSection from "@/components/ceebo-section"
 import CTA from "@/components/cta"
 
 export default function Home() {
@@ -15,7 +17,9 @@ export default function Home() {
 
         <div className="relative z-10">
           <Hero />
+          <WorkerPathway />
           <Features />
+          <CeeboSection />
           <CTA />
         </div>
       </div>

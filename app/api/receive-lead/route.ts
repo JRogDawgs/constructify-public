@@ -169,8 +169,9 @@ function validateContactFormData(data: any): { isValid: boolean; errors: string[
   if (!data.company || typeof data.company !== 'string') {
     errors.push('Company is required and must be a string')
   }
-  if (!data.phone || typeof data.phone !== 'string' || !isValidPhone(data.phone)) {
-    errors.push('Valid phone is required')
+  const phone = data.phone && typeof data.phone === 'string' ? data.phone.trim() : ''
+  if (phone && !isValidPhone(phone)) {
+    errors.push('Phone must be a valid number')
   }
 
   if (errors.length > 0) {
@@ -184,7 +185,7 @@ function validateContactFormData(data: any): { isValid: boolean; errors: string[
       name: data.name.trim().substring(0, 100),
       email: data.email.trim().toLowerCase().substring(0, 255),
       company: data.company.trim().substring(0, 100),
-      phone: data.phone.trim().substring(0, 20),
+      phone: phone ? phone.substring(0, 20) : '',
       message: data.message ? data.message.trim().substring(0, 1000) : undefined,
       projectType: data.projectType ? data.projectType.trim().substring(0, 50) : undefined,
       source: 'contact_form',
@@ -200,7 +201,6 @@ function isContactFormRequest(data: any): boolean {
     typeof data?.name === 'string' &&
     typeof data?.email === 'string' &&
     typeof data?.company === 'string' &&
-    typeof data?.phone === 'string' &&
     (data.teamSize == null || data.industry == null || data.interests == null)
   )
 }

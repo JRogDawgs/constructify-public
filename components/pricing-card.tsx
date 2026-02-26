@@ -39,8 +39,8 @@ export const PricingCard = memo(function PricingCard({
 }: PricingCardProps) {
   return (
     <div 
-      className={`relative rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md ${
-        isPopular ? 'border-primary' : ''
+      className={`relative flex flex-col rounded-lg border-2 bg-card p-6 shadow-sm transition-all hover:shadow-md ${
+        isPopular ? "border-primary" : "border-border"
       }`}
       role="article"
       aria-labelledby={`pricing-${id}`}
@@ -54,7 +54,7 @@ export const PricingCard = memo(function PricingCard({
           Most Popular
         </div>
       )}
-      <div className="space-y-4">
+      <div className="flex flex-col flex-1 space-y-4">
         <div>
           <h3 id={`pricing-${id}`} className="text-xl font-semibold">{name}</h3>
           {price && (
@@ -66,14 +66,16 @@ export const PricingCard = memo(function PricingCard({
           <p className="mt-2 text-sm text-muted-foreground">{description}</p>
         </div>
         <FeatureList features={features} />
-        <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label={`Get started with ${name} plan`}>
-          <Button 
-            className="w-full" 
-            variant={isPopular ? "default" : "outline"}
-          >
-            Get Started
-          </Button>
-        </Link>
+        <div className="mt-auto pt-4">
+          <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label={`Get started with ${name} plan`}>
+            <Button 
+              className="w-full" 
+              variant={isPopular ? "default" : "outline"}
+            >
+              Get Started
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   )

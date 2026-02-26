@@ -28,7 +28,6 @@ export function ContactForm() {
     const name = `${(formData.get("firstName") as string)?.trim() || ""} ${(formData.get("lastName") as string)?.trim() || ""}`.trim()
     const email = (formData.get("email") as string)?.trim() || ""
     const company = (formData.get("company") as string)?.trim() || ""
-    const phone = (formData.get("phone") as string)?.trim() || ""
     const message = (formData.get("message") as string)?.trim() || ""
     const projectType = (formData.get("projectType") as string)?.trim() || ""
 
@@ -36,7 +35,6 @@ export function ContactForm() {
       name,
       email,
       company,
-      phone,
       ...(message && { message }),
       ...(projectType && { projectType }),
     }
@@ -90,11 +88,6 @@ export function ContactForm() {
       <div className="space-y-2">
         <Label htmlFor="company">Company</Label>
         <Input id="company" name="company" placeholder="Your Construction Company" className="bg-white/5 border-white/20" required />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="phone">Phone</Label>
-        <Input id="phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" className="bg-white/5 border-white/20" required />
       </div>
 
       <div className="space-y-2">

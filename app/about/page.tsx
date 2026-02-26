@@ -49,11 +49,11 @@ export default function AboutPage() {
             loop
             muted
             playsInline
-            className="h-full w-full object-cover opacity-30"
+            className="h-full w-full object-cover opacity-25"
           >
             <source src="/videos/construction-bg.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-800/50 via-slate-800/45 to-slate-700/50" aria-hidden="true" />
         </div>
 
         {/* Content */}

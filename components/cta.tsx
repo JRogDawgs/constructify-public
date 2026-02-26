@@ -2,17 +2,9 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Zap, Shield, TrendingUp, Users } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 export default function CTA() {
-
-  const stats = [
-    { icon: Users, value: "500+", label: "Companies Trust Us" },
-    { icon: TrendingUp, value: "40%", label: "Productivity Increase" },
-    { icon: Shield, value: "99.9%", label: "Uptime Guarantee" },
-    { icon: Zap, value: "24/7", label: "Expert Support" }
-  ]
-
   return (
     <>
       <section className="relative w-full py-24 md:py-32 overflow-hidden">
@@ -56,33 +48,9 @@ export default function CTA() {
                   Put your data to work instead of chasing spreadsheets.
                 </motion.p>
 
-                {/* Stats Grid */}
-                <motion.div 
-                  className="grid grid-cols-2 md:grid-cols-4 gap-6 my-12"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  {stats.map((stat, index) => (
-                    <motion.div 
-                      key={stat.label}
-                      className="text-center p-4 rounded-xl bg-white/10 border border-white/20"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.6 + (index * 0.1) }}
-                    >
-                      <stat.icon className="h-8 w-8 text-white mx-auto mb-2" />
-                      <div className="text-2xl md:text-3xl font-black text-white">{stat.value}</div>
-                      <div className="text-sm text-white/80">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
                 {/* CTA Buttons */}
                 <motion.div 
-                  className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+                  className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-10"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -100,22 +68,6 @@ export default function CTA() {
                       </span>
                     </Button>
                   </Link>
-                </motion.div>
-
-                {/* Trust Indicators */}
-                <motion.div 
-                  className="mt-8 text-center"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 1.0 }}
-                >
-                  <p className="text-white/70 text-sm mb-4">Trusted by industry leaders</p>
-                  <div className="flex justify-center items-center gap-8 opacity-60">
-                    <div className="text-white/50 font-bold">ACME CONSTRUCTION</div>
-                    <div className="text-white/50 font-bold">BUILDER PRO</div>
-                    <div className="text-white/50 font-bold">MEGA PROJECTS</div>
-                  </div>
                 </motion.div>
               </div>
             </div>

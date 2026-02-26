@@ -2,12 +2,14 @@
 
 import { useMemo } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Navbar() {
   const { t } = useTranslation()
+  const pathname = usePathname()
 
   const memoizedNavLinks = useMemo(() => {
     const navigationLinks = [
@@ -17,17 +19,25 @@ export default function Navbar() {
       { href: "/about", label: t('nav.about') },
       { href: "/contact", label: t('nav.contact') },
     ]
-    return navigationLinks.map(({ href, label }) => (
-      <Link
-        key={href}
-        href={href}
-        className="inline-flex items-center justify-center rounded-xl text-base font-semibold transition-all duration-300 hover:bg-white/20 hover:text-white h-14 px-4 border border-transparent hover:border-constructify-gold hover:shadow-md navbar-link"
-        aria-label={label}
-      >
-        {label}
-      </Link>
-    ))
-  }, [t])
+    return navigationLinks.map(({ href, label }) => {
+      const isActive = pathname === href || (href !== "/" && pathname?.startsWith(href))
+      return (
+        <Link
+          key={href}
+          href={href}
+          className={`inline-flex items-center justify-center rounded-xl text-base font-semibold transition-all duration-300 hover:bg-white/20 hover:text-white h-14 px-4 border hover:border-constructify-gold hover:shadow-md navbar-link ${
+            isActive
+              ? "bg-white/10 text-constructify-gold border-constructify-gold/60 border-b-2 border-b-constructify-gold shadow-sm"
+              : "border-transparent"
+          }`}
+          aria-label={label}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {label}
+        </Link>
+      )
+    })
+  }, [t, pathname])
 
   const renderAuthSection = () => {
     return (

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ContactForm } from "./ContactForm"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Clock, ArrowRight, MessageSquare, Users, Headphones } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import { Mail, ArrowRight, Users, Bot, Zap } from "lucide-react"
 
 export default function ContactPage() {
   return (
@@ -40,136 +40,75 @@ export default function ContactPage() {
               <div className="w-full max-w-2xl mx-auto">
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
-              <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                Ready to transform your construction projects? Let's discuss how Constructify can revolutionize your workflow and boost your productivity.
+              <p className="mx-auto max-w-[42rem] leading-normal text-foreground/90 sm:text-xl sm:leading-8">
+                Ready to transform your construction projects? Let&apos;s discuss how Constructify can streamline your workflow.
               </p>
             </div>
 
-            {/* Contact Methods */}
-            <div className="grid gap-8 md:grid-cols-3 mb-16">
-              {/* Phone */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-blue/50 hover:shadow-2xl hover:scale-105 page-card">
-                <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <div className="relative text-center">
-                  <Phone className="h-12 w-12 text-constructify-blue mb-4 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="mb-3 text-xl font-medium text-foreground">Call Us</h3>
-                  <p className="text-base text-muted-foreground mb-4">
-                    Speak directly with our construction experts
-                  </p>
-                  <a href="tel:+1-555-CONSTRUCT" className="text-constructify-blue hover:text-constructify-blue-dark font-semibold">
-                    +1 (555) CONSTRUCT
-                  </a>
-                </div>
-              </div>
-
+            {/* Contact Methods - Email only */}
+            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
               {/* Email */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
-                <div className="absolute inset-0 bg-gradient-to-br from-constructify-gold/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <Card className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl page-card">
                 <div className="relative text-center">
                   <Mail className="h-12 w-12 text-constructify-gold mb-4 mx-auto group-hover:scale-110 transition-transform" />
                   <h3 className="mb-3 text-xl font-medium text-foreground">Email Us</h3>
-                  <p className="text-base text-muted-foreground mb-4">
+                  <p className="text-base text-foreground/80 mb-4">
                     Get detailed information and proposals
                   </p>
-                  <a href="mailto:hello@constructify.com" className="text-constructify-gold hover:text-constructify-gold-dark font-semibold">
-                    hello@constructify.com
+                  <a href="mailto:support@ConstructifyLabs.com" className="text-constructify-gold hover:text-constructify-gold/80 font-semibold">
+                    support@ConstructifyLabs.com
                   </a>
                 </div>
-              </div>
+              </Card>
 
-              {/* Live Chat */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-navy/50 hover:shadow-2xl hover:scale-105 page-card">
-                <div className="absolute inset-0 bg-gradient-to-br from-constructify-navy/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <div className="relative text-center">
-                  <MessageSquare className="h-12 w-12 text-constructify-navy mb-4 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="mb-3 text-xl font-medium text-foreground">Live Chat</h3>
-                  <p className="text-base text-muted-foreground mb-4">
-                    Instant support from our team
-                  </p>
-                  <span className="text-constructify-navy font-semibold">
-                    Available 24/7
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Content Grid */}
-            <div className="grid gap-12 lg:grid-cols-2">
               {/* Contact Form */}
-              <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
+              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-semibold text-foreground mb-2">Send Us a Message</h2>
-                    <p className="text-muted-foreground">
-                      Fill out the form below and we'll get back to you within 24 hours.
+                    <p className="text-foreground/80">
+                      Fill out the form below and we&apos;ll get back to you within 24 hours.
                     </p>
                   </div>
 
                   <ContactForm />
                 </div>
-              </div>
+              </Card>
+            </div>
 
-              {/* Company Info & Office */}
-              <div className="space-y-8">
-                {/* Office Location */}
-                <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3">
-                      <MapPin className="h-8 w-8 text-constructify-blue" />
-                      <h2 className="text-2xl font-semibold text-foreground">Our Office</h2>
-                    </div>
-                    
-                    <div className="space-y-4">
+            {/* Why Choose Us */}
+            <div className="max-w-4xl mx-auto">
+              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-semibold text-foreground">Why Choose Constructify?</h2>
+
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <Users className="h-6 w-6 text-constructify-gold mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-medium text-foreground mb-2">Headquarters</h3>
-                        <p className="text-muted-foreground">
-                          123 Construction Avenue<br />
-                          Builder's District, CD 12345<br />
-                          United States
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        <span>Mon-Fri: 8:00 AM - 6:00 PM</span>
+                        <h3 className="font-medium text-foreground">Expert Team</h3>
+                        <p className="text-sm text-foreground/80">Construction industry veterans with 20+ years experience</p>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Why Choose Us */}
-                <div className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
-                  <div className="space-y-6">
-                    <h2 className="text-2xl font-semibold text-foreground">Why Choose Constructify?</h2>
-                    
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <Users className="h-6 w-6 text-constructify-gold mt-1 flex-shrink-0" />
-                        <div>
-                          <h3 className="font-medium text-foreground">Expert Team</h3>
-                          <p className="text-sm text-muted-foreground">Construction industry veterans with 20+ years experience</p>
-                        </div>
+                    <div className="flex items-start gap-3">
+                      <Bot className="h-6 w-6 text-constructify-blue mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-medium text-foreground">AI Support via Ceebo</h3>
+                        <p className="text-sm text-foreground/80">Instant operational assistance powered by Constructify&apos;s AI agent.</p>
                       </div>
-                      
-                      <div className="flex items-start gap-3">
-                        <Headphones className="h-6 w-6 text-constructify-blue mt-1 flex-shrink-0" />
-                        <div>
-                          <h3 className="font-medium text-foreground">24/7 Support</h3>
-                          <p className="text-sm text-muted-foreground">Round-the-clock assistance when you need it most</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-3">
-                        <ArrowRight className="h-6 w-6 text-constructify-navy mt-1 flex-shrink-0" />
-                        <div>
-                          <h3 className="font-medium text-foreground">Fast Implementation</h3>
-                          <p className="text-sm text-muted-foreground">Get up and running in less than 48 hours</p>
-                        </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Zap className="h-6 w-6 text-constructify-navy mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-medium text-foreground">Fast Implementation</h3>
+                        <p className="text-sm text-foreground/80">Get up and running in less than 48 hours</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </div>
 
             {/* CTA Section */}
@@ -179,14 +118,14 @@ export default function ContactPage() {
               </div>
               <div className="space-y-4">
                 <h2 className="text-2xl font-semibold text-foreground">Ready to Get Started?</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-foreground/80 max-w-2xl mx-auto">
                   Join thousands of construction professionals who trust Constructify to deliver exceptional results.
                 </p>
               </div>
               <div className="flex justify-center">
                 <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
@@ -201,4 +140,4 @@ export default function ContactPage() {
       </div>
     </div>
   )
-} 
+}
