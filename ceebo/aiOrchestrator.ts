@@ -9,9 +9,18 @@
  * Phase 4.5: Contextual suggestion engine — role + module aware action chips.
  */
 
-import { searchTrainingHub } from './trainingHubRetriever';
-import { getPageKeyForRoute } from './trainingHubIndex';
 import { routeIntent } from './intentRouter';
+import type { CeeboIntent, RetrievedDoc, AIOrchestratorDebug, SuggestionChip } from './ceebo.types';
+
+/** Stub: Training Hub not available in public repo — returns empty results */
+function searchTrainingHub(_query: string, _limit = 5): RetrievedDoc[] {
+  return [];
+}
+
+/** Stub: Training Hub index not available in public repo */
+function getPageKeyForRoute(_route: string): string | null {
+  return null;
+}
 import { matchSkill, getLastBlockedReason, getLastBlockedSkill } from './skills';
 import { normalizeInput } from './normalization';
 import {
@@ -30,7 +39,6 @@ import {
 } from './ceeboContextEngine';
 import { handleFlowContinuation } from './flowContinuationHandler';
 import type { SkillExecutionContext, ActionPlan, SkillMatchResult, AmbiguousMatchResult } from './skills';
-import type { CeeboIntent, RetrievedDoc, AIOrchestratorDebug, SuggestionChip } from './ceebo.types';
 
 /** Phase 4.3: Domain boundary — check if question is Constructify-related */
 function isConstructifyDomainQuestion(_query: string, _pathname: string): boolean {

@@ -222,7 +222,7 @@ export async function GET(request: NextRequest) {
     const timeframe = searchParams.get('timeframe') || 'monthly'
     const format = searchParams.get('format') || 'json'
     
-    console.log('📊 Analytics request:', { timeframe, format })
+    if (process.env.NODE_ENV !== 'production') console.log('📊 Analytics request:', { timeframe, format })
     
     // In production, this would query your database
     // const analytics = await getDemoAnalyticsFromDB(timeframe)
@@ -257,7 +257,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(response)
     
   } catch (error) {
-    console.error('❌ Analytics error:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Analytics error:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch analytics data' },
       { status: 500 }
@@ -306,7 +306,7 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
     
-    console.log('📊 Analytics update:', data)
+    if (process.env.NODE_ENV !== 'production') console.log('📊 Analytics update:', data)
     
     // In production, this would update your database
     // await updateDemoAnalytics(data)
@@ -318,7 +318,7 @@ export async function POST(request: NextRequest) {
     })
     
   } catch (error) {
-    console.error('❌ Analytics update error:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Analytics update error:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to update analytics data' },
       { status: 500 }

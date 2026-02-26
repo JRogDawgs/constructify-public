@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../components/ui/card'
+import styles from './page.module.css'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
 import { Input } from '../../../components/ui/input'
@@ -24,6 +25,7 @@ interface DemoLead {
   urgency: string
   followedUp: boolean
   notes?: string
+  reasons?: string[]
 }
 
 interface AnalyticsData {
@@ -340,6 +342,23 @@ export default function AdminLeadsPage() {
 
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {analytics && (
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: [
+                    ...analytics.breakdown.byIndustry.map((item, i) =>
+                      `[data-progress="industry-${i}"]{--progress-width:${item.percentage}%}`
+                    ),
+                    ...analytics.breakdown.byTeamSize.map((item, i) =>
+                      `[data-progress="teamsize-${i}"]{--progress-width:${item.percentage}%}`
+                    ),
+                    ...analytics.breakdown.byPriority.map((item, i) =>
+                      `[data-progress="priority-${i}"]{--progress-width:${item.percentage}%}`
+                    ),
+                  ].join(''),
+                }}
+              />
+            )}
             <Card>
               <CardHeader>
                 <CardTitle>Industry Breakdown</CardTitle>
@@ -350,11 +369,8 @@ export default function AdminLeadsPage() {
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-sm">{item.industry}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-24 bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-blue-600 h-2 rounded-full" 
-                            style={{ width: `${item.percentage}%` }}
-                          ></div>
+                        <div className={`${styles.progressTrack} ${styles.progressTrackIndustry}`}>
+                          <div className={styles.progressFillIndustry} data-progress={`industry-${index}`} />
                         </div>
                         <span className="text-sm font-medium">{item.count}</span>
                       </div>
@@ -554,7 +570,7 @@ export default function AdminLeadsPage() {
                           <div className="text-sm">
                             <strong>Why this is a hot lead:</strong>
                             <ul className="list-disc list-inside mt-1 space-y-1">
-                              {lead.reasons?.map((reason, index) => (
+                              {lead.reasons?.map((reason: string, index: number) => (
                                 <li key={index}>{reason}</li>
                               ))}
                             </ul>
@@ -585,11 +601,8 @@ export default function AdminLeadsPage() {
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-sm">{item.size}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-24 bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-green-600 h-2 rounded-full" 
-                            style={{ width: `${item.percentage}%` }}
-                          ></div>
+                        <div className={`${styles.progressTrack} ${styles.progressTrackTeamSize}`}>
+                          <div className={styles.progressFillTeamSize} data-progress={`teamsize-${index}`} />
                         </div>
                         <span className="text-sm font-medium">{item.count}</span>
                       </div>
@@ -609,11 +622,8 @@ export default function AdminLeadsPage() {
                     <div key={index} className="flex items-center justify-between">
                       <span className="text-sm">{getPriorityBadge(item.priority)}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-24 bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-purple-600 h-2 rounded-full" 
-                            style={{ width: `${item.percentage}%` }}
-                          ></div>
+                        <div className={`${styles.progressTrack} ${styles.progressTrackPriority}`}>
+                          <div className={styles.progressFillPriority} data-progress={`priority-${index}`} />
                         </div>
                         <span className="text-sm font-medium">{item.count}</span>
                       </div>

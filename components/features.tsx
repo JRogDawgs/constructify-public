@@ -1,40 +1,43 @@
 "use client"
 
-import { Brain, Cloud, Shield, Zap } from "lucide-react"
+import { Users, Clock, Shield, BarChart3 } from "lucide-react"
 import { memo } from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 const features = [
   {
-    name: "Data Insights for Continuous Improvement",
-    description: "Aggregate and analyze data from various interactions and inputs within the app.",
-    icon: Brain,
-    id: "data-insights",
+    name: "Workforce Control",
+    description: "Assign the right workers to the right jobs. Clear site accountability. Shift people where demand is.",
+    icon: Users,
+    id: "workforce-control",
   },
   {
-    name: "Real-Time Safety & OSHA Tracking",
-    description: "Make it easier for workers to access and engage with vital safety information.",
-    icon: Cloud,
-    id: "safety-training",
+    name: "Scheduling & Time Accuracy",
+    description: "Fewer payroll disputes. Exact hours per project. No manual timesheets.",
+    icon: Clock,
+    id: "scheduling",
   },
   {
-    name: "Enterprise-Grade Security",
-    description: "State-of-the-art security measures to protect your most valuable assets.",
+    name: "Compliance & Training",
+    description: "Track certifications and OSHA. Fewer compliance gaps. Renew before credentials expire.",
     icon: Shield,
-    id: "security",
+    id: "compliance",
   },
   {
-    name: "Built-In Workforce Scheduling",
-    description: "Designed to cater to both small-scale projects and large construction firms.",
-    icon: Zap,
-    id: "scalability",
+    name: "Operational Visibility",
+    description: "Project status, labor costs, performance. Faster schedule adjustments. Decisions from data, not spreadsheets.",
+    icon: BarChart3,
+    id: "visibility",
   },
 ]
 
 const FeatureCard = memo(({ feature }: { feature: typeof features[0] }) => {
   const Icon = feature.icon
-  
+
   return (
-    <div 
+    <div
       className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-md"
       role="article"
       aria-labelledby={`feature-${feature.id}`}
@@ -44,10 +47,10 @@ const FeatureCard = memo(({ feature }: { feature: typeof features[0] }) => {
           <Icon className="h-7 w-7 text-constructify-blue" aria-hidden="true" />
         </div>
       </div>
-      
+
       <div>
-        <h3 
-          id={`feature-${feature.id}`} 
+        <h3
+          id={`feature-${feature.id}`}
           className="text-xl font-bold text-slate-900 mb-3"
         >
           {feature.name}
@@ -64,31 +67,42 @@ FeatureCard.displayName = "FeatureCard"
 
 export default function Features() {
   return (
-    <section 
+    <section
       className="bg-slate-50 py-24 md:py-32"
       aria-labelledby="features-title"
     >
       <div className="container space-y-16">
-      <div className="mx-auto max-w-[58rem] text-center">
-        <h2 
-          id="features-title"
-          className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900"
+        <div className="mx-auto max-w-[58rem] text-center">
+          <h2
+            id="features-title"
+            className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900"
+          >
+            Built for Construction Operations
+          </h2>
+          <p className="mt-4 text-slate-600 sm:text-lg">
+            Four pillars for workforce and job control.
+          </p>
+        </div>
+        <div
+          className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12"
         >
-          Cutting-Edge Solutions
-        </h2>
-        <p className="mt-4 text-slate-600 sm:text-lg">
-          Discover how Constructify can transform your business with our innovative technologies.
-        </p>
-      </div>
-      <div 
-        className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12"
-      >
-        {features.map((feature) => (
-          <FeatureCard key={feature.id} feature={feature} />
-        ))}
-      </div>
+          {features.map((feature) => (
+            <FeatureCard key={feature.id} feature={feature} />
+          ))}
+        </div>
+        <div className="flex justify-center pt-8">
+          <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+            <Button
+              size="lg"
+              className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   )
 }
-

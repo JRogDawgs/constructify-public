@@ -1,5 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { scoreLeadData, generateLeadScoreReport, type DemoRequestData } from '../../../utils/leadScoring'
+import { sendLeadNotification } from '../../../lib/twilio'
+
+// Contact form lead (public /contact page)
+interface ContactFormLead {
+  name: string
+  email: string
+  company: string
+  phone: string
+  message?: string
+  projectType?: string
+  source?: string
+}
 
 // Lead data interface for incoming requests
 interface IncomingLead {
@@ -52,7 +64,7 @@ function validateApiKey(request: NextRequest): boolean {
   const validApiKey = process.env.PRIVATE_CRM_API_KEY
   
   if (!validApiKey) {
-    console.warn('⚠️ PRIVATE_CRM_API_KEY not configured')
+    if (process.env.NODE_ENV !== 'production') console.warn('⚠️ PRIVATE_CRM_API_KEY not configured')
     return false
   }
   
@@ -135,6 +147,65 @@ function isValidEmail(email: string): boolean {
 }
 
 /**
+ * Phone validation helper (basic E.164-friendly check)
+ */
+function isValidPhone(phone: string): boolean {
+  const cleaned = phone.replace(/\D/g, '')
+  return cleaned.length >= 10
+}
+
+/**
+ * Validates contact form data (name, email, company, phone)
+ */
+function validateContactFormData(data: any): { isValid: boolean; errors: string[]; sanitized?: ContactFormLead } {
+  const errors: string[] = []
+
+  if (!data.name || typeof data.name !== 'string') {
+    errors.push('Name is required and must be a string')
+  }
+  if (!data.email || typeof data.email !== 'string' || !isValidEmail(data.email)) {
+    errors.push('Valid email is required')
+  }
+  if (!data.company || typeof data.company !== 'string') {
+    errors.push('Company is required and must be a string')
+  }
+  if (!data.phone || typeof data.phone !== 'string' || !isValidPhone(data.phone)) {
+    errors.push('Valid phone is required')
+  }
+
+  if (errors.length > 0) {
+    return { isValid: false, errors }
+  }
+
+  return {
+    isValid: true,
+    errors: [],
+    sanitized: {
+      name: data.name.trim().substring(0, 100),
+      email: data.email.trim().toLowerCase().substring(0, 255),
+      company: data.company.trim().substring(0, 100),
+      phone: data.phone.trim().substring(0, 20),
+      message: data.message ? data.message.trim().substring(0, 1000) : undefined,
+      projectType: data.projectType ? data.projectType.trim().substring(0, 50) : undefined,
+      source: 'contact_form',
+    },
+  }
+}
+
+/**
+ * Detects if request is contact form format (has name, email, company, phone; no full CRM fields)
+ */
+function isContactFormRequest(data: any): boolean {
+  return (
+    typeof data?.name === 'string' &&
+    typeof data?.email === 'string' &&
+    typeof data?.company === 'string' &&
+    typeof data?.phone === 'string' &&
+    (data.teamSize == null || data.industry == null || data.interests == null)
+  )
+}
+
+/**
  * Converts timing string to urgency format for scoring
  */
 function mapTimingToUrgency(timing: string): 'immediate' | 'this_week' | 'next_week' | 'flexible' {
@@ -162,16 +233,18 @@ async function saveLeadToDatabase(leadRecord: LeadRecord): Promise<boolean> {
     
     leadsDatabase.set(leadRecord.id, leadRecord)
     
-    console.log('💾 LEAD SAVED TO DATABASE:', {
-      id: leadRecord.id,
-      company: leadRecord.company,
-      priority: leadRecord.priority,
-      score: leadRecord.leadScore
-    })
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('💾 LEAD SAVED TO DATABASE:', {
+        id: leadRecord.id,
+        company: leadRecord.company,
+        priority: leadRecord.priority,
+        score: leadRecord.leadScore
+      })
+    }
     
     return true
   } catch (error) {
-    console.error('❌ Database save error:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Database save error:', error)
     return false
   }
 }
@@ -180,7 +253,7 @@ async function saveLeadToDatabase(leadRecord: LeadRecord): Promise<boolean> {
  * Sends notification for hot leads
  */
 async function notifyHotLead(leadRecord: LeadRecord): Promise<void> {
-  if (leadRecord.isHotLead) {
+  if (leadRecord.isHotLead && process.env.NODE_ENV !== 'production') {
     console.log('🔥 HOT LEAD ALERT:', {
       company: leadRecord.company,
       contact: leadRecord.name,
@@ -201,25 +274,51 @@ async function notifyHotLead(leadRecord: LeadRecord): Promise<void> {
  */
 export async function POST(request: NextRequest) {
   try {
-    console.log('📨 INCOMING LEAD REQUEST from:', request.headers.get('origin') || 'unknown')
-    
-    // Validate API key
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('📨 INCOMING LEAD REQUEST from:', request.headers.get('origin') || 'unknown')
+    }
+    const requestData = await request.json()
+    if (process.env.NODE_ENV !== 'production') console.log('📦 RAW PAYLOAD:', requestData)
+
+    // ----- Contact form flow (public /contact page) -----
+    if (isContactFormRequest(requestData)) {
+      const validation = validateContactFormData(requestData)
+      if (!validation.isValid) {
+        if (process.env.NODE_ENV !== 'production') console.warn('❌ CONTACT FORM VALIDATION FAILED:', validation.errors)
+        return NextResponse.json(
+          { success: false, error: 'Validation failed', details: validation.errors },
+          { status: 400 }
+        )
+      }
+      const lead = validation.sanitized!
+
+      try {
+        await sendLeadNotification(lead)
+      } catch (twilioError) {
+        if (process.env.NODE_ENV !== 'production') console.error('❌ Twilio notification error (non-blocking):', twilioError)
+        // Still return success - lead was captured; Twilio is optional
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: 'Lead received successfully. We\'ll be in touch soon.',
+        timestamp: new Date().toISOString(),
+      })
+    }
+
+    // ----- CRM flow (API key required) -----
     if (!validateApiKey(request)) {
-      console.warn('🚫 UNAUTHORIZED: Invalid API key')
+      if (process.env.NODE_ENV !== 'production') console.warn('🚫 UNAUTHORIZED: Invalid API key')
       return NextResponse.json(
         { success: false, error: 'Unauthorized - Invalid API key' },
         { status: 401 }
       )
     }
     
-    // Parse request body
-    const requestData = await request.json()
-    console.log('📦 RAW PAYLOAD:', requestData)
-    
     // Validate and sanitize data
     const validation = validateLeadData(requestData)
     if (!validation.isValid) {
-      console.warn('❌ VALIDATION FAILED:', validation.errors)
+      if (process.env.NODE_ENV !== 'production') console.warn('❌ VALIDATION FAILED:', validation.errors)
       return NextResponse.json(
         { success: false, error: 'Validation failed', details: validation.errors },
         { status: 400 }
@@ -245,13 +344,14 @@ export async function POST(request: NextRequest) {
     const leadScore = scoreLeadData(scoringData)
     const scoreReport = generateLeadScoreReport(scoringData, leadScore)
     
-    console.log('🎯 LEAD SCORING COMPLETE:', {
-      score: leadScore.score,
-      priority: leadScore.priority,
-      isHotLead: leadScore.isHotLead
-    })
-    
-    console.log('📋 SCORING REPORT:\n', scoreReport)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('🎯 LEAD SCORING COMPLETE:', {
+        score: leadScore.score,
+        priority: leadScore.priority,
+        isHotLead: leadScore.isHotLead
+      })
+      console.log('📋 SCORING REPORT:\n', scoreReport)
+    }
     
     // Create lead record
     const leadRecord: LeadRecord = {
@@ -287,7 +387,19 @@ export async function POST(request: NextRequest) {
     
     // Send hot lead notifications
     await notifyHotLead(leadRecord)
-    
+
+    try {
+      await sendLeadNotification({
+        name: leadRecord.name,
+        email: leadRecord.email,
+        company: leadRecord.company,
+        phone: (leadRecord as any).phone || '',
+        source: leadRecord.source,
+      })
+    } catch (twilioError) {
+      if (process.env.NODE_ENV !== 'production') console.error('❌ Twilio notification error (non-blocking):', twilioError)
+    }
+
     // Success response
     const response = {
       success: true,
@@ -301,17 +413,18 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString()
     }
     
-    console.log('✅ LEAD PROCESSING COMPLETE:', {
-      leadId: leadRecord.id,
-      company: leadRecord.company,
-      priority: leadRecord.priority,
-      saved: saved
-    })
-    
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('✅ LEAD PROCESSING COMPLETE:', {
+        leadId: leadRecord.id,
+        company: leadRecord.company,
+        priority: leadRecord.priority,
+        saved: saved
+      })
+    }
     return NextResponse.json(response)
     
   } catch (error) {
-    console.error('❌ LEAD PROCESSING ERROR:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ LEAD PROCESSING ERROR:', error)
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -354,7 +467,7 @@ export async function GET(request: NextRequest) {
     })
     
   } catch (error) {
-    console.error('❌ GET request error:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ GET request error:', error)
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -365,21 +478,21 @@ export async function GET(request: NextRequest) {
 /**
  * Utility function to get all leads (for admin dashboard)
  */
-export async function getAllLeads(): Promise<LeadRecord[]> {
+async function getAllLeads(): Promise<LeadRecord[]> {
   return Array.from(leadsDatabase.values())
 }
 
 /**
  * Utility function to get lead by ID
  */
-export async function getLeadById(id: string): Promise<LeadRecord | undefined> {
+async function getLeadById(id: string): Promise<LeadRecord | undefined> {
   return leadsDatabase.get(id)
 }
 
 /**
  * Utility function to update lead status
  */
-export async function updateLeadStatus(id: string, status: LeadRecord['status'], assignedTo?: string): Promise<boolean> {
+async function updateLeadStatus(id: string, status: LeadRecord['status'], assignedTo?: string): Promise<boolean> {
   const lead = leadsDatabase.get(id)
   if (!lead) return false
   

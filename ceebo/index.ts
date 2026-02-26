@@ -15,6 +15,5 @@ export { CeeboInputBar } from './CeeboInputBar';
 export { CeeboQuickActions } from './CeeboQuickActions';
 export { CeeboAvatar } from './CeeboAvatar';
 export { CeeboTypingIndicator } from './CeeboTypingIndicator';
-export { useCeeboContext } from './useCeeboContext';
 export { useVoiceInput } from './useVoiceInput';
 export { useTypewriter } from './useTypewriter';

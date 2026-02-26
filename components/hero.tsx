@@ -39,7 +39,7 @@ export default function Hero() {
               className="h-64 w-auto md:h-80 lg:h-96 drop-shadow-2xl"
             />
             <h1 className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white -mt-6 md:-mt-8 lg:-mt-12 hero-title-shadow">
-              Constructify
+              {t('hero.title')}
             </h1>
           </div>
           
@@ -57,7 +57,7 @@ export default function Hero() {
               {t('hero.description')}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
               <Button 
                 size="lg" 
@@ -66,6 +66,14 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                 {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Button>
+            </Link>
+            <Link href="/contact" target="_self" rel="noopener">
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none px-8 text-lg h-14 uppercase tracking-wide hero-secondary-button"
+              >
+                {t('hero.ctaSecondary')}
               </Button>
             </Link>
           </div>

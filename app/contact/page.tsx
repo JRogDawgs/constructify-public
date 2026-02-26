@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
+import { ContactForm } from "./ContactForm"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { MapPin, Phone, Mail, Clock, ArrowRight, MessageSquare, Users, Headphones } from "lucide-react"
 
@@ -107,63 +105,7 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  <form className="space-y-6">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" placeholder="John" className="bg-white/5 border-white/20" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" placeholder="Doe" className="bg-white/5 border-white/20" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="john@company.com" className="bg-white/5 border-white/20" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Company</Label>
-                      <Input id="company" placeholder="Your Construction Company" className="bg-white/5 border-white/20" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="projectType">Project Type</Label>
-                      <select 
-                        id="projectType" 
-                        name="projectType"
-                        title="Select your project type"
-                        className="w-full rounded-md border border-white/20 bg-white/5 px-3 py-2 text-sm text-foreground"
-                      >
-                        <option value="">Select project type</option>
-                        <option value="residential">Residential Construction</option>
-                        <option value="commercial">Commercial Construction</option>
-                        <option value="industrial">Industrial Construction</option>
-                        <option value="infrastructure">Infrastructure</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="Tell us about your project and how we can help..."
-                        className="bg-white/5 border-white/20 min-h-[120px]"
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit"
-                      className="w-full font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                      Send Message
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
+                  <ContactForm />
                 </div>
               </div>
 
@@ -241,7 +183,7 @@ export default function ContactPage() {
                   Join thousands of construction professionals who trust Constructify to deliver exceptional results.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex justify-center">
                 <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
                   <Button 
                     size="lg" 
@@ -252,14 +194,6 @@ export default function ContactPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  Schedule Demo
-                </Button>
               </div>
             </div>
           </div>

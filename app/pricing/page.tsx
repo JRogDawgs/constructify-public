@@ -41,6 +41,9 @@ export default function PricingPage() {
               <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
                 Simple per-user pricing with annual platform licensing. Scale as you grow.
               </p>
+              <p className="mx-auto max-w-2xl text-muted-foreground/90 text-base sm:text-lg mt-4">
+                Most construction companies lose more in inefficiency than they invest in systems.
+              </p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
@@ -128,7 +131,7 @@ export default function PricingPage() {
                   Join thousands of construction professionals already using Constructify to streamline their operations.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex justify-center">
                 <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
                   <Button 
                     size="lg" 
@@ -139,14 +142,6 @@ export default function PricingPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  Contact Sales
-                </Button>
               </div>
             </div>
           </div>

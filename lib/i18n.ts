@@ -22,10 +22,11 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Build Smarter with",
-        subtitle: "The Complete Construction Management Platform",
-        description: "Streamline your construction projects with our comprehensive platform designed for contractors, project managers, and construction teams.",
+        title: "Run Your Crews With Precision. Finish Jobs On Time.",
+        subtitle: "Real-time visibility into your field crews. Fewer payroll disputes. Fewer compliance gaps.",
+        description: "Align crews with project demands. Workforce control, scheduling, compliance, and operational visibility.",
         ctaPrimary: "Get Started",
+        ctaSecondary: "Book a Walkthrough",
         trustedBy: "Trusted by 500+ construction companies"
       },
       
@@ -211,10 +212,11 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Construye Más Inteligente con",
-        subtitle: "La Plataforma Completa de Gestión de Construcción",
-        description: "Optimiza tus proyectos de construcción con nuestra plataforma integral diseñada para contratistas, gerentes de proyecto y equipos de construcción.",
+        title: "Dirija Sus Equipos Con Precisión. Termine Los Trabajos a Tiempo.",
+        subtitle: "Visibilidad en tiempo real de sus equipos de campo. Menos disputas de nómina. Menos brechas de cumplimiento.",
+        description: "Alinee los equipos con las demandas del proyecto. Control de fuerza laboral, programación, cumplimiento y visibilidad operativa.",
         ctaPrimary: "Comenzar",
+        ctaSecondary: "Reservar un Recorrido",
         trustedBy: "Confiado por más de 500 empresas de construcción"
       },
       

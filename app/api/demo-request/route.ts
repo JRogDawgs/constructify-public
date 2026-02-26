@@ -45,13 +45,21 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // Create complete demo request
+    // Create complete demo request (required fields ensured by validation above)
     const demoRequest: DemoRequest = {
+      ...(demoData as Partial<DemoRequest>),
       id: `demo_${Date.now()}`,
+      userEmail: demoData.userEmail,
+      userName: demoData.userName,
+      companyName: demoData.companyName,
+      teamSize: demoData.teamSize ?? '',
+      industryType: demoData.industryType ?? '',
+      specificInterests: demoData.specificInterests ?? [],
+      preferredTimeSlots: demoData.preferredTimeSlots ?? [],
+      urgency: demoData.urgency ?? 'flexible',
       sessionId: demoData.sessionId || Date.now().toString(),
       timestamp: new Date().toISOString(),
       status: 'pending',
-      ...demoData as DemoRequest
     }
     
     // Calculate lead score
@@ -70,18 +78,19 @@ export async function POST(request: NextRequest) {
     const leadScore = scoreLeadData(leadData)
     const scoreReport = generateLeadScoreReport(leadData, leadScore)
     
-    console.log('📅 DEMO REQUEST RECEIVED:', {
-      id: demoRequest.id,
-      company: demoRequest.companyName,
-      email: demoRequest.userEmail,
-      urgency: demoRequest.urgency,
-      interests: demoRequest.specificInterests,
-      leadScore: leadScore.score,
-      priority: leadScore.priority,
-      isHotLead: leadScore.isHotLead
-    })
-    
-    console.log('🎯 LEAD SCORE REPORT:\n', scoreReport)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('📅 DEMO REQUEST RECEIVED:', {
+        id: demoRequest.id,
+        company: demoRequest.companyName,
+        email: demoRequest.userEmail,
+        urgency: demoRequest.urgency,
+        interests: demoRequest.specificInterests,
+        leadScore: leadScore.score,
+        priority: leadScore.priority,
+        isHotLead: leadScore.isHotLead
+      })
+      console.log('🎯 LEAD SCORE REPORT:\n', scoreReport)
+    }
     
     // Send admin notification with lead scoring
     const adminNotified = await sendDemoNotificationToAdmin(demoRequest, leadScore)
@@ -102,7 +111,7 @@ export async function POST(request: NextRequest) {
     })
     
   } catch (error) {
-    console.error('❌ Demo request error:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Demo request error:', error)
     return NextResponse.json(
       { error: 'Failed to process demo request' },
       { status: 500 }
@@ -224,25 +233,26 @@ async function sendDemoNotificationToAdmin(demoRequest: DemoRequest, leadScore?:
       `
     }
     
-    console.log('📧 SENDING DEMO ADMIN NOTIFICATION:', {
-      to: emailPayload.to,
-      subject: emailPayload.subject,
-      company: demoRequest.companyName,
-      urgency: demoRequest.urgency
-    })
-    
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('📧 SENDING DEMO ADMIN NOTIFICATION:', {
+        to: emailPayload.to,
+        subject: emailPayload.subject,
+        company: demoRequest.companyName,
+        urgency: demoRequest.urgency
+      })
+    }
     // Send via SendGrid in production
     if (process.env.SENDGRID_API_KEY && process.env.NODE_ENV === 'production') {
       await sgMail.send(emailPayload)
-      console.log('✅ Admin demo notification sent via SendGrid')
-    } else {
+      if (process.env.NODE_ENV !== 'production') console.log('✅ Admin demo notification sent via SendGrid')
+    } else if (process.env.NODE_ENV !== 'production') {
       console.log('📧 Demo admin notification (development mode - not sent)')
     }
     
     return true
     
   } catch (error) {
-    console.error('❌ Failed to send demo admin notification:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Failed to send demo admin notification:', error)
     return false
   }
 }
@@ -340,24 +350,24 @@ async function sendDemoConfirmationToUser(demoRequest: DemoRequest): Promise<boo
       `
     }
     
-    console.log('📧 SENDING DEMO USER CONFIRMATION:', {
-      to: emailPayload.to,
-      subject: emailPayload.subject,
-      company: demoRequest.companyName
-    })
-    
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('📧 SENDING DEMO USER CONFIRMATION:', {
+        to: emailPayload.to,
+        subject: emailPayload.subject,
+        company: demoRequest.companyName
+      })
+    }
     // Send via SendGrid in production
     if (process.env.SENDGRID_API_KEY && process.env.NODE_ENV === 'production') {
       await sgMail.send(emailPayload)
-      console.log('✅ User demo confirmation sent via SendGrid')
-    } else {
+    } else if (process.env.NODE_ENV !== 'production') {
       console.log('📧 Demo user confirmation (development mode - not sent)')
     }
     
     return true
     
   } catch (error) {
-    console.error('❌ Failed to send demo user confirmation:', error)
+    if (process.env.NODE_ENV !== 'production') console.error('❌ Failed to send demo user confirmation:', error)
     return false
   }
 } 
