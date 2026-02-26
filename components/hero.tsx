@@ -31,17 +31,22 @@ export default function Hero() {
 
         {/* Content */}
         <div className="container relative z-10 flex max-w-screen-2xl flex-col items-center justify-center space-y-12 py-12 text-center md:py-16">
-          {/* Logo with Text */}
+          {/* Logo with Brand Title */}
           <div className="flex flex-col items-center">
             <img 
               src="/images/3d logo.png" 
               alt="Constructify Logo" 
               className="h-64 w-auto md:h-80 lg:h-96 drop-shadow-2xl"
             />
-            <h1 className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-wider text-white -mt-6 md:-mt-8 lg:-mt-12 hero-title-shadow">
-              {t('hero.title')}
+            <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-white -mt-6">
+              Constructify
             </h1>
           </div>
+          
+          {/* Headline */}
+          <h2 className="text-2xl md:text-3xl font-medium text-white/90 mt-6 max-w-3xl mx-auto">
+            {t('hero.title')}
+          </h2>
           
           {/* Elegant Continuous Spacer Line */}
           <div className="w-full max-w-2xl">
@@ -50,20 +55,19 @@ export default function Hero() {
           
           {/* Hero Content - Properly Spaced */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-light tracking-tight text-white/90 sm:text-3xl md:text-4xl">
+            <p className="text-2xl font-light tracking-tight text-white/90 sm:text-3xl">
               {t('hero.subtitle')}
-            </h2>
+            </p>
             <p className="mx-auto max-w-[42rem] leading-normal text-white/80 sm:text-xl sm:leading-8">
               {t('hero.description')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
+            <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
+                className="w-full sm:w-auto font-black px-8 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                 {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>

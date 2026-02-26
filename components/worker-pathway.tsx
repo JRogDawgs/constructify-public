@@ -24,7 +24,7 @@ export default function WorkerPathway() {
           <a href={`${APP_BASE_URL}/signup?type=worker`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
             <Button
               size="lg"
-              className="font-semibold rounded-lg px-8 h-12 bg-green-400 hover:bg-green-500 text-white border-0"
+              className="font-semibold rounded-lg px-8 h-12 bg-green-400 hover:bg-green-500 text-constructify-navy border-0"
             >
               <UserPlus className="mr-2 h-5 w-5" aria-hidden="true" />
               Create Worker Profile
