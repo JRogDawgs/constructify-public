@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ContactForm } from "./ContactForm"
 import { Card } from "@/components/ui/card"
-import { Mail, ArrowRight, Users, Bot, Zap } from "lucide-react"
+import { ArrowRight, Users, Bot, Zap } from "lucide-react"
 
 export default function ContactPage() {
   return (
@@ -45,23 +45,8 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Contact Methods - Email only */}
-            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-              {/* Email */}
-              <Card className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl page-card">
-                <div className="relative text-center">
-                  <Mail className="h-12 w-12 text-constructify-gold mb-4 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="mb-3 text-xl font-medium text-foreground">Email Us</h3>
-                  <p className="text-base text-foreground/80 mb-4">
-                    Get detailed information and proposals
-                  </p>
-                  <a href="mailto:support@ConstructifyLabs.com" className="text-constructify-gold hover:text-constructify-gold/80 font-semibold">
-                    support@ConstructifyLabs.com
-                  </a>
-                </div>
-              </Card>
-
-              {/* Contact Form */}
+            {/* Contact Form - Centered */}
+            <div className="mx-auto max-w-2xl">
               <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
                 <div className="space-y-6">
                   <div>
@@ -72,6 +57,16 @@ export default function ContactPage() {
                   </div>
 
                   <ContactForm />
+
+                  <div className="text-center text-sm text-muted-foreground mt-6">
+                    Prefer direct email? Contact us at{" "}
+                    <a
+                      href="mailto:support@ConstructifyLabs.com"
+                      className="font-medium text-primary hover:underline"
+                    >
+                      support@ConstructifyLabs.com
+                    </a>
+                  </div>
                 </div>
               </Card>
             </div>
