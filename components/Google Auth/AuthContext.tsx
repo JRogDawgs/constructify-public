@@ -37,8 +37,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const initAuth = async () => {
+      const appInstance = app;
+      if (!appInstance) return;
       const { getAuth, onAuthStateChanged, getRedirectResult } = await import('firebase/auth');
-      const auth = getAuth(app);
+      const auth = getAuth(appInstance);
 
       let redirectChecked = false;
       const checkRedirectResult = async () => {
@@ -63,13 +65,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signInWithGoogle = async () => {
-    if (!app) return undefined;
+    const appInstance = app;
+    if (!appInstance) return undefined;
     const {
       signInWithPopup,
       signInWithRedirect,
       GoogleAuthProvider,
     } = await import('firebase/auth');
-    const auth = (await import('firebase/auth')).getAuth(app);
+    const auth = (await import('firebase/auth')).getAuth(appInstance);
 
     try {
       const provider = new GoogleAuthProvider();
@@ -101,9 +104,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = async () => {
-    if (!app) return;
+    const appInstance = app;
+    if (!appInstance) return;
     const { getAuth, signOut: firebaseSignOut } = await import('firebase/auth');
-    const auth = getAuth(app);
+    const auth = getAuth(appInstance);
     await firebaseSignOut(auth);
   };
 

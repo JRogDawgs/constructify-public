@@ -1115,7 +1115,7 @@ export default function LiveChat() {
       
       // Update demo data with collected information
       if (demoResponse.data) {
-        setDemoData(prev => ({ ...prev, ...demoResponse.data }))
+        setDemoData((prev: any) => ({ ...prev, ...demoResponse.data }))
       }
       
       // Update demo step

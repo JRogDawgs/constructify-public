@@ -421,3 +421,8 @@
   animation-delay: 0.2s;
 }
 
+/* Ceebo Component Styles */
+.ceebo-modal-border {
+  background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 50%, #AFAFAF 100%);
+}
+
