@@ -37,23 +37,16 @@ Our comprehensive suite includes:
 
 ## Pricing Plans
 
-### Basic
-- 5 team members
-- 10 projects
-- Basic analytics
-- Email support
+### Per User Pricing
+- $19.99/month per active user
+- Pay only for your active workforce
+- No hidden fees
+- Scale up or down as needed
 
-### Pro
-- Unlimited team members
-- Unlimited projects
-- Advanced analytics
-- Priority support
-
-### Enterprise - Custom
-- Custom features
-- Dedicated account manager
-- On-premise deployment
-- 24/7 phone support
+### Annual Licensing
+- 1–25 Users → $1,500/year
+- 26–100 Users → $5,000/year
+- 101+ Users → $9,999/year
 
 ## Technology Stack
 - Frontend

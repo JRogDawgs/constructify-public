@@ -126,32 +126,22 @@ const constructifyKnowledge = {
     apis: "RESTful APIs, GraphQL support, and third-party integration capabilities"
   },
 
-  // Pricing Plans - Detailed structure
+  // Pricing - Canonical model
   pricing: {
-    starter: {
-      name: "Starter",
-      price: "$299/month",
-      description: "Perfect for small construction teams getting started with digital management",
-      features: ["Up to 10 team members", "Basic project management", "Document storage", "Email support", "Mobile app access"],
-      target: "Small contractors and teams (1-10 employees)"
+    perUser: {
+      price: "$19.99",
+      period: "/ month per active user",
+      description: "Flexible per-user pricing ensures you only pay for your active workforce"
     },
-    professional: {
-      name: "Professional", 
-      price: "$799/month",
-      description: "Ideal for growing construction companies with multiple projects",
-      features: ["Up to 25 team members", "Advanced project management", "Resource planning", "Priority support", "Custom reporting", "API access"],
-      target: "Growing companies (11-25 employees)",
-      popular: true
+    annualLicense: {
+      tiers: [
+        "1–25 Users → $1,500/year",
+        "26–100 Users → $5,000/year",
+        "101+ Users → $9,999/year"
+      ],
+      description: "All companies require an annual platform license based on total user count"
     },
-    enterprise: {
-      name: "Enterprise",
-      price: "$1,999/month", 
-      description: "For large construction firms requiring full-scale solutions",
-      features: ["Unlimited team members", "Full project management suite", "Advanced analytics", "24/7 dedicated support", "Custom integrations", "SLA guarantees"],
-      target: "Large operations (25+ employees)"
-    },
-    customization: "All plans can be customized based on company size, features needed, and usage level",
-    contact: "Visit /pricing page or contact sales for custom quotes and enterprise pricing"
+    contact: "Visit /pricing page or contact sales for custom quotes"
   },
 
   // Industries Served - Complete coverage
@@ -257,7 +247,7 @@ const faqDatabase = {
   // Getting Started
   "getting started onboarding": "Getting started is easy! Sign up with your Google account, set up your company profile, invite team members, and start managing projects. Our onboarding team provides personalized guidance and training.",
   
-  "pricing cost plans": "We offer three main plans: Starter ($299/month for up to 10 team members), Professional ($799/month for up to 25 members), and Enterprise ($1,999/month for unlimited). All plans include core features with scaling options.",
+  "pricing cost plans": "Constructify uses simple per-user pricing: $19.99/month per active user, plus an annual platform license based on total user count (1–25 users: $1,500/year; 26–100 users: $5,000/year; 101+ users: $9,999/year). Visit /pricing or contact sales for details.",
   
   "free trial demo": "🎬 **I'd love to schedule a personalized Constructify demo for you!** Let me collect some quick information to tailor the demo to your specific needs. **What's your name?**",
 
@@ -298,7 +288,7 @@ const securityFAQs = {
   
   "data storage location": "🌐 Your data is securely stored on Google Cloud infrastructure with regional hosting options, strict data residency compliance, backup redundancy across multiple secure data centers, and 99.9% uptime SLA.",
   
-  "soc hipaa compliance": "✅ We follow SOC 2 Type II security standards, maintain GDPR compliance, and offer HIPAA compliance features in our Enterprise plan with Business Associate Agreements (BAA) for healthcare-related construction projects.",
+  "soc hipaa compliance": "✅ We follow SOC 2 Type II security standards, maintain GDPR compliance, and offer HIPAA compliance features for larger organizations with Business Associate Agreements (BAA) for healthcare-related construction projects.",
   
   "backup disaster recovery": "💾 We maintain automated daily backups with instant disaster recovery capabilities, data replication across multiple secure locations, and comprehensive business continuity planning.",
   
@@ -640,7 +630,7 @@ function getContextualCTA(message: string): string | null {
   
   // Large team indicators
   if (lowerMessage.match(/\d{2,}.*workers?|employees?/) || lowerMessage.includes('250') || lowerMessage.includes('100')) {
-    return `🎯 Managing a large workforce is exactly what Constructify excels at! With your team size, our Enterprise features like bulk user management, advanced analytics, and dedicated support would be perfect.\n\n**Ready for a personalized demo tailored to large-scale operations?** I can connect you with our enterprise specialist right now.`
+    return `🎯 Managing a large workforce is exactly what Constructify excels at! With your team size, our features for larger teams—bulk user management, advanced analytics, and dedicated support—would be perfect.\n\n**Ready for a personalized demo tailored to large-scale operations?** I can connect you with our specialist right now.`
   }
   
   // OSHA/Audit urgency
@@ -761,9 +751,9 @@ function getIntelligentResponse(
     return `👥 **Our Leadership Team:**\n\n• **Tim Hamilton, CEO** - 25+ years in construction technology, expert in operations and strategic leadership\n• **Jeff Rogers, COO** - Construction industry veteran with deep product development expertise\n• **Rob Hourigan, CTO** - Software engineering leader focused on scalable, secure systems\n\nOur team combines decades of construction industry experience with cutting-edge technology vision. Want to learn more about our company mission and values?`
   }
   
-  // Pricing and plan details - SALES OPTIMIZED
+  // Pricing and plan details - Canonical model
   if (message.includes('price') || message.includes('cost') || message.includes('plan') || message.includes('subscription')) {
-    return `🚀 **GREAT NEWS! Our pricing is designed to MAKE you money, not cost you money!**\n\n💎 **STARTER** - $299/month (1-10 employees)\n   ✅ **ROI**: Save $2,000+/month | **NET PROFIT**: $1,700+\n   • Project management, compliance tracking, mobile access\n\n🏆 **PROFESSIONAL** - $799/month (11-25 employees) ⭐ **MOST POPULAR!**\n   ✅ **ROI**: Save $8,000+/month | **NET PROFIT**: $7,200+\n   • Everything + advanced analytics, API access, priority support\n\n💪 **ENTERPRISE** - $1,999/month (Unlimited employees)\n   ✅ **ROI**: Save $25,000+/month | **NET PROFIT**: $23,000+\n   • Full suite + custom integrations, dedicated success manager\n\n**🔥 LIMITED TIME**: 50% off first 3 months + FREE setup (save $2,000!)\n\n**Ready to see YOUR exact savings?** Tell me your team size for instant ROI calculation! 💰`
+    return `💰 **Constructify Pricing – Simple & Transparent**\n\n**Per User:** $19.99/month per active user\n• Pay only for your active workforce\n• No hidden fees • Scale up or down as needed\n\n**Annual Platform License** (based on total user count):\n• 1–25 Users → $1,500/year\n• 26–100 Users → $5,000/year\n• 101+ Users → $9,999/year\n\n**Ready for a personalized quote?** Tell me your team size for an instant estimate! 💰`
   }
   
   // Interactive Demo Responses - Enhanced with scheduling
@@ -902,27 +892,31 @@ function calculateROI(teamSize: string, painPoints: string[] = []): string {
     '26-100': { employees: 60, hourlyWaste: 8, complianceCost: 35000 },
     '100+': { employees: 200, hourlyWaste: 15, complianceCost: 75000 }
   }
-  
+
   const sizeKey = teamSize.includes('1-10') ? '1-10' :
                   teamSize.includes('11-25') ? '11-25' :
                   teamSize.includes('26-100') ? '26-100' :
                   teamSize.includes('100+') ? '100+' : 'small'
-  
+
   const data = sizes[sizeKey]
   const avgWage = 35 // $35/hour average construction wage
-  
+
+  // Canonical pricing: $19.99/user/month + annual license
+  const licenseMonthly = sizeKey === '1-10' || sizeKey === '11-25' ? 1500 / 12 :
+                        sizeKey === '26-100' ? 5000 / 12 : 9999 / 12
+  const constructifyInvestment = Math.round(data.employees * 19.99 + licenseMonthly)
+
   // Calculate savings
-  const timeWasteSavings = data.employees * data.hourlyWaste * avgWage * 52 * 5 // Weekly savings
-  const complianceSavings = data.complianceCost * 0.6 // 60% reduction in compliance costs
-  const paperworkSavings = data.employees * 2 * avgWage * 52 // 2 hours/week paperwork per employee
-  
+  const timeWasteSavings = data.employees * data.hourlyWaste * avgWage * 52 * 5
+  const complianceSavings = data.complianceCost * 0.6
+  const paperworkSavings = data.employees * 2 * avgWage * 52
+
   const totalAnnualSavings = timeWasteSavings + complianceSavings + paperworkSavings
   const monthlyROI = Math.round(totalAnnualSavings / 12)
-  const constructifyInvestment = sizeKey === '1-10' ? 299 : sizeKey === '11-25' ? 799 : 1999
   const netMonthlyProfit = monthlyROI - constructifyInvestment
   const roiPercentage = Math.round((netMonthlyProfit / constructifyInvestment) * 100)
-  
-  return `💰 **HERE'S YOUR EXACT ROI CALCULATION:**\n\n🏢 **Company Size**: ${data.employees} employees\n💵 **Monthly Savings**: $${monthlyROI.toLocaleString()}\n💳 **Constructify Cost**: $${constructifyInvestment}\n✅ **NET MONTHLY PROFIT**: $${netMonthlyProfit.toLocaleString()}\n📈 **ROI**: ${roiPercentage}% return on investment\n\n🚀 **That's $${(netMonthlyProfit * 12).toLocaleString()} PROFIT in your first year!**\n\n**Ready to start saving immediately?** Let's get your demo scheduled! 🎯`
+
+  return `💰 **HERE'S YOUR EXACT ROI CALCULATION:**\n\n🏢 **Company Size**: ${data.employees} employees\n💵 **Monthly Savings**: $${monthlyROI.toLocaleString()}\n💳 **Constructify Cost**: $${constructifyInvestment}/month\n✅ **NET MONTHLY PROFIT**: $${netMonthlyProfit.toLocaleString()}\n📈 **ROI**: ${roiPercentage}% return on investment\n\n🚀 **That's $${(netMonthlyProfit * 12).toLocaleString()} PROFIT in your first year!**\n\n**Ready to start saving immediately?** Let's get your demo scheduled! 🎯`
 }
 
 /**

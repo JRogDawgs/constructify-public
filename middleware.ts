@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const APP_LOGIN_URL = 'https://app.constructifylabs.com/login';
+
 export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (pathname === '/auth' || pathname.startsWith('/auth/')) {
+    return NextResponse.redirect(APP_LOGIN_URL);
+  }
+
   // Add security headers
   const response = NextResponse.next();
   

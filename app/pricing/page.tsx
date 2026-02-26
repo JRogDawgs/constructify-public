@@ -31,11 +31,6 @@ export default function PricingPage() {
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
           <div className="space-y-12">
-            <div className="rounded-lg border border-amber-500/50 bg-amber-500/10 px-6 py-4 text-center">
-              <p className="text-amber-600 dark:text-amber-400 font-medium">
-                Pricing structure being finalized. Contact us for details.
-              </p>
-            </div>
             <div className="space-y-6 text-center">
               <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-4xl font-medium tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl pb-2">
                 Pricing Plans
@@ -44,51 +39,32 @@ export default function PricingPage() {
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                Choose the perfect plan for your construction needs. All plans include our core features with options to scale as you grow and succeed.
+                Simple per-user pricing with annual platform licensing. Scale as you grow.
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
               <PricingCard
-                id="starter"
-                name="Starter"
-                price="$299"
-                description="Perfect for small construction teams getting started with digital management."
+                id="per-user"
+                name="Per User Pricing"
+                price="$19.99"
+                priceSuffix=" / month per active user"
+                description="Flexible per-user pricing ensures you only pay for your active workforce."
                 features={[
-                  "Up to 10 team members",
-                  "Basic project management",
-                  "Document storage",
-                  "Email support",
-                  "Mobile app access"
-                ]}
-              />
-              <PricingCard
-                id="professional"
-                name="Professional"
-                price="$799"
-                description="Ideal for growing construction companies with multiple projects."
-                features={[
-                  "Up to 25 team members",
-                  "Advanced project management",
-                  "Resource planning",
-                  "Priority support",
-                  "Custom reporting",
-                  "API access"
+                  "Pay only for active users",
+                  "No hidden fees",
+                  "Scale up or down as needed"
                 ]}
                 isPopular
               />
               <PricingCard
-                id="enterprise"
-                name="Enterprise"
-                price="$1,999"
-                description="For large construction firms requiring full-scale solutions."
+                id="annual-licensing"
+                name="Annual Licensing"
+                description="All companies require an annual platform license based on total user count."
                 features={[
-                  "Unlimited team members",
-                  "Full project management suite",
-                  "Advanced analytics",
-                  "24/7 dedicated support",
-                  "Custom integrations",
-                  "SLA guarantees"
+                  "1–25 Users → $1,500/year",
+                  "26–100 Users → $5,000/year",
+                  "101+ Users → $9,999/year"
                 ]}
               />
             </div>
@@ -153,17 +129,16 @@ export default function PricingPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button 
-                  size="lg" 
-                  asChild
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
-                >
-                  <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" className="flex items-center">
+                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                  <Button 
+                    size="lg" 
+                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                  >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
                 <Button 
                   size="lg"
                   variant="outline"

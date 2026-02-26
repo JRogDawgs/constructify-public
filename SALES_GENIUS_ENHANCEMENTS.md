@@ -101,16 +101,8 @@ Let me show you how we solve it and save you thousands! 💪
 ```
 🚀 GREAT NEWS! Our pricing is designed to MAKE you money, not cost you money!
 
-💎 STARTER - $299/month (1-10 employees)
-   ✅ ROI: Save $2,000+/month | NET PROFIT: $1,700+
-
-🏆 PROFESSIONAL - $799/month (11-25 employees) ⭐ MOST POPULAR!
-   ✅ ROI: Save $8,000+/month | NET PROFIT: $7,200+
-
-💪 ENTERPRISE - $1,999/month (Unlimited employees)
-   ✅ ROI: Save $25,000+/month | NET PROFIT: $23,000+
-
-🔥 LIMITED TIME: 50% off first 3 months + FREE setup (save $2,000!)
+**Per User:** $19.99/month per active user
+**Annual License:** 1–25 users: $1,500/year | 26–100: $5,000/year | 101+: $9,999/year
 ```
 
 ## 🧠 Advanced Sales Psychology

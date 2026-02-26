@@ -3,19 +3,16 @@ import { Button } from "@/components/ui/button"
 
 const plans = [
   {
-    name: "Basic",
-    price: "$9",
-    features: ["5 team members", "10 projects", "Basic analytics", "Email support"],
+    name: "Per User Pricing",
+    price: "$19.99",
+    suffix: "/ month per active user",
+    features: ["Pay only for active users", "No hidden fees", "Scale up or down as needed"],
   },
   {
-    name: "Pro",
-    price: "$29",
-    features: ["Unlimited team members", "Unlimited projects", "Advanced analytics", "Priority support"],
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    features: ["Custom features", "Dedicated account manager", "On-premise deployment", "24/7 phone support"],
+    name: "Annual Licensing",
+    price: "",
+    suffix: "",
+    features: ["1–25 Users → $1,500/year", "26–100 Users → $5,000/year", "101+ Users → $9,999/year"],
   },
 ]
 
@@ -24,14 +21,16 @@ export default function Pricing() {
     <section id="pricing" className="py-20 bg-gray-50">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">Choose Your Plan</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {plans.map((plan, index) => (
             <div key={index} className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
-              <p className="text-4xl font-bold mb-6">
-                {plan.price}
-                <span className="text-lg font-normal text-gray-600">/month</span>
-              </p>
+              {plan.price && (
+                <p className="text-4xl font-bold mb-6">
+                  {plan.price}
+                  <span className="text-lg font-normal text-gray-600">{plan.suffix}</span>
+                </p>
+              )}
               <ul className="mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center mb-2">
@@ -40,8 +39,8 @@ export default function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Button className="w-full" variant={index === 1 ? "default" : "outline"}>
-                {index === 2 ? "Contact Sales" : "Get Started"}
+              <Button className="w-full" variant={index === 0 ? "default" : "outline"}>
+                {index === 1 ? "Contact Sales" : "Get Started"}
               </Button>
             </div>
           ))}

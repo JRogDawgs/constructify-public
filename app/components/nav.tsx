@@ -39,9 +39,9 @@ export default function Navbar() {
             </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
-            <Button asChild>
-              <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">Sign In</Link>
-            </Button>
+            <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+              <Button>Sign In</Button>
+            </Link>
           </div>
         </div>
       </header>

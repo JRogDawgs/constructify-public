@@ -7,7 +7,8 @@ import { memo } from "react"
 
 interface PricingCardProps {
   name: string
-  price: string
+  price?: string
+  priceSuffix?: string
   description: string
   features: string[]
   isPopular?: boolean
@@ -30,6 +31,7 @@ FeatureList.displayName = "FeatureList"
 export const PricingCard = memo(function PricingCard({ 
   name, 
   price, 
+  priceSuffix,
   description, 
   features, 
   isPopular,
@@ -55,10 +57,12 @@ export const PricingCard = memo(function PricingCard({
       <div className="space-y-4">
         <div>
           <h3 id={`pricing-${id}`} className="text-xl font-semibold">{name}</h3>
-          <div className="mt-2">
-            <span className="text-3xl font-bold">{price}</span>
-            <span className="text-muted-foreground">/month</span>
-          </div>
+          {price && (
+            <div className="mt-2">
+              <span className="text-3xl font-bold">{price}</span>
+              <span className="text-muted-foreground">{priceSuffix ?? "/month"}</span>
+            </div>
+          )}
           <p className="mt-2 text-sm text-muted-foreground">{description}</p>
         </div>
         <FeatureList features={features} />

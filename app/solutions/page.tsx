@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { useEffect } from "react"
 import { ArrowRight, CheckCircle, Settings, BarChart3, Shield, DollarSign } from "lucide-react"
 
@@ -67,7 +68,7 @@ export default function SolutionsPage() {
                   <Settings className="h-12 w-12 text-constructify-blue mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-2xl font-semibold mb-3 text-foreground">Project Management</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Streamline your construction projects with our intuitive project management platform featuring real-time collaboration and progress tracking.
+                    Real-time collaboration and progress tracking across all job sites.
                   </p>
                 </div>
               </div>
@@ -80,9 +81,9 @@ export default function SolutionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-gold/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <Shield className="h-12 w-12 text-constructify-gold mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Safety Compliance</h3>
+                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Real-Time Safety & OSHA Tracking</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Ensure workplace safety with our comprehensive safety management and compliance tools designed to protect your team and projects.
+                    Compliance tools and certifications with automated renewal alerts.
                   </p>
                 </div>
               </div>
@@ -95,9 +96,9 @@ export default function SolutionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-navy/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <BarChart3 className="h-12 w-12 text-constructify-navy mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Resource Planning</h3>
+                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Built-In Workforce Scheduling</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Optimize resource allocation and scheduling with our advanced planning tools powered by AI-driven insights and forecasting.
+                    AI-driven resource allocation and forecasting across projects.
                   </p>
                 </div>
               </div>
@@ -110,9 +111,9 @@ export default function SolutionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <CheckCircle className="h-12 w-12 text-constructify-blue mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Quality Control</h3>
+                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Integrated Quality & Inspection Management</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Maintain high standards with our quality control and inspection management system featuring automated reporting and compliance tracking.
+                    Automated reporting and compliance tracking for inspections.
                   </p>
                 </div>
               </div>
@@ -125,9 +126,9 @@ export default function SolutionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-gold/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <DollarSign className="h-12 w-12 text-constructify-gold mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Cost Management</h3>
+                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Integrated Time & Payroll Logging</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Track and optimize project costs with our comprehensive financial management tools including budget forecasting and expense tracking.
+                    Budget forecasting, expense tracking, and payroll integration.
                   </p>
                 </div>
               </div>
@@ -140,9 +141,9 @@ export default function SolutionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-navy/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <BarChart3 className="h-12 w-12 text-constructify-navy mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground">Analytics & Reporting</h3>
+                  <h3 className="text-2xl font-semibold mb-3 text-foreground">AI-Powered Project Insights</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Make data-driven decisions with our powerful analytics and reporting capabilities featuring customizable dashboards and insights.
+                    Customizable dashboards and data-driven decision support.
                   </p>
                 </div>
               </div>
@@ -154,14 +155,16 @@ export default function SolutionsPage() {
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-blue/60 via-constructify-blue via-constructify-blue/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button 
-                  size="lg" 
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  Get Started Today
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                  <Button 
+                    size="lg" 
+                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                    Get Started Today
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
                 <Button 
                   size="lg"
                   variant="outline"

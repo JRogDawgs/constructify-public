@@ -1,25 +1,13 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { useAuth } from "@/components/Google Auth/AuthContext"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { LogOut, User, Settings, Loader2 } from "lucide-react"
 
 export default function Navbar() {
   const { t } = useTranslation()
-  const [isSigningOut, setIsSigningOut] = useState(false)
-  const { user, loading, signOut } = useAuth()
 
   const navigationLinks = [
     { href: "/solutions", label: t('nav.solutions') },
@@ -28,17 +16,6 @@ export default function Navbar() {
     { href: "/about", label: t('nav.about') },
     { href: "/contact", label: t('nav.contact') },
   ]
-
-  const handleSignOut = async () => {
-    setIsSigningOut(true)
-    try {
-      await signOut()
-    } catch (error) {
-      // Error signing out
-    } finally {
-      setIsSigningOut(false)
-    }
-  }
 
   const memoizedNavLinks = useMemo(() => (
     navigationLinks.map(({ href, label }) => (

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { ArrowRight, Mail, Linkedin, Twitter } from "lucide-react"
 
 // Enhanced profile card component with glassmorphism styling
@@ -52,6 +53,7 @@ export default function AboutPage() {
           >
             <source src="/videos/construction-bg.mp4" type="video/mp4" />
           </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70" aria-hidden="true" />
         </div>
 
         {/* Content */}
@@ -169,14 +171,16 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Button 
-                  size="lg" 
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  Get Started Today
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                  <Button 
+                    size="lg" 
+                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                    Get Started Today
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
                 <Button 
                   size="lg"
                   variant="outline"

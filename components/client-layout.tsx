@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { ThemeProvider } from '@/components/theme-provider'
-import { AuthProvider } from '@/components/Google Auth/AuthContext'
 import I18nProvider from '@/components/i18n-provider'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
@@ -37,18 +36,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       disableTransitionOnChange
     >
       <I18nProvider>
-        <AuthProvider>
-          <div className="relative min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1 pt-24">
-              <MouseMoveEffect />
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <CeeboPlaceholder />
-          <Toaster />
-        </AuthProvider>
+        <div className="relative min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-1 pt-24">
+            <MouseMoveEffect />
+            {children}
+          </main>
+          <Footer />
+        </div>
+        <CeeboPlaceholder />
+        <Toaster />
       </I18nProvider>
     </ThemeProvider>
   )

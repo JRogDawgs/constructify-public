@@ -11,7 +11,7 @@ const features = [
     id: "data-insights",
   },
   {
-    name: "Enhanced Safety Training and Awareness",
+    name: "Real-Time Safety & OSHA Tracking",
     description: "Make it easier for workers to access and engage with vital safety information.",
     icon: Cloud,
     id: "safety-training",
@@ -23,7 +23,7 @@ const features = [
     id: "security",
   },
   {
-    name: "Scalability and Customization",
+    name: "Built-In Workforce Scheduling",
     description: "Designed to cater to both small-scale projects and large construction firms.",
     icon: Zap,
     id: "scalability",

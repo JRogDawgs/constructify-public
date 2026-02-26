@@ -59,52 +59,23 @@ const resources = {
         }
       },
       
-      // Pricing
+      // Pricing - Canonical model
       pricing: {
         title: "Choose Your Plan",
-        subtitle: "Flexible pricing for construction teams of all sizes",
-        monthly: "Monthly",
-        annually: "Annually",
-        save: "Save 20%",
-        starter: {
-          name: "Starter",
-          price: "$29",
-          period: "/month",
-          description: "Perfect for small contractors",
-          features: [
-            "Up to 5 projects",
-            "Basic project tracking", 
-            "Team collaboration tools",
-            "Mobile app access",
-            "Email support"
-          ]
+        subtitle: "Simple per-user pricing with annual platform licensing",
+        perUser: {
+          name: "Per User Pricing",
+          price: "$19.99",
+          period: "/ month per active user",
+          description: "Flexible per-user pricing ensures you only pay for your active workforce"
         },
-        professional: {
-          name: "Professional", 
-          price: "$79",
-          period: "/month",
-          description: "For growing construction companies",
-          features: [
-            "Unlimited projects",
-            "Advanced project management",
-            "Resource & cost tracking",
-            "Safety compliance tools",
-            "Priority support",
-            "Advanced reporting"
-          ]
-        },
-        enterprise: {
-          name: "Enterprise",
-          price: "Custom",
-          period: "",
-          description: "For large construction organizations",
-          features: [
-            "Everything in Professional",
-            "Custom integrations",
-            "Dedicated account manager",
-            "Advanced security features",
-            "Custom training",
-            "24/7 phone support"
+        annualLicense: {
+          name: "Annual Licensing",
+          description: "All companies require an annual platform license based on total user count",
+          tiers: [
+            "1–25 Users → $1,500/year",
+            "26–100 Users → $5,000/year",
+            "101+ Users → $9,999/year"
           ]
         },
         getStarted: "Get Started",
@@ -277,52 +248,23 @@ const resources = {
         }
       },
       
-      // Pricing
+      // Pricing - Canonical model
       pricing: {
         title: "Elige Tu Plan",
-        subtitle: "Precios flexibles para equipos de construcción de todos los tamaños",
-        monthly: "Mensual",
-        annually: "Anual", 
-        save: "Ahorra 20%",
-        starter: {
-          name: "Inicial",
-          price: "$29",
-          period: "/mes",
-          description: "Perfecto para pequeños contratistas",
-          features: [
-            "Hasta 5 proyectos",
-            "Seguimiento básico de proyectos",
-            "Herramientas de colaboración en equipo",
-            "Acceso a aplicación móvil",
-            "Soporte por email"
-          ]
+        subtitle: "Precios simples por usuario con licencia anual de plataforma",
+        perUser: {
+          name: "Precio por Usuario",
+          price: "$19.99",
+          period: "/ mes por usuario activo",
+          description: "Precios flexibles por usuario: solo pagas por tu fuerza laboral activa"
         },
-        professional: {
-          name: "Profesional",
-          price: "$79", 
-          period: "/mes",
-          description: "Para empresas de construcción en crecimiento",
-          features: [
-            "Proyectos ilimitados",
-            "Gestión avanzada de proyectos",
-            "Seguimiento de recursos y costos",
-            "Herramientas de cumplimiento de seguridad",
-            "Soporte prioritario",
-            "Reportes avanzados"
-          ]
-        },
-        enterprise: {
-          name: "Empresarial",
-          price: "Personalizado",
-          period: "",
-          description: "Para grandes organizaciones de construcción",
-          features: [
-            "Todo en Profesional",
-            "Integraciones personalizadas",
-            "Gerente de cuenta dedicado",
-            "Características avanzadas de seguridad",
-            "Entrenamiento personalizado",
-            "Soporte telefónico 24/7"
+        annualLicense: {
+          name: "Licencia Anual",
+          description: "Todas las empresas requieren una licencia anual de plataforma según el total de usuarios",
+          tiers: [
+            "1–25 usuarios → $1,500/año",
+            "26–100 usuarios → $5,000/año",
+            "101+ usuarios → $9,999/año"
           ]
         },
         getStarted: "Comenzar",
