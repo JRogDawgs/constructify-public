@@ -72,22 +72,22 @@ export function ContactForm() {
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="firstName">First Name</Label>
-          <Input id="firstName" name="firstName" placeholder="John" className="bg-white/5 border-white/20" required />
+          <Input id="firstName" name="firstName" placeholder="John" className="bg-white/5 border-constructify-navy" required />
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName">Last Name</Label>
-          <Input id="lastName" name="lastName" placeholder="Doe" className="bg-white/5 border-white/20" required />
+          <Input id="lastName" name="lastName" placeholder="Doe" className="bg-white/5 border-constructify-navy" required />
         </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" name="email" type="email" placeholder="john@company.com" className="bg-white/5 border-white/20" required />
+        <Input id="email" name="email" type="email" placeholder="john@company.com" className="bg-white/5 border-constructify-navy" required />
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="company">Company</Label>
-        <Input id="company" name="company" placeholder="Your Construction Company" className="bg-white/5 border-white/20" required />
+        <Input id="company" name="company" placeholder="Your Construction Company" className="bg-white/5 border-constructify-navy" required />
       </div>
 
       <div className="space-y-2">
@@ -96,7 +96,7 @@ export function ContactForm() {
           id="projectType"
           name="projectType"
           title="Select your project type"
-          className="w-full rounded-md border border-white/20 bg-white/5 px-3 py-2 text-sm text-foreground"
+          className="w-full rounded-md border border-constructify-navy bg-white/5 px-3 py-2 text-sm text-foreground"
         >
           <option value="">Select project type</option>
           <option value="residential">Residential Construction</option>
@@ -113,7 +113,7 @@ export function ContactForm() {
           id="message"
           name="message"
           placeholder="Tell us about your project and how we can help..."
-          className="bg-white/5 border-white/20 min-h-[120px]"
+          className="bg-white/5 border-constructify-navy min-h-[120px]"
         />
       </div>
 
@@ -132,7 +132,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button disabled:opacity-70"
+        className="w-full font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button disabled:opacity-70"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
         {status === "submitting" ? "Sending..." : "Send Message"}

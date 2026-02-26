@@ -1,8 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { UserPlus } from "lucide-react"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function WorkerPathway() {
   return (
@@ -21,16 +21,15 @@ export default function WorkerPathway() {
           Create your Constructify worker profile. Track certifications, clock time, and stay job-ready.
         </p>
         <div className="mt-8">
-          <Link href="/signup?type=worker" target="_self" rel="noopener">
+          <a href={`${APP_BASE_URL}/signup?type=worker`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
             <Button
               size="lg"
-              variant="outline"
-              className="font-semibold rounded-lg px-8 h-12 border-2 border-constructify-blue text-constructify-blue hover:bg-constructify-blue hover:text-white"
+              className="font-semibold rounded-lg px-8 h-12 bg-green-400 hover:bg-green-500 text-white border-0"
             >
               <UserPlus className="mr-2 h-5 w-5" aria-hidden="true" />
               Create Worker Profile
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

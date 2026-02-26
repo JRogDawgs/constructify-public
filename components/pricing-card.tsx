@@ -2,17 +2,21 @@
 
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
-import Link from "next/link"
 import { memo } from "react"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 interface PricingCardProps {
   name: string
   price?: string
   priceSuffix?: string
-  description: string
+  description?: string
+  annualLicense?: string
+  perUserFee?: string
   features: string[]
   isPopular?: boolean
   id: string
+  ctaText?: string
+  ctaHref?: string
 }
 
 const FeatureList = memo(({ features }: { features: string[] }) => (
@@ -28,20 +32,25 @@ const FeatureList = memo(({ features }: { features: string[] }) => (
 
 FeatureList.displayName = "FeatureList"
 
+const DEFAULT_CTA_HREF = `${APP_BASE_URL}/signup?type=company`
+
 export const PricingCard = memo(function PricingCard({ 
   name, 
   price, 
   priceSuffix,
   description, 
+  annualLicense,
+  perUserFee,
   features, 
   isPopular,
-  id 
+  id,
+  ctaText = "Choose this company size",
+  ctaHref = DEFAULT_CTA_HREF,
 }: PricingCardProps) {
+  const isTierFormat = Boolean(annualLicense && perUserFee)
   return (
     <div 
-      className={`relative flex flex-col rounded-lg border-2 bg-card p-6 shadow-sm transition-all hover:shadow-md ${
-        isPopular ? "border-primary" : "border-border"
-      }`}
+      className="relative flex flex-col rounded-lg border-4 border-constructify-navy bg-card p-6 shadow-sm transition-all hover:shadow-md"
       role="article"
       aria-labelledby={`pricing-${id}`}
     >
@@ -57,24 +66,34 @@ export const PricingCard = memo(function PricingCard({
       <div className="flex flex-col flex-1 space-y-4">
         <div>
           <h3 id={`pricing-${id}`} className="text-xl font-semibold">{name}</h3>
-          {price && (
+          {isTierFormat ? (
+            <div className="mt-3 space-y-1">
+              <p className="text-sm">
+                <span className="font-semibold">Annual Platform License:</span>
+                <span className="text-muted-foreground ml-1">{annualLicense}</span>
+              </p>
+              <p className="text-sm">
+                <span className="font-semibold">Per-User Fee:</span>
+                <span className="text-muted-foreground ml-1">{perUserFee}</span>
+              </p>
+            </div>
+          ) : price ? (
             <div className="mt-2">
               <span className="text-3xl font-bold">{price}</span>
               <span className="text-muted-foreground">{priceSuffix ?? "/month"}</span>
             </div>
-          )}
-          <p className="mt-2 text-sm text-muted-foreground">{description}</p>
+          ) : null}
+          {description && <p className="mt-2 text-sm text-muted-foreground">{description}</p>}
         </div>
         <FeatureList features={features} />
         <div className="mt-auto pt-4">
-          <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label={`Get started with ${name} plan`}>
+          <a href={ctaHref} target="_self" rel="noopener" aria-label={`${ctaText} for ${name} plan`} className="block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
             <Button 
-              className="w-full" 
-              variant={isPopular ? "default" : "outline"}
+              className="w-full text-sm font-semibold bg-green-400 hover:bg-green-500 text-constructify-navy border-0"
             >
-              Get Started
+              {ctaText}
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </div>

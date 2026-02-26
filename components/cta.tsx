@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { motion } from "framer-motion"
+import { APP_BASE_URL } from "@/lib/appConfig"
 import { ArrowRight } from "lucide-react"
 
 export default function CTA() {
@@ -56,7 +56,7 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
-                  <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label="Get started">
+                  <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener" aria-label="Get started">
                     <Button 
                       size="lg"
                       className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-primary-button"
@@ -67,7 +67,7 @@ export default function CTA() {
                         <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
                       </span>
                     </Button>
-                  </Link>
+                  </a>
                 </motion.div>
               </div>
             </div>

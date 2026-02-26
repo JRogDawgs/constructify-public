@@ -1,7 +1,7 @@
 import { PricingCard } from "@/components/pricing-card"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function PricingPage() {
   return (
@@ -39,37 +39,62 @@ export default function PricingPage() {
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                Simple per-user pricing with annual platform licensing. Scale as you grow.
+                $19.99 per active user per month plus an annual platform license. Scale as you grow.
               </p>
               <p className="mx-auto max-w-2xl text-muted-foreground/90 text-base sm:text-lg mt-4">
                 Most construction companies lose more in inefficiency than they invest in systems.
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+            <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
               <PricingCard
-                id="per-user"
-                name="Per User Pricing"
-                price="$19.99"
-                priceSuffix=" / month per active user"
-                description="Flexible per-user pricing ensures you only pay for your active workforce."
+                id="starter"
+                name="1–25 Users"
+                annualLicense="$1,500 / year"
+                perUserFee="+ $19.99 per active user per month"
                 features={[
+                  "For small construction companies",
+                  "Scales as your team grows",
                   "Pay only for active users",
-                  "No hidden fees",
-                  "Scale up or down as needed"
+                  "Full platform access"
                 ]}
-                isPopular
               />
               <PricingCard
-                id="annual-licensing"
-                name="Annual Licensing"
-                description="All companies require an annual platform license based on total user count."
+                id="growth"
+                name="26–100 Users"
+                annualLicense="$5,000 / year"
+                perUserFee="+ $19.99 per active user per month"
                 features={[
-                  "1–25 Users → $1,500/year",
-                  "26–100 Users → $5,000/year",
-                  "101+ Users → $9,999/year"
+                  "Designed for scaling operations",
+                  "Multi-project workforce management",
+                  "Full analytics + compliance tracking",
+                  "Pay only for active users"
                 ]}
               />
+              <PricingCard
+                id="enterprise"
+                name="101+ Users"
+                annualLicense="$9,999 / year"
+                perUserFee="+ $19.99 per active user per month"
+                features={[
+                  "Large workforce management",
+                  "Multi-site operations",
+                  "Enterprise-level reporting",
+                  "Dedicated onboarding support"
+                ]}
+                ctaHref="/contact"
+              />
+            </div>
+
+            {/* Pricing Clarification Section */}
+            <div className="text-center space-y-4 max-w-2xl mx-auto mt-12">
+              <h2 className="text-xl font-semibold text-foreground">All plans include</h2>
+              <ul className="text-muted-foreground space-y-2 text-left inline-block">
+                <li>• $19.99 per active user per month</li>
+                <li>• Annual platform licensing based on total company size</li>
+                <li>• No hidden fees</li>
+                <li>• Scale up or down anytime</li>
+              </ul>
             </div>
 
             {/* Enhanced Features Section */}
@@ -79,14 +104,14 @@ export default function PricingPage() {
               </div>
               
               <div className="text-center space-y-4">
-                <h2 className="text-3xl font-bold text-foreground">All Plans Include</h2>
+                <h2 className="text-3xl font-bold text-foreground">Platform Features</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
                   Every Constructify plan comes with essential features to help you manage your construction projects effectively.
                 </p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-12">
-                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-12 h-12 bg-constructify-blue/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-blue font-bold text-lg">✓</span>
                   </div>
@@ -94,7 +119,7 @@ export default function PricingPage() {
                   <p className="text-sm text-muted-foreground">Secure document storage and backup</p>
                 </div>
 
-                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-12 h-12 bg-constructify-gold/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-gold font-bold text-lg">✓</span>
                   </div>
@@ -102,7 +127,7 @@ export default function PricingPage() {
                   <p className="text-sm text-muted-foreground">iOS and Android apps included</p>
                 </div>
 
-                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-12 h-12 bg-constructify-navy/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-navy font-bold text-lg">✓</span>
                   </div>
@@ -110,7 +135,7 @@ export default function PricingPage() {
                   <p className="text-sm text-muted-foreground">Instant updates across all devices</p>
                 </div>
 
-                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-3 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-12 h-12 bg-constructify-blue/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-blue font-bold text-lg">✓</span>
                   </div>
@@ -132,16 +157,16 @@ export default function PricingPage() {
                 </p>
               </div>
               <div className="flex justify-center">
-                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
                   <Button 
                     size="lg" 
-                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

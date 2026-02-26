@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function Hero() {
   const { t } = useTranslation()
@@ -58,7 +58,7 @@ export default function Hero() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+            <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
               <Button 
                 size="lg" 
                 className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
@@ -67,15 +67,7 @@ export default function Hero() {
                 {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
-            </Link>
-            <Link href="/contact" target="_self" rel="noopener">
-              <Button 
-                size="lg" 
-                className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none px-8 text-lg h-14 uppercase tracking-wide hero-secondary-button"
-              >
-                {t('hero.ctaSecondary')}
-              </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </section>

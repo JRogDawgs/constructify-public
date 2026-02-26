@@ -36,7 +36,7 @@ export const CeeboMessageList = React.memo(function CeeboMessageList({
   return (
     <div
       ref={scrollRef}
-      className="flex-1 overflow-y-auto px-3.5 py-2.5 pb-2"
+      className="ceebo-scroll-area flex-1 overflow-y-auto px-3.5 py-2.5 pb-2"
     >
       {messages.map((msg) => (
         <CeeboMessageBubble

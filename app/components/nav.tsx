@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -39,9 +40,9 @@ export default function Navbar() {
             </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
-            <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+            <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
               <Button>Sign In</Button>
-            </Link>
+            </a>
           </div>
         </div>
       </header>

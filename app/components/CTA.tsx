@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function CTA() {
   return (
@@ -24,11 +24,11 @@ export default function CTA() {
             Experience how our platform can transform your construction management process.
           </p>
 
-          <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+          <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
             <Button size="lg" className="mt-8">
               Get Started
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </div>

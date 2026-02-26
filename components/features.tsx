@@ -2,8 +2,8 @@
 
 import { Users, Clock, Shield, BarChart3, ArrowRight } from "lucide-react"
 import { memo } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 const features = [
   {
@@ -90,7 +90,7 @@ export default function Features() {
           ))}
         </div>
         <div className="flex justify-center pt-8">
-          <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+          <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
             <Button
               size="lg"
               className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
@@ -99,7 +99,7 @@ export default function Features() {
               Get Started
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

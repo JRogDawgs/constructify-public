@@ -3,6 +3,7 @@
 import { useMemo } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { APP_BASE_URL } from "@/lib/appConfig"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -41,7 +42,7 @@ export default function Navbar() {
 
   const renderAuthSection = () => {
     return (
-      <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label="Log in or sign up">
+      <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener" aria-label="Log in or sign up">
         <Button 
           size="lg" 
           className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-xl px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
@@ -56,7 +57,7 @@ export default function Navbar() {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
           {t('nav.signin')}
         </Button>
-      </Link>
+      </a>
     )
   }
 

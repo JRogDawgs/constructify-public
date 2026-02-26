@@ -113,7 +113,7 @@ export function CeeboChat() {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       {!hasMessages ? (
-        <div className="flex-1 overflow-y-auto">
+        <div className="ceebo-scroll-area flex-1 overflow-y-auto">
           <CeeboWelcome onQuickAction={handleQuickAction} />
         </div>
       ) : (

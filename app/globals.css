@@ -157,6 +157,9 @@
   .bg-constructify-navy {
     background-color: hsl(var(--constructify-navy));
   }
+  .border-constructify-navy {
+    border-color: hsl(var(--constructify-navy));
+  }
   .bg-constructify-navy-dark {
     background-color: hsl(var(--constructify-navy-dark));
   }
@@ -424,5 +427,14 @@
 /* Ceebo Component Styles */
 .ceebo-modal-border {
   background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 50%, #AFAFAF 100%);
+}
+
+/* Hide scrollbar in Ceebo modal but keep scroll functionality */
+.ceebo-scroll-area {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ceebo-scroll-area::-webkit-scrollbar {
+  display: none;
 }
 

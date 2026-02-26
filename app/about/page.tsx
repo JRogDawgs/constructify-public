@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { APP_BASE_URL } from "@/lib/appConfig"
 import { ArrowRight, Mail, Linkedin, Twitter } from "lucide-react"
 
 // Enhanced profile card component with glassmorphism styling
 const ProfileCard = ({ name, role, description }: { name: string, role: string, description: string }) => (
-  <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+  <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
     <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
     <div className="relative space-y-4">
       <div className="w-20 h-20 bg-gradient-to-br from-constructify-blue to-constructify-gold rounded-full mx-auto flex items-center justify-center">
@@ -49,11 +50,10 @@ export default function AboutPage() {
             loop
             muted
             playsInline
-            className="h-full w-full object-cover opacity-25"
+            className="h-full w-full object-cover opacity-30"
           >
             <source src="/videos/construction-bg.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-800/50 via-slate-800/45 to-slate-700/50" aria-hidden="true" />
         </div>
 
         {/* Content */}
@@ -74,7 +74,7 @@ export default function AboutPage() {
             {/* Company Mission Section */}
             <div className="text-center space-y-8">
               <div className="max-w-4xl mx-auto">
-                <div className="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     At Constructify, we believe that construction is more than just building structures—it's about creating the foundation for communities, dreams, and the future. Our mission is to empower construction professionals with cutting-edge technology that simplifies complex projects, enhances collaboration, and delivers exceptional results every time.
@@ -125,7 +125,7 @@ export default function AboutPage() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-16 h-16 bg-constructify-blue/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-blue font-bold text-2xl">🏗️</span>
                   </div>
@@ -133,7 +133,7 @@ export default function AboutPage() {
                   <p className="text-sm text-muted-foreground">Continuously pushing boundaries to deliver cutting-edge solutions</p>
                 </div>
 
-                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-16 h-16 bg-constructify-gold/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-gold font-bold text-2xl">🤝</span>
                   </div>
@@ -141,7 +141,7 @@ export default function AboutPage() {
                   <p className="text-sm text-muted-foreground">Building lasting relationships with our clients and community</p>
                 </div>
 
-                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-16 h-16 bg-constructify-navy/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-navy font-bold text-2xl">⚡</span>
                   </div>
@@ -149,7 +149,7 @@ export default function AboutPage() {
                   <p className="text-sm text-muted-foreground">Delivering exceptional quality in everything we create</p>
                 </div>
 
-                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
+                <div className="text-center space-y-4 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 page-card">
                   <div className="w-16 h-16 bg-constructify-blue/20 rounded-full flex items-center justify-center mx-auto">
                     <span className="text-constructify-blue font-bold text-2xl">🎯</span>
                   </div>
@@ -171,20 +171,20 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
                   <Button 
                     size="lg" 
-                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started Today
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
+                </a>
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
+                  className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                   Contact Us

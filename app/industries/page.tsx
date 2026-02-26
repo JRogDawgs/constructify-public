@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { APP_BASE_URL } from "@/lib/appConfig"
 import { ArrowRight, Home, Building2, Factory, HardHat, Construction, GraduationCap } from "lucide-react"
 
 export default function IndustriesPage() {
@@ -45,7 +46,7 @@ export default function IndustriesPage() {
             {/* Industries Grid with enhanced styling */}
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {/* Residential Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <Home className="h-12 w-12 text-constructify-blue mb-4 group-hover:scale-110 transition-transform" />
@@ -57,7 +58,7 @@ export default function IndustriesPage() {
               </div>
 
               {/* Commercial Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-gold/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <Building2 className="h-12 w-12 text-constructify-gold mb-4 group-hover:scale-110 transition-transform" />
@@ -69,7 +70,7 @@ export default function IndustriesPage() {
               </div>
 
               {/* Industrial Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-navy/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <Factory className="h-12 w-12 text-constructify-navy mb-4 group-hover:scale-110 transition-transform" />
@@ -81,7 +82,7 @@ export default function IndustriesPage() {
               </div>
 
               {/* Infrastructure Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <HardHat className="h-12 w-12 text-constructify-blue mb-4 group-hover:scale-110 transition-transform" />
@@ -93,7 +94,7 @@ export default function IndustriesPage() {
               </div>
 
               {/* Heavy Civil Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-gold/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <Construction className="h-12 w-12 text-constructify-gold mb-4 group-hover:scale-110 transition-transform" />
@@ -105,7 +106,7 @@ export default function IndustriesPage() {
               </div>
 
               {/* Institutional Construction */}
-              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
+              <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
                 <div className="absolute inset-0 bg-gradient-to-br from-constructify-navy/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative">
                   <GraduationCap className="h-12 w-12 text-constructify-navy mb-4 group-hover:scale-110 transition-transform" />
@@ -129,16 +130,16 @@ export default function IndustriesPage() {
                 </p>
               </div>
               <div className="flex justify-center">
-                <Link href="/signup" target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
                   <Button
                     size="lg"
-                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started Today
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

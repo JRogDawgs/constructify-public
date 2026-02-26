@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { APP_BASE_URL } from "@/lib/appConfig"
 import { ContactForm } from "./ContactForm"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, Users, Bot, Zap } from "lucide-react"
@@ -47,7 +48,7 @@ export default function ContactPage() {
 
             {/* Contact Form - Centered */}
             <div className="mx-auto max-w-2xl">
-              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
+              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 page-card">
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-semibold text-foreground mb-2">Send Us a Message</h2>
@@ -73,7 +74,7 @@ export default function ContactPage() {
 
             {/* Why Choose Us */}
             <div className="max-w-4xl mx-auto">
-              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 p-8 page-card">
+              <Card className="relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 page-card">
                 <div className="space-y-6">
                   <h2 className="text-2xl font-semibold text-foreground">Why Choose Constructify?</h2>
 
@@ -118,16 +119,16 @@ export default function ContactPage() {
                 </p>
               </div>
               <div className="flex justify-center">
-                <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
                   <Button
                     size="lg"
-                    className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
