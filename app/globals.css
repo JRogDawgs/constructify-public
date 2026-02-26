@@ -431,10 +431,14 @@
 
 /* Hide scrollbar in Ceebo modal but keep scroll functionality */
 .ceebo-scroll-area {
-  scrollbar-width: none;
   -ms-overflow-style: none;
 }
 .ceebo-scroll-area::-webkit-scrollbar {
   display: none;
+}
+@supports (scrollbar-width: none) {
+  .ceebo-scroll-area {
+    scrollbar-width: none;
+  }
 }
 
