@@ -1,10 +1,9 @@
 "use client"
 
-import { Users, Clock, Shield, BarChart3 } from "lucide-react"
+import { Users, Clock, Shield, BarChart3, ArrowRight } from "lucide-react"
 import { memo } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
 
 const features = [
   {

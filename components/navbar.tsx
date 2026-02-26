@@ -9,16 +9,15 @@ import { ThemeToggle } from "@/components/theme-toggle"
 export default function Navbar() {
   const { t } = useTranslation()
 
-  const navigationLinks = [
-    { href: "/solutions", label: t('nav.solutions') },
-    { href: "/industries", label: t('nav.industries') },
-    { href: "/pricing", label: t('nav.pricing') },
-    { href: "/about", label: t('nav.about') },
-    { href: "/contact", label: t('nav.contact') },
-  ]
-
-  const memoizedNavLinks = useMemo(() => (
-    navigationLinks.map(({ href, label }) => (
+  const memoizedNavLinks = useMemo(() => {
+    const navigationLinks = [
+      { href: "/solutions", label: t('nav.solutions') },
+      { href: "/industries", label: t('nav.industries') },
+      { href: "/pricing", label: t('nav.pricing') },
+      { href: "/about", label: t('nav.about') },
+      { href: "/contact", label: t('nav.contact') },
+    ]
+    return navigationLinks.map(({ href, label }) => (
       <Link
         key={href}
         href={href}
@@ -28,7 +27,7 @@ export default function Navbar() {
         {label}
       </Link>
     ))
-  ), [])
+  }, [t])
 
   const renderAuthSection = () => {
     return (
