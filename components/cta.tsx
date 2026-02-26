@@ -3,11 +3,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, Zap, Shield, TrendingUp, Users } from "lucide-react"
-import { useState } from "react"
-import DemoModal from "./demo-modal"
 
 export default function CTA() {
-  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
 
   const stats = [
     { icon: Users, value: "500+", label: "Companies Trust Us" },
@@ -91,31 +88,18 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
-                  {/* Primary CTA - Start Free Trial */}
-                  <Link href="/signup" aria-label="Start your free trial">
+                  <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label="Get started">
                     <Button 
                       size="lg"
                       className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-primary-button"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                       <span className="relative z-10 flex items-center gap-3">
-                        🚀 START FREE TRIAL
+                        🚀 GET STARTED
                         <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
                       </span>
                     </Button>
                   </Link>
-
-                  {/* Secondary CTA - Watch Demo */}
-                  <Button 
-                    size="lg"
-                    onClick={() => setIsDemoModalOpen(true)}
-                    className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-secondary-button"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                    <span className="relative z-10 flex items-center gap-3">
-                      🎬 WATCH DEMO
-                    </span>
-                  </Button>
                 </motion.div>
 
                 {/* Trust Indicators */}
@@ -138,11 +122,6 @@ export default function CTA() {
           </motion.div>
         </div>
       </section>
-
-      <DemoModal 
-        isOpen={isDemoModalOpen} 
-        onClose={() => setIsDemoModalOpen(false)} 
-      />
     </>
   )
 }

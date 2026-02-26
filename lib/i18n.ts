@@ -25,8 +25,7 @@ const resources = {
         title: "Build Smarter with",
         subtitle: "The Complete Construction Management Platform",
         description: "Streamline your construction projects with our comprehensive platform designed for contractors, project managers, and construction teams.",
-        ctaPrimary: "Start Free Trial",
-        ctaSecondary: "Watch Demo",
+        ctaPrimary: "Get Started",
         trustedBy: "Trusted by 500+ construction companies"
       },
       
@@ -244,8 +243,7 @@ const resources = {
         title: "Construye Más Inteligente con",
         subtitle: "La Plataforma Completa de Gestión de Construcción",
         description: "Optimiza tus proyectos de construcción con nuestra plataforma integral diseñada para contratistas, gerentes de proyecto y equipos de construcción.",
-        ctaPrimary: "Prueba Gratuita",
-        ctaSecondary: "Ver Demo",
+        ctaPrimary: "Comenzar",
         trustedBy: "Confiado por más de 500 empresas de construcción"
       },
       

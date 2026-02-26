@@ -1,18 +1,12 @@
 "use client"
 
-import { useState, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
-import DemoModal from "./demo-modal"
 
 export default function Hero() {
   const { t } = useTranslation()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleModalOpen = useCallback(() => setIsModalOpen(true), [])
-  const handleModalClose = useCallback(() => setIsModalOpen(false), [])
 
   return (
     <>
@@ -64,7 +58,7 @@ export default function Hero() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6">
-            <Link href="/solutions">
+            <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">
               <Button 
                 size="lg" 
                 className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
@@ -74,22 +68,9 @@ export default function Hero() {
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
-            <Button 
-              size="lg"
-              onClick={handleModalOpen}
-              className="w-full sm:w-auto font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-secondary-button"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-              {t('hero.ctaSecondary')}
-            </Button>
           </div>
         </div>
       </section>
-
-      <DemoModal 
-        isOpen={isModalOpen} 
-        onClose={handleModalClose} 
-      />
     </>
   )
 }

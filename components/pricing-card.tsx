@@ -62,7 +62,7 @@ export const PricingCard = memo(function PricingCard({
           <p className="mt-2 text-sm text-muted-foreground">{description}</p>
         </div>
         <FeatureList features={features} />
-        <Link href="/signup" aria-label={`Get started with ${name} plan`}>
+        <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" aria-label={`Get started with ${name} plan`}>
           <Button 
             className="w-full" 
             variant={isPopular ? "default" : "outline"}

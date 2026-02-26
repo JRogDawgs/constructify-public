@@ -16,7 +16,6 @@ const footerLinks = {
   ],
   company: [
     { href: "/about", label: "About Us" },
-    { href: "/careers", label: "Careers" },
   ],
   legal: [
     { href: "/terms", label: "Terms of Service" },

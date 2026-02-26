@@ -1,5 +1,6 @@
 import { PricingCard } from "@/components/pricing-card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 export default function PricingPage() {
@@ -30,6 +31,11 @@ export default function PricingPage() {
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
           <div className="space-y-12">
+            <div className="rounded-lg border border-amber-500/50 bg-amber-500/10 px-6 py-4 text-center">
+              <p className="text-amber-600 dark:text-amber-400 font-medium">
+                Pricing structure being finalized. Contact us for details.
+              </p>
+            </div>
             <div className="space-y-6 text-center">
               <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-4xl font-medium tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl pb-2">
                 Pricing Plans
@@ -149,11 +155,14 @@ export default function PricingPage() {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Button 
                   size="lg" 
+                  asChild
                   className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  Start Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener" className="flex items-center">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
                 <Button 
                   size="lg"

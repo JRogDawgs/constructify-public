@@ -1,14 +1,11 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import DemoModal from "./demo-modal"
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <>
@@ -40,35 +37,14 @@ export default function Navbar() {
             >
               Pricing
             </Link>
-            <Link
-              href="/careers"
-              className={
-                pathname === "/careers"
-                  ? "text-foreground"
-                  : "text-foreground/60 transition-colors hover:text-foreground"
-              }
-            >
-              Careers
-            </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant="outline"
-            >
-              Get a Demo
-            </Button>
             <Button asChild>
-              <Link href="/signup">Sign Up</Link>
+              <Link href="https://app.constructifylabs.com/login" target="_self" rel="noopener">Sign In</Link>
             </Button>
           </div>
         </div>
       </header>
-
-      <DemoModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
     </>
   )
 } 

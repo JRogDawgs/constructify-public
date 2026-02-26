@@ -6,7 +6,7 @@ import { AuthProvider } from '@/components/Google Auth/AuthContext'
 import I18nProvider from '@/components/i18n-provider'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LiveChat from '@/components/live-chat'
+import CeeboPlaceholder from '@/components/ceebo-placeholder'
 import MouseMoveEffect from '@/components/mouse-move-effect'
 import { Toaster } from 'sonner'
 
@@ -46,7 +46,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             </main>
             <Footer />
           </div>
-          <LiveChat />
+          <CeeboPlaceholder />
           <Toaster />
         </AuthProvider>
       </I18nProvider>
