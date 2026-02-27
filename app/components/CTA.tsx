@@ -24,7 +24,7 @@ export default function CTA() {
             Experience how our platform can transform your construction management process.
           </p>
 
-          <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
+          <a href={`${APP_BASE_URL}/auth/create-company`} target="_self" rel="noopener">
             <Button size="lg" className="mt-8">
               Get Started
             </Button>

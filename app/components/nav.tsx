@@ -40,7 +40,7 @@ export default function Navbar() {
             </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
-            <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener">
+            <a href={`${APP_BASE_URL}/auth/login`} target="_self" rel="noopener">
               <Button>Sign In</Button>
             </a>
           </div>

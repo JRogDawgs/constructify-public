@@ -42,7 +42,7 @@ export default function Navbar() {
 
   const renderAuthSection = () => {
     return (
-      <a href={`${APP_BASE_URL}/signup?type=company`} target="_self" rel="noopener" aria-label="Log in or sign up">
+      <a href={`${APP_BASE_URL}/auth/login`} target="_self" rel="noopener" aria-label="Log in or sign up">
         <Button 
           size="lg" 
           className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-xl px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
