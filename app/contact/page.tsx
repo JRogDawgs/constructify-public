@@ -119,12 +119,11 @@ export default function ContactPage() {
                 </p>
               </div>
               <div className="flex justify-center">
-                <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
                   <Button
                     size="lg"
-                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+                    className="font-black px-8 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

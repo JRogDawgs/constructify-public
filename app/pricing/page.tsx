@@ -82,7 +82,6 @@ export default function PricingPage() {
                   "Enterprise-level reporting",
                   "Dedicated onboarding support"
                 ]}
-                ctaHref="/contact"
               />
             </div>
 
