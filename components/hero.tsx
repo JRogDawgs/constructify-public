@@ -63,7 +63,7 @@ export default function Hero() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href={`${APP_BASE_URL}/auth/company-signup`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
+            <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
               <Button 
                 size="lg" 
                 className="w-full sm:w-auto font-black px-8 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"

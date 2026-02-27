@@ -56,7 +56,7 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
-                  <a href={`${APP_BASE_URL}/auth/company-signup`} target="_self" rel="noopener" aria-label="Get started">
+                  <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener" aria-label="Get started">
                     <Button 
                       size="lg"
                       className="group relative font-black border-2 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 rounded-2xl px-12 py-6 text-xl h-auto uppercase tracking-wide overflow-hidden cta-primary-button"

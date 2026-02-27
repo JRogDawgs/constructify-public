@@ -32,7 +32,7 @@ const FeatureList = memo(({ features }: { features: string[] }) => (
 
 FeatureList.displayName = "FeatureList"
 
-const DEFAULT_CTA_HREF = `${APP_BASE_URL}/auth/company-signup`
+const DEFAULT_CTA_HREF = `${APP_BASE_URL}/auth/signup`
 
 export const PricingCard = memo(function PricingCard({ 
   name, 

@@ -13,7 +13,7 @@ const VALID_ROUTES: ReadonlySet<string> = new Set([
   '/auth/login',
   '/auth/register',
   '/auth/onboarding',
-  '/auth/company-signup',
+  '/auth/signup',
   '/auth/plan-selection',
   '/auth/post-payment-wizard',
   '/auth/post-payment-success',
