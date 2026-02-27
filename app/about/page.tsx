@@ -171,7 +171,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href={`${APP_BASE_URL}/auth/create-company`} target="_self" rel="noopener">
+                <a href={`${APP_BASE_URL}/auth/company-signup`} target="_self" rel="noopener">
                   <Button 
                     size="lg" 
                     className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
