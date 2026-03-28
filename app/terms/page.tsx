@@ -282,6 +282,20 @@ export default function TermsPage() {
                 </div>
 
                 <div>
+                  <h2 className="text-2xl font-semibold mb-4">SMS Terms of Service</h2>
+                  <p>
+                    Constructify may send SMS messages to mobile numbers you provide or that are used in connection with your account, including messages related to account activity, onboarding, employee invitations, and work-related notifications. Message frequency may vary. Message and data rates may apply, depending on your carrier and plan.
+                  </p>
+                  <p>
+                    You may opt out of SMS at any time by replying <strong>STOP</strong> to any message. For help with SMS, reply <strong>HELP</strong> or contact{" "}
+                    <a href="mailto:support@constructifylabs.com" className="text-primary underline underline-offset-4">support@constructifylabs.com</a>.
+                  </p>
+                  <p>
+                    Consent to receive SMS is not a condition of purchasing or using Constructify services generally; however, where SMS is used to complete an invited onboarding flow, verify account access, or deliver time-sensitive work-related notices you have agreed to receive, you may need to complete those steps through the channels we provide (including SMS) to access certain features.
+                  </p>
+                </div>
+
+                <div>
                   <h2 className="text-2xl font-semibold mb-4">21. Contact Information</h2>
                   <p>
                     For legal inquiries regarding these Terms, contact:

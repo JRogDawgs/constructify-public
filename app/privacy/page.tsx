@@ -107,6 +107,20 @@ export default function PrivacyPage() {
                 </div>
 
                 <div>
+                  <h2 className="text-2xl font-semibold mb-4">SMS Communications</h2>
+                  <p>
+                    By providing a mobile phone number to Constructify, you may receive SMS messages from Constructify Labs related to account notifications, onboarding, employee invitations, and work-related operational updates. Message frequency may vary. Message and data rates may apply, depending on your carrier and plan.
+                  </p>
+                  <p>
+                    You may opt out of SMS at any time by replying <strong>STOP</strong> to any message. After you opt out, you may receive a one-time confirmation message. For help with SMS, reply <strong>HELP</strong> or contact us at{" "}
+                    <a href="mailto:support@constructifylabs.com" className="text-primary underline underline-offset-4">support@constructifylabs.com</a>.
+                  </p>
+                  <p>
+                    Constructify does not share, sell, rent, or disclose mobile phone numbers or SMS opt-in data to third parties for marketing or promotional purposes. Mobile information is used only to provide services directly related to your account, employment-related onboarding, and platform operations.
+                  </p>
+                </div>
+
+                <div>
                   <h2 className="text-2xl font-semibold mb-4">5. User Rights</h2>
                   <p>Depending on your location, you may have the right to:</p>
                   <ul className="list-disc pl-6 mt-2 space-y-2">
@@ -155,7 +169,7 @@ export default function PrivacyPage() {
                 </div>
 
                 <div className="pt-6 mt-6 border-t border-muted">
-                  <p className="text-sm text-muted-foreground italic text-center m-0">Last Updated: February 5, 2026</p>
+                  <p className="text-sm text-muted-foreground italic text-center m-0">Last Updated: March 28, 2026</p>
                   <p className="text-sm text-muted-foreground italic text-center mt-2 m-0">This privacy policy is effective as of the date listed above and will remain in effect except with respect to any changes in its provisions in the future.</p>
                 </div>
               </section>
