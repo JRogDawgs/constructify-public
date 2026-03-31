@@ -14,6 +14,7 @@ export type DemoVideoEntry = {
   title: string
   subtitle: string
   youtubeId: string
+  thumbnailUrl: string
 }
 
 export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
@@ -22,7 +23,8 @@ export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
     title: "Admin Dashboard",
     subtitle:
       "Full org-wide control — manage users, crews, and projects. See how leadership runs the entire operation from one place.",
-    youtubeId: "MT3HWUy034k",
+    youtubeId: "mBcd2ZYKKYs",
+    thumbnailUrl: "https://img.youtube.com/vi/mBcd2ZYKKYs/hqdefault.jpg",
   },
   supervisor: {
     id: "supervisor",
@@ -30,13 +32,15 @@ export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
     subtitle:
       "Assign work, track crews, and hold teams accountable in real time — coordinate the field without chaos.",
     youtubeId: "9WLFjxS8OE8",
+    thumbnailUrl: "https://img.youtube.com/vi/9WLFjxS8OE8/hqdefault.jpg",
   },
   worker: {
     id: "worker",
     title: "Worker Dashboard",
     subtitle:
       "Simple clock in/out, clear daily tasks, and personal compliance tracking — so every worker knows exactly what to do.",
-    youtubeId: "mBcd2ZYKKYs",
+    youtubeId: "MT3HWUy034k",
+    thumbnailUrl: "https://img.youtube.com/vi/MT3HWUy034k/hqdefault.jpg",
   },
 }
 
