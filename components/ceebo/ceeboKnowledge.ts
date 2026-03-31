@@ -210,9 +210,9 @@ export function buildSalesResponse(
       (detectedSize !== null && (intent === "PRICING" || conversationStage === "QUALIFY_SIZE" || intent === null)))
 
   if (detectedSize !== null && (intent === "PRICING" || conversationStage === "QUALIFY_SIZE" || intent === null)) {
-    const monthly = calculateMonthlyCost(detectedSize)
     const annual = getAnnualLicense(detectedSize)
-    const baseResponse = `At ${detectedSize} users, your monthly cost would be approximately $${monthly.toLocaleString()}/month (that includes $${(detectedSize * PER_USER_MONTHLY).toFixed(0)} for users plus $${(annual / 12).toFixed(0)}/month for the annual platform license). Most companies your size lose far more than this in scheduling inefficiencies alone.`
+    const perUserMonthlyTotal = Math.round(detectedSize * PER_USER_MONTHLY)
+    const baseResponse = `At ${detectedSize} users, your annual platform license is $${annual.toLocaleString()}/year, and your per-user fees are $${PER_USER_MONTHLY.toFixed(2)} × ${detectedSize} active users (about $${perUserMonthlyTotal.toLocaleString()}/month for those users). Most companies your size lose far more than this in scheduling inefficiencies alone.`
     const roadmapBlock = canShowRoadmap ? ` ${ROADMAP_SIGNAL} ${EARLY_ADOPTER_FRAME}` : ""
     return {
       response: `${baseResponse}${roadmapBlock} The next step is simple — we can get you started or walk you through it live. Which works better for you?`,
