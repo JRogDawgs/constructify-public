@@ -21,10 +21,10 @@ export default function CeeboSection() {
           id="ceebo-section-title"
           className="text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl"
         >
-          Meet Ceebo — Your AI Operations Assistant
+          Meet Ceebo — Your AI Assistant
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-700 text-lg leading-relaxed">
-          Ask questions. Check compliance. Review schedules. Get answers instantly.
+          Ask questions. Check schedules. Get answers instantly.
         </p>
         <div className="mt-10 flex flex-col items-center gap-4">
           <p className="text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">

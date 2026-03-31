@@ -131,7 +131,7 @@ export default function Footer() {
                 <h2 className="font-bold text-white text-lg">Constructify</h2>
               </div>
               <p className="text-slate-300 text-sm leading-relaxed">
-                Pioneering construction solutions for the digital age.
+                Built for the field. Designed for real construction work.
               </p>
             </div>
             

@@ -33,16 +33,19 @@ export default function PricingPage() {
           <div className="space-y-12">
             <div className="space-y-6 text-center">
               <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-4xl font-medium tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl pb-2">
-                Pricing Plans
+                Simple Pricing
               </h1>
               <div className="w-full max-w-2xl mx-auto">
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                $19.99 per active user per month plus an annual platform license. Scale as you grow.
+                Simple pricing that scales with your team. You pay per active user — no hidden fees.
               </p>
               <p className="mx-auto max-w-2xl text-muted-foreground/90 text-base sm:text-lg mt-4">
-                Most construction companies lose more in inefficiency than they invest in systems.
+                Most companies save more in reduced payroll issues than they spend on Constructify.
+              </p>
+              <p className="mx-auto max-w-2xl text-amber-500 font-semibold text-base sm:text-lg mt-2">
+                One payroll mistake can cost more than your entire monthly subscription.
               </p>
             </div>
 
@@ -105,7 +108,7 @@ export default function PricingPage() {
               <div className="text-center space-y-4">
                 <h2 className="text-3xl font-bold text-foreground">Platform Features</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Every Constructify plan comes with essential features to help you manage your construction projects effectively.
+                  Every plan includes everything you need to manage crews, track time, and stay compliant.
                 </p>
               </div>
 
@@ -150,9 +153,9 @@ export default function PricingPage() {
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-foreground">Ready to Get Started?</h2>
+                <h2 className="text-2xl font-semibold text-foreground">See How It Works</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Join thousands of construction professionals already using Constructify to streamline their operations.
+                  Get set up in minutes. Start seeing results on your first job.
                 </p>
               </div>
               <div className="flex justify-center">
@@ -162,7 +165,7 @@ export default function PricingPage() {
                     className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                    Get Started
+                    Get Control Today
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>

@@ -30,9 +30,9 @@ export default function CTA() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
                   <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
-                    CONTROL YOUR
+                    GET CONTROL
                     <br />
-                    OPERATIONS
+                    OF YOUR CREWS
                   </h2>
                   <div className="w-32 h-1 bg-white/30 mx-auto rounded-full"></div>
                 </motion.div>
@@ -44,8 +44,8 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  Workforce control, accurate scheduling, and compliance tracking. 
-                  Put your data to work instead of chasing spreadsheets.
+                  Stop losing money to bad data and missed clock-ins.
+                  Run tighter jobs starting today.
                 </motion.p>
 
                 {/* CTA Buttons */}
@@ -63,7 +63,7 @@ export default function CTA() {
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                       <span className="relative z-10 flex items-center gap-3">
-                        Get Started
+                        Get Control Today
                         <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
                       </span>
                     </Button>

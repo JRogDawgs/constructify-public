@@ -22,7 +22,7 @@ export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
     id: "admin",
     title: "Admin Dashboard",
     subtitle:
-      "Full org-wide control — manage users, crews, and projects. See how leadership runs the entire operation from one place.",
+      "See every crew, every job, every project — from one screen. Total visibility for the people running the operation.",
     youtubeId: "mBcd2ZYKKYs",
     thumbnailUrl: "https://img.youtube.com/vi/mBcd2ZYKKYs/hqdefault.jpg",
   },
@@ -30,7 +30,7 @@ export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
     id: "supervisor",
     title: "Supervisor Dashboard",
     subtitle:
-      "Assign work, track crews, and hold teams accountable in real time — coordinate the field without chaos.",
+      "Assign jobs, track crews in real time, and hold your team accountable — without the back-and-forth.",
     youtubeId: "9WLFjxS8OE8",
     thumbnailUrl: "https://img.youtube.com/vi/9WLFjxS8OE8/hqdefault.jpg",
   },
@@ -38,7 +38,7 @@ export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
     id: "worker",
     title: "Worker Dashboard",
     subtitle:
-      "Simple clock in/out, clear daily tasks, and personal compliance tracking — so every worker knows exactly what to do.",
+      "Clock in, see your tasks, and track your hours and certs — everything a worker needs, nothing they don't.",
     youtubeId: "MT3HWUy034k",
     thumbnailUrl: "https://img.youtube.com/vi/MT3HWUy034k/hqdefault.jpg",
   },

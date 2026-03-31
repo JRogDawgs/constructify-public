@@ -56,14 +56,13 @@ export default function RoleDemosSection() {
             id="role-demos-heading"
             className="text-3xl font-bold tracking-tight text-white md:text-4xl"
           >
-            See Constructify in Action
+            See Exactly How It Works
           </h2>
           <p className="mt-3 text-lg text-slate-300 md:text-xl">
-            Explore how every role operates inside Constructify — from admin to the field.
-            Real workflows. Real accountability. Built for how construction actually runs.
+            Watch how admins, supervisors, and workers actually use Constructify day to day.
           </p>
           <p className="mt-2 text-sm text-slate-400">
-            Short demos you can watch now and share with your team in minutes.
+            Short walkthroughs. Real workflows. Share with your team in minutes.
           </p>
         </div>
 
@@ -82,7 +81,9 @@ export default function RoleDemosSection() {
                     key={role}
                     className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
                   >
-                    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-800/40 shadow-lg backdrop-blur-sm">
+                    {/* Silver gradient border wrapper */}
+                    <div className="h-full rounded-2xl p-[2.5px] bg-gradient-to-br from-white via-slate-300 to-slate-400 shadow-[0_0_12px_rgba(200,210,220,0.25)]">
+                    <article className="flex h-full flex-col overflow-hidden rounded-[14px] bg-slate-900">
                       <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
                         {isPlaying ? (
                           <>
@@ -140,6 +141,7 @@ export default function RoleDemosSection() {
                         </p>
                       </div>
                     </article>
+                    </div>
                   </CarouselItem>
                 )
               })}

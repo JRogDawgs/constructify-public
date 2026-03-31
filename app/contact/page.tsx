@@ -36,13 +36,16 @@ export default function ContactPage() {
             {/* Header */}
             <div className="space-y-6 text-center">
               <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text text-4xl font-medium tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl">
-                Get In Touch
+                Let&apos;s Get Your Operation Under Control
               </h1>
               <div className="w-full max-w-2xl mx-auto">
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-gold/60 via-constructify-gold via-constructify-gold/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <p className="mx-auto max-w-[42rem] leading-normal text-foreground/90 sm:text-xl sm:leading-8">
-                Ready to transform your construction projects? Let&apos;s discuss how Constructify can streamline your workflow.
+                Tell us about your team. We&apos;ll show you exactly what Constructify looks like for your operation.
+              </p>
+              <p className="mx-auto max-w-[36rem] text-amber-500 font-semibold text-base sm:text-lg">
+                If your crews aren&apos;t dialed in, you&apos;re losing money. Let&apos;s fix that.
               </p>
             </div>
 
@@ -83,7 +86,7 @@ export default function ContactPage() {
                       <Users className="h-6 w-6 text-constructify-gold mt-1 flex-shrink-0" />
                       <div>
                         <h3 className="font-medium text-foreground">Expert Team</h3>
-                        <p className="text-sm text-foreground/80">Construction industry veterans with 20+ years experience</p>
+                        <p className="text-sm text-foreground/80">Built by people who understand construction, not just software</p>
                       </div>
                     </div>
 
@@ -91,7 +94,7 @@ export default function ContactPage() {
                       <Bot className="h-6 w-6 text-constructify-blue mt-1 flex-shrink-0" />
                       <div>
                         <h3 className="font-medium text-foreground">AI Support via Ceebo</h3>
-                        <p className="text-sm text-foreground/80">Instant operational assistance powered by Constructify&apos;s AI agent.</p>
+                        <p className="text-sm text-foreground/80">Ask Ceebo anything — scheduling, compliance, navigation — and get an answer fast.</p>
                       </div>
                     </div>
 
@@ -99,7 +102,7 @@ export default function ContactPage() {
                       <Zap className="h-6 w-6 text-constructify-navy mt-1 flex-shrink-0" />
                       <div>
                         <h3 className="font-medium text-foreground">Fast Implementation</h3>
-                        <p className="text-sm text-foreground/80">Get up and running in less than 48 hours</p>
+                        <p className="text-sm text-foreground/80">Up and running in under 48 hours — no IT, no long onboarding</p>
                       </div>
                     </div>
                   </div>
@@ -113,9 +116,9 @@ export default function ContactPage() {
                 <div className="h-0.5 bg-gradient-to-r from-transparent via-constructify-blue/60 via-constructify-blue via-constructify-blue/60 to-transparent animate-pulse shadow-sm"></div>
               </div>
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold text-foreground">Ready to Get Started?</h2>
+                <h2 className="text-2xl font-semibold text-foreground">Stop Losing Money. Start Today.</h2>
                 <p className="text-foreground/80 max-w-2xl mx-auto">
-                  Join thousands of construction professionals who trust Constructify to deliver exceptional results.
+                  Get set up in minutes. Immediate visibility across your jobs.
                 </p>
               </div>
               <div className="flex justify-center">
@@ -124,7 +127,7 @@ export default function ContactPage() {
                     size="lg"
                     className="font-black px-8 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
                   >
-                    Get Started
+                    Get Control Today
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>

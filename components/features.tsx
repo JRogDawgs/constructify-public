@@ -8,25 +8,25 @@ import { APP_BASE_URL } from "@/lib/appConfig"
 const features = [
   {
     name: "Workforce Control",
-    description: "Assign the right workers to the right jobs. Clear site accountability. Shift people where demand is.",
+    description: "No more guessing who should be where.",
     icon: Users,
     id: "workforce-control",
   },
   {
-    name: "Scheduling & Time Accuracy",
-    description: "Fewer payroll disputes. Exact hours per project. No manual timesheets.",
+    name: "Scheduling & Time",
+    description: "Clean payroll. No disputes.",
     icon: Clock,
     id: "scheduling",
   },
   {
-    name: "Compliance & Training",
-    description: "Track certifications and OSHA. Fewer compliance gaps. Renew before credentials expire.",
+    name: "Compliance",
+    description: "Never get caught with expired certifications.",
     icon: Shield,
     id: "compliance",
   },
   {
-    name: "Operational Visibility",
-    description: "Project status, labor costs, performance. Faster schedule adjustments. Decisions from data, not spreadsheets.",
+    name: "Visibility",
+    description: "See problems before they cost you money.",
     icon: BarChart3,
     id: "visibility",
   },
@@ -76,10 +76,10 @@ export default function Features() {
             id="features-title"
             className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900"
           >
-            Built for Construction Operations
+            Built for Real Construction Operations
           </h2>
           <p className="mt-4 text-slate-600 sm:text-lg">
-            Four pillars for workforce and job control.
+            Four areas where Constructify saves you time and money every week.
           </p>
         </div>
         <div
@@ -96,7 +96,7 @@ export default function Features() {
               className="font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group hero-primary-button"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-              Get Started
+              Get Control Today
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Button>
           </a>

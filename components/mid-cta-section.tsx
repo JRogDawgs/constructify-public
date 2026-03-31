@@ -13,7 +13,7 @@ interface MidCTASectionProps {
 export default function MidCTASection({
   headline,
   subtext,
-  ctaLabel = "Get Started",
+  ctaLabel = "Get Control Today",
 }: MidCTASectionProps) {
   return (
     <section className="bg-slate-900 py-16 md:py-20" aria-label="Call to action">
@@ -22,6 +22,9 @@ export default function MidCTASection({
           {headline}
         </h2>
         <p className="mt-4 text-slate-300 text-lg max-w-xl mx-auto">{subtext}</p>
+        <p className="mt-3 text-sm font-bold text-amber-400 uppercase tracking-widest">
+          You&apos;re already paying for inefficiency. This fixes it.
+        </p>
         <div className="mt-8">
           <a
             href={`${APP_BASE_URL}/auth/signup`}

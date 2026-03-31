@@ -82,6 +82,11 @@ export default function Hero() {
               <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
+
+          {/* Social proof nudge */}
+          <p className="text-sm text-white/50 tracking-wide">
+            Most companies fix payroll issues in the first week.
+          </p>
         </div>
       </section>
     </>

@@ -6,43 +6,43 @@ const roles = [
   {
     icon: BarChart3,
     role: "Admin",
-    headline: "Total Control. Zero Guesswork.",
+    headline: "Run the whole operation from one place.",
     color: "text-blue-600",
     iconBg: "bg-blue-50",
     borderColor: "border-blue-200",
     cardBg: "bg-blue-50/40",
     benefits: [
-      "Full org-wide visibility across all job sites",
+      "Know who's working, where, and on what",
       "Manage crews, projects, and users from one place",
-      "Real-time reports — no digging through spreadsheets",
+      "See reports instantly — no spreadsheets",
     ],
   },
   {
     icon: Users,
     role: "Supervisor",
-    headline: "Manage the Field. Not the Chaos.",
+    headline: "Assign work and track crews in real time.",
     color: "text-amber-600",
     iconBg: "bg-amber-50",
     borderColor: "border-amber-200",
     cardBg: "bg-amber-50/40",
     benefits: [
-      "Assign jobs to workers or teams with precision",
-      "Track your crews in real time — always",
-      "Accountability built into every shift automatically",
+      "Know exactly what's happening on your jobs",
+      "Assign work clearly before the shift starts",
+      "Hold teams accountable without chasing",
     ],
   },
   {
     icon: HardHat,
     role: "Worker",
-    headline: "Know What to Do. Stay on Track.",
+    headline: "Clock in, see your tasks, and get to work.",
     color: "text-green-600",
     iconBg: "bg-green-50",
     borderColor: "border-green-200",
     cardBg: "bg-green-50/40",
     benefits: [
-      "Simple mobile clock in/out — no app headaches",
-      "Clear daily task assignments before the shift starts",
-      "Track your own certifications, hours, and records",
+      "Know exactly what's expected every day",
+      "Simple mobile clock in/out — no hassle",
+      "Track your own hours and certifications",
     ],
   },
 ]
@@ -59,11 +59,11 @@ export default function RoleValueSection() {
             id="role-value-heading"
             className="text-3xl font-black text-slate-900 sm:text-4xl md:text-5xl leading-tight"
           >
-            Built for Every Role on the Job Site
+            Every Role. Fully Dialed In.
           </h2>
           <p className="mt-4 text-slate-600 sm:text-lg max-w-2xl mx-auto">
-            Everyone from the office to the field gets a purpose-built experience.
-            No one is left guessing.
+            Everyone from the office to the field gets exactly what they need.
+            No guessing. No overlap. No confusion.
           </p>
         </div>
 
@@ -99,6 +99,10 @@ export default function RoleValueSection() {
             )
           })}
         </div>
+
+        <p className="mt-12 text-center text-lg font-semibold text-slate-600">
+          Everyone knows what&apos;s happening. No confusion. No chasing.
+        </p>
       </div>
     </section>
   )

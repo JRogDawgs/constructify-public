@@ -22,12 +22,12 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Stop Losing Money on Mismanaged Crews",
-        subtitle: "Track time, assign work, and eliminate payroll headaches — all in one place.",
-        description: "Real-time visibility for admins, supervisors, and field workers. Built for the field, not the office.",
-        ctaPrimary: "Get Started",
-        ctaSecondary: "See How It Works",
-        trustedBy: "Trusted by 500+ construction companies"
+        title: "Take Control of Your Crews. Stop Losing Money.",
+        subtitle: "Stop payroll mistakes. Know exactly who's working, where they are, and what they're doing — in real time.",
+        description: "Every missed clock-in, bad time entry, and miscommunication costs you money. Fix it.",
+        ctaPrimary: "Get Control Today",
+        ctaSecondary: "See It In Action",
+        trustedBy: ""
       },
       
       // Features
@@ -212,12 +212,12 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Deje de Perder Dinero por Falta de Control de Equipos",
-        subtitle: "Registre el tiempo, asigne trabajo y elimine los dolores de nómina — todo en un solo lugar.",
-        description: "Visibilidad en tiempo real para administradores, supervisores y trabajadores. Hecho para el campo.",
-        ctaPrimary: "Comenzar",
-        ctaSecondary: "Ver Cómo Funciona",
-        trustedBy: "Confiado por más de 500 empresas de construcción"
+        title: "Tome el Control de Sus Cuadrillas. Deje de Perder Dinero.",
+        subtitle: "Detenga los errores de nómina. Sepa exactamente quién está trabajando, dónde están y qué hacen — en tiempo real.",
+        description: "Cada fichaje perdido, entrada de tiempo incorrecta y mala comunicación le cuesta dinero. Arréglelo.",
+        ctaPrimary: "Tomar Control Hoy",
+        ctaSecondary: "Verlo En Acción",
+        trustedBy: ""
       },
       
       // Features

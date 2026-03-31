@@ -15,10 +15,10 @@ export default function WorkerPathway() {
           id="worker-pathway-title"
           className="text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl"
         >
-          Are You a Field Worker?
+          Are You a Worker?
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-700 text-lg leading-relaxed">
-          Create your Constructify worker profile. Track certifications, clock time, and stay job-ready.
+          Track your hours, tasks, and certifications in one place. Stay job-ready.
         </p>
         <div className="mt-8">
           <a href={`${APP_BASE_URL}/auth/register`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
