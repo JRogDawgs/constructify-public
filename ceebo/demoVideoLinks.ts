@@ -5,6 +5,7 @@
 export {
   DEMO_VIDEOS,
   DEMO_ROLE_IDS,
+  getDemoVideoSrc,
   getDemoVideoAbsoluteFileUrl,
   getDemoLandingPageUrl,
   getDemoSectionHashUrl,

@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button"
 import {
   DEMO_ROLE_IDS,
   DEMO_VIDEOS,
+  getDemoVideoSrc,
   type DemoRoleId,
 } from "@/lib/demoVideos"
 
@@ -80,6 +81,7 @@ export default function RoleDemosSection() {
   }, [open, active])
 
   const activeEntry = active ? DEMO_VIDEOS[active] : null
+  const activeVideoSrc = active ? getDemoVideoSrc(active) : null
 
   return (
     <>
@@ -198,19 +200,26 @@ export default function RoleDemosSection() {
               </DialogDescription>
             )}
           </DialogHeader>
-          {activeEntry && (
+          {activeEntry && activeVideoSrc && (
             <div className="relative aspect-video w-full bg-black">
               {videoError ? (
                 <div className="flex min-h-[12rem] flex-col items-center justify-center gap-3 px-6 py-10 text-center">
                   <p className="text-sm text-slate-300">
-                    This video could not be loaded. Confirm the file is deployed at{" "}
-                    <code className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-amber-200">
-                      {activeEntry.videoPath}
-                    </code>{" "}
-                    (large MP4s must be committed or hosted on a CDN).
+                    This video could not be loaded. The app is requesting:{" "}
+                    <code className="break-all rounded bg-slate-800 px-1.5 py-0.5 text-xs text-amber-200">
+                      {activeVideoSrc}
+                    </code>
+                  </p>
+                  <p className="text-xs text-slate-500">
+                    Files over 100MB cannot be pushed to GitHub — use Git LFS, or host MP4s on a CDN and
+                    set{" "}
+                    <code className="text-slate-400">NEXT_PUBLIC_DEMO_VIDEO_*_URL</code> in Vercel.
+                    Rename local files to{" "}
+                    <code className="text-slate-400">admin-dashboard.mp4</code> (etc.) under{" "}
+                    <code className="text-slate-400">public/videos/demos/</code>.
                   </p>
                   <a
-                    href={activeEntry.videoPath}
+                    href={activeVideoSrc}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-medium text-amber-400 underline underline-offset-2 hover:text-amber-300"
@@ -221,7 +230,7 @@ export default function RoleDemosSection() {
               ) : (
                 <video
                   ref={videoRef}
-                  key={activeEntry.videoPath}
+                  key={activeVideoSrc}
                   className="h-full w-full"
                   controls
                   playsInline
@@ -229,7 +238,7 @@ export default function RoleDemosSection() {
                   onError={() => setVideoError(true)}
                   onLoadedData={() => setVideoError(false)}
                 >
-                  <source src={activeEntry.videoPath} type="video/mp4" />
+                  <source src={activeVideoSrc} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               )}
