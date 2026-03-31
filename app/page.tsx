@@ -39,13 +39,7 @@ export default function Home() {
             className="h-[200px] relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-700 to-slate-100"
             aria-hidden="true"
           >
-            <div
-              className="absolute inset-0 opacity-15"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(-55deg, transparent, transparent 24px, rgba(234, 179, 8, 0.4) 24px, rgba(234, 179, 8, 0.4) 48px)",
-              }}
-            />
+            <div className="home-divider-caution-stripes absolute inset-0 opacity-15" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="h-0.5 w-full max-w-3xl mx-8 rounded-full bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
             </div>

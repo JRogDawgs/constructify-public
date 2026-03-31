@@ -13,6 +13,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -26,6 +27,7 @@ import {
 export default function RoleDemosSection() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<DemoRoleId | null>(null)
+  const [videoError, setVideoError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const handleOpen = useCallback((role: DemoRoleId) => {
@@ -68,6 +70,7 @@ export default function RoleDemosSection() {
       videoRef.current?.pause()
       return
     }
+    setVideoError(false)
     const v = videoRef.current
     if (!v || !active) return
     v.load()
@@ -188,20 +191,48 @@ export default function RoleDemosSection() {
                 ? `${activeEntry.title} demo — Constructify`
                 : "Product demo"}
             </DialogTitle>
+            {activeEntry && (
+              <DialogDescription>
+                Short walkthrough of the {activeEntry.title} experience in
+                Constructify.
+              </DialogDescription>
+            )}
           </DialogHeader>
           {activeEntry && (
             <div className="relative aspect-video w-full bg-black">
-              <video
-                ref={videoRef}
-                key={activeEntry.videoPath}
-                className="h-full w-full"
-                controls
-                playsInline
-                preload="metadata"
-              >
-                <source src={activeEntry.videoPath} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              {videoError ? (
+                <div className="flex min-h-[12rem] flex-col items-center justify-center gap-3 px-6 py-10 text-center">
+                  <p className="text-sm text-slate-300">
+                    This video could not be loaded. Confirm the file is deployed at{" "}
+                    <code className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-amber-200">
+                      {activeEntry.videoPath}
+                    </code>{" "}
+                    (large MP4s must be committed or hosted on a CDN).
+                  </p>
+                  <a
+                    href={activeEntry.videoPath}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-amber-400 underline underline-offset-2 hover:text-amber-300"
+                  >
+                    Open video URL directly
+                  </a>
+                </div>
+              ) : (
+                <video
+                  ref={videoRef}
+                  key={activeEntry.videoPath}
+                  className="h-full w-full"
+                  controls
+                  playsInline
+                  preload="auto"
+                  onError={() => setVideoError(true)}
+                  onLoadedData={() => setVideoError(false)}
+                >
+                  <source src={activeEntry.videoPath} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           )}
           {activeEntry && (

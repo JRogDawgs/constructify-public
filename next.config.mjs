@@ -21,19 +21,7 @@ const nextConfig = {
     config.cache = false;
     return config;
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "script-src 'self' 'unsafe-eval' 'unsafe-inline';"
-          }
-        ],
-      },
-    ]
-  },
+  /* CSP: middleware.ts only — duplicate CSP here blocked <video> and conflicted with Firebase/Google rules. */
 }
 
 mergeConfig(nextConfig, userConfig)

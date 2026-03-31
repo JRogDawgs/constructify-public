@@ -17,14 +17,15 @@ export function middleware(request: NextRequest) {
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   
-  // Add Content Security Policy for Google APIs and Firebase
+  // CSP: include media-src so same-origin MP4s in <video> are not blocked (falls back to default-src otherwise).
   response.headers.set(
     'Content-Security-Policy',
     "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://securetoken.googleapis.com; " +
     "connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://accounts.google.com; " +
-            "frame-src 'self' https://accounts.google.com https://constructify-463219-ee7d8.firebaseapp.com; " +
+    "frame-src 'self' https://accounts.google.com https://constructify-463219-ee7d8.firebaseapp.com; " +
     "img-src 'self' data: https:; " +
-    "style-src 'self' 'unsafe-inline';"
+    "style-src 'self' 'unsafe-inline'; " +
+    "media-src 'self' blob:;"
   );
   
   // Add security headers

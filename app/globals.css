@@ -442,3 +442,14 @@
   }
 }
 
+/* Home divider — diagonal caution stripe overlay (avoids inline styles) */
+.home-divider-caution-stripes {
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 24px,
+    rgba(234, 179, 8, 0.4) 24px,
+    rgba(234, 179, 8, 0.4) 48px
+  );
+}
+
