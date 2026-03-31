@@ -7,6 +7,13 @@ import { APP_BASE_URL } from "@/lib/appConfig"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { LayoutDashboard } from "lucide-react"
 
 export default function Navbar() {
   const { t } = useTranslation()
@@ -77,8 +84,40 @@ export default function Navbar() {
               {memoizedNavLinks}
             </nav>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <ThemeToggle />
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={`${APP_BASE_URL}/owners`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-slate-600/70 bg-gradient-to-br from-slate-800/90 to-slate-900/90 text-slate-200 shadow-md transition-all duration-300 hover:border-amber-400/80 hover:from-slate-700/95 hover:to-slate-800/95 hover:text-amber-300 hover:shadow-lg hover:shadow-amber-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                    aria-label="Owners Portal — opens in a new tab"
+                  >
+                    <span
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      aria-hidden
+                    />
+                    <LayoutDashboard
+                      className="relative h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+                      aria-hidden
+                    />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="bottom"
+                  sideOffset={8}
+                  className="border-slate-600 bg-slate-950 px-3 py-2 text-white shadow-xl"
+                >
+                  <p className="text-sm font-semibold tracking-tight">Owners Portal</p>
+                  <p className="text-xs font-normal text-slate-400">
+                    Owner & admin dashboard
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             {renderAuthSection()}
           </div>
         </div>

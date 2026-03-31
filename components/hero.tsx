@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronDown } from "lucide-react"
@@ -7,6 +8,7 @@ import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function Hero() {
   const { t } = useTranslation()
+  const [bgVideoFailed, setBgVideoFailed] = useState(false)
 
   const scrollToVideos = () => {
     document.getElementById("role-demos")?.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -15,22 +17,31 @@ export default function Hero() {
   return (
     <>
       <section className="relative min-h-[calc(100vh-3.5rem)] w-full overflow-hidden" aria-label="Hero section">
-        {/* Background Video */}
+        {/* Background: gradient always (covers missing MP4); video on top when it loads */}
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-            poster="/placeholder.jpg"
-            preload="auto"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-            <p>Your browser does not support the video tag.</p>
-          </video>
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-800 to-blue-950"
+            aria-hidden="true"
+          />
+          {!bgVideoFailed && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 z-[1] h-full w-full object-cover"
+              preload="auto"
+              onError={() => setBgVideoFailed(true)}
+            >
+              <source src="/videos/construction-bg.mp4" type="video/mp4" />
+              <p>Your browser does not support the video tag.</p>
+            </video>
+          )}
           {/* Dark navy gradient overlay for readability - matches Constructify Field brand */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70" aria-hidden="true" />
+          <div
+            className="absolute inset-0 z-[2] bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70"
+            aria-hidden="true"
+          />
         </div>
 
         {/* Content */}
