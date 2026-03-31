@@ -16,6 +16,7 @@ const footerLinks = {
   ],
   company: [
     { href: "/about", label: "About Us" },
+    { href: "/owners", label: "Owners Portal" },
   ],
   legal: [
     { href: "/terms", label: "Terms of Service" },
