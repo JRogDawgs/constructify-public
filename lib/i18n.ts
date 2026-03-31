@@ -22,11 +22,11 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Run Your Crews With Precision. Finish Jobs On Time.",
-        subtitle: "Real-time visibility into your field crews. Fewer payroll disputes. Fewer compliance gaps.",
-        description: "Align crews with project demands. Workforce control, scheduling, compliance, and operational visibility.",
+        title: "Stop Losing Money on Mismanaged Crews",
+        subtitle: "Track time, assign work, and eliminate payroll headaches — all in one place.",
+        description: "Real-time visibility for admins, supervisors, and field workers. Built for the field, not the office.",
         ctaPrimary: "Get Started",
-        ctaSecondary: "Book a Walkthrough",
+        ctaSecondary: "See How It Works",
         trustedBy: "Trusted by 500+ construction companies"
       },
       
@@ -212,11 +212,11 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Dirija Sus Equipos Con Precisión. Termine Los Trabajos a Tiempo.",
-        subtitle: "Visibilidad en tiempo real de sus equipos de campo. Menos disputas de nómina. Menos brechas de cumplimiento.",
-        description: "Alinee los equipos con las demandas del proyecto. Control de fuerza laboral, programación, cumplimiento y visibilidad operativa.",
+        title: "Deje de Perder Dinero por Falta de Control de Equipos",
+        subtitle: "Registre el tiempo, asigne trabajo y elimine los dolores de nómina — todo en un solo lugar.",
+        description: "Visibilidad en tiempo real para administradores, supervisores y trabajadores. Hecho para el campo.",
         ctaPrimary: "Comenzar",
-        ctaSecondary: "Reservar un Recorrido",
+        ctaSecondary: "Ver Cómo Funciona",
         trustedBy: "Confiado por más de 500 empresas de construcción"
       },
       

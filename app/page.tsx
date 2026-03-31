@@ -1,4 +1,9 @@
 import Hero from "@/components/hero"
+import RoleDemosSection from "@/components/role-demos-section"
+import MidCTASection from "@/components/mid-cta-section"
+import PainSolutionSection from "@/components/pain-solution-section"
+import RoleValueSection from "@/components/role-value-section"
+import HowItWorksSection from "@/components/how-it-works-section"
 import WorkerPathway from "@/components/worker-pathway"
 import Features from "@/components/features"
 import CeeboSection from "@/components/ceebo-section"
@@ -16,18 +21,62 @@ export default function Home() {
         </div>
 
         <div className="relative z-10">
+          {/* 1. Hero — pain-driven headline + dual CTA */}
           <Hero />
-          <div className="h-[200px] relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-700 to-slate-100" aria-hidden="true">
-            {/* Subtle caution-tape diagonal stripes */}
-            <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "repeating-linear-gradient(-55deg, transparent, transparent 24px, rgba(234, 179, 8, 0.4) 24px, rgba(234, 179, 8, 0.4) 48px)" }} />
-            {/* Center accent line */}
+
+          {/* 2. Video demos — see every role in action */}
+          <RoleDemosSection />
+
+          {/* 3. Mid CTA — after video section */}
+          <MidCTASection
+            headline="Ready to Take Control of Your Crews?"
+            subtext="Join construction teams already using Constructify to eliminate chaos and run tighter operations."
+            ctaLabel="Get Started Free"
+          />
+
+          {/* 4. Divider — dark-to-light visual transition */}
+          <div
+            className="h-[200px] relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-700 to-slate-100"
+            aria-hidden="true"
+          >
+            <div
+              className="absolute inset-0 opacity-15"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(-55deg, transparent, transparent 24px, rgba(234, 179, 8, 0.4) 24px, rgba(234, 179, 8, 0.4) 48px)",
+              }}
+            />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="h-0.5 w-full max-w-3xl mx-8 rounded-full bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
             </div>
           </div>
+
+          {/* 5. Pain → Solution — real problems, direct answers */}
+          <PainSolutionSection />
+
+          {/* 6. Role-Based Value — 3-column roles */}
+          <RoleValueSection />
+
+          {/* 7. Mid CTA — after role section */}
+          <MidCTASection
+            headline="Every Role Covered. Every Day."
+            subtext="Admins get control. Supervisors get clarity. Workers get simplicity. Everyone wins."
+            ctaLabel="Start Managing Smarter"
+          />
+
+          {/* 8. How It Works — 3 simple steps */}
+          <HowItWorksSection />
+
+          {/* 9. Worker Pathway — field worker signup */}
           <WorkerPathway />
+
+          {/* 10. Features — 4-pillar breakdown */}
           <Features />
+
+          {/* 11. Ceebo AI — operations assistant */}
           <CeeboSection />
+
+          {/* 12. Bottom CTA — final conversion push */}
           <CTA />
         </div>
       </div>

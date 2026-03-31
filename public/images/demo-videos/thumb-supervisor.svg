@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t2">
+  <title id="t2">Constructify — Supervisor dashboard demo</title>
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg2)"/>
+  <rect x="0" y="0" width="640" height="4" fill="url(#accent2)"/>
+  <rect x="40" y="100" width="560" height="200" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <circle cx="80" cy="140" r="16" fill="#475569"/>
+  <rect x="108" y="128" width="160" height="10" rx="3" fill="#64748b"/>
+  <rect x="108" y="146" width="120" height="8" rx="2" fill="#475569"/>
+  <rect x="56" y="180" width="528" height="96" rx="8" fill="#0f172a" stroke="#475569"/>
+  <rect x="72" y="196" width="496" height="14" rx="4" fill="#166534" opacity="0.5"/>
+  <rect x="72" y="222" width="496" height="14" rx="4" fill="#166534" opacity="0.35"/>
+  <rect x="72" y="248" width="496" height="14" rx="4" fill="#166534" opacity="0.25"/>
+  <rect x="40" y="28" width="40" height="40" rx="8" fill="#22c55e" opacity="0.9"/>
+  <text x="52" y="54" fill="#0f172a" font-family="system-ui, Segoe UI, sans-serif" font-size="18" font-weight="800">C</text>
+  <text x="92" y="52" fill="#f8fafc" font-family="system-ui, Segoe UI, sans-serif" font-size="22" font-weight="700">Constructify</text>
+  <text x="40" y="312" fill="#e2e8f0" font-family="system-ui, Segoe UI, sans-serif" font-size="26" font-weight="700">Supervisor</text>
+  <text x="40" y="342" fill="#94a3b8" font-family="system-ui, Segoe UI, sans-serif" font-size="15">See the Supervisor Dashboard</text>
+  <text x="400" y="342" fill="#34d399" font-family="system-ui, Segoe UI, sans-serif" font-size="14" font-weight="600">Get to Know Constructify</text>
+</svg>

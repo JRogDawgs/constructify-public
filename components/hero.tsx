@@ -2,11 +2,15 @@
 
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, ChevronDown } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
 
 export default function Hero() {
   const { t } = useTranslation()
+
+  const scrollToVideos = () => {
+    document.getElementById("role-demos")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
 
   return (
     <>
@@ -43,8 +47,8 @@ export default function Hero() {
             </h1>
           </div>
           
-          {/* Headline */}
-          <h2 className="text-2xl md:text-3xl font-medium text-white/90 mt-4 max-w-3xl mx-auto">
+          {/* Pain-Driven Headline */}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mt-4 max-w-3xl mx-auto leading-tight">
             {t('hero.title')}
           </h2>
           
@@ -54,24 +58,35 @@ export default function Hero() {
           </div>
           
           {/* Hero Content - Properly Spaced */}
-          <div className="space-y-4">
-            <p className="text-2xl font-light tracking-tight text-white/90 sm:text-3xl">
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <p className="text-xl font-semibold tracking-tight text-white/95 sm:text-2xl">
               {t('hero.subtitle')}
             </p>
-            <p className="mx-auto max-w-[42rem] leading-normal text-white/80 sm:text-xl sm:leading-8">
+            <p className="mx-auto max-w-[42rem] leading-normal text-white/75 sm:text-lg sm:leading-8">
               {t('hero.description')}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+
+          {/* Dual CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
             <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto font-black px-8 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
+                className="w-full sm:w-auto font-black px-10 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
               >
                 {t('hero.ctaPrimary')}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </a>
+            <button
+              type="button"
+              onClick={scrollToVideos}
+              className="flex items-center gap-2 px-8 h-14 rounded-xl border border-white/30 bg-white/10 text-white font-semibold text-base hover:bg-white/20 transition-colors backdrop-blur-sm"
+              aria-label="See how Constructify works"
+            >
+              {t('hero.ctaSecondary')}
+              <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </section>
