@@ -25,6 +25,9 @@ export default function MidCTASection({
         <p className="mt-3 text-sm font-bold text-amber-400 uppercase tracking-widest">
           You&apos;re already paying for inefficiency. This fixes it.
         </p>
+        <p className="mt-1 text-xs text-slate-500 italic">
+          Doing nothing is what keeps costing you.
+        </p>
         <div className="mt-8">
           <a
             href={`${APP_BASE_URL}/auth/signup`}

@@ -56,7 +56,7 @@ export default function RoleDemosSection() {
             id="role-demos-heading"
             className="text-3xl font-bold tracking-tight text-white md:text-4xl"
           >
-            See Exactly How It Works
+            See It Working in Real Jobs
           </h2>
           <p className="mt-3 text-lg text-slate-300 md:text-xl">
             Watch how admins, supervisors, and workers actually use Constructify day to day.

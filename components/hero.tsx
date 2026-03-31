@@ -59,6 +59,12 @@ export default function Hero() {
             <p className="mx-auto max-w-[42rem] leading-normal text-white/75 sm:text-lg sm:leading-8">
               {t('hero.description')}
             </p>
+            <p className="mx-auto max-w-[42rem] leading-normal text-white/60 sm:text-base italic">
+              Most companies don&apos;t realize how much they&apos;re losing until they see it.
+            </p>
+            <p className="text-xs text-white/40 tracking-wide mt-1">
+              Built by people who actually understand construction operations.
+            </p>
           </div>
 
           {/* Dual CTA Buttons */}
