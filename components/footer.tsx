@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 import { Github, X, Linkedin, Facebook } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { memo } from "react"
+import { APP_BASE_URL } from "@/lib/appConfig"
 
 const footerLinks = {
   solutions: [
@@ -16,7 +16,7 @@ const footerLinks = {
   ],
   company: [
     { href: "/about", label: "About Us" },
-    { href: "/owners", label: "Owners Portal" },
+    { href: `${APP_BASE_URL}/owners`, label: "Owners Portal", external: true },
   ],
   legal: [
     { href: "/terms", label: "Terms of Service" },
@@ -29,15 +29,38 @@ const footerLinks = {
   ],
 }
 
-const FooterLink = memo(({ href, label, className }: { href: string; label: string; className?: string }) => (
-  <Link 
-    href={href} 
-    className={`text-slate-300 transition-colors hover:text-white text-sm ${className || ''}`}
-    aria-label={label}
-  >
-    {label}
-  </Link>
-))
+const FooterLink = memo(
+  ({
+    href,
+    label,
+    className,
+    external,
+  }: {
+    href: string
+    label: string
+    className?: string
+    external?: boolean
+  }) =>
+    external ? (
+      <a
+        href={href}
+        className={`text-slate-300 transition-colors hover:text-white text-sm ${className || ""}`}
+        aria-label={label}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {label}
+      </a>
+    ) : (
+      <Link
+        href={href}
+        className={`text-slate-300 transition-colors hover:text-white text-sm ${className || ""}`}
+        aria-label={label}
+      >
+        {label}
+      </Link>
+    )
+)
 
 FooterLink.displayName = "FooterLink"
 
@@ -46,7 +69,7 @@ const FooterSection = memo(({
   links 
 }: { 
   title: string
-  links: Array<{ href: string; label: string; icon?: any }>
+  links: Array<{ href: string; label: string; icon?: any; external?: boolean }>
 }) => (
   <div className="space-y-2">
     <h3 className="font-semibold text-white text-sm">{title}</h3>
@@ -68,17 +91,17 @@ const FooterSection = memo(({
       </div>
     ) : title === "Solutions" ? (
       <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-        {links.map(({ href, label }) => (
+        {links.map(({ href, label, external }) => (
           <div key={`${href}-${label}`}>
-            <FooterLink href={href} label={label} />
+            <FooterLink href={href} label={label} external={external} />
           </div>
         ))}
       </div>
     ) : (
       <ul className="space-y-1" role="list">
-        {links.map(({ href, label }) => (
+        {links.map(({ href, label, external }) => (
           <li key={`${href}-${label}`}>
-            <FooterLink href={href} label={label} />
+            <FooterLink href={href} label={label} external={external} />
           </li>
         ))}
       </ul>
