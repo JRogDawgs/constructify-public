@@ -453,3 +453,8 @@
   );
 }
 
+/* Hero sales video — conversion overlay (no inline styles) */
+.hero-sales-video-overlay {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+

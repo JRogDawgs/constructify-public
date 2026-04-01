@@ -111,7 +111,6 @@ export default function RoleDemosSection() {
                             className="group absolute inset-0 flex w-full items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                             aria-label={`Play ${item.title} demo video`}
                           >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={item.thumbnailUrl}
                               alt=""

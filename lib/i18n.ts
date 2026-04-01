@@ -22,12 +22,14 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Take Control of Your Crews. Stop Losing Money.",
-        subtitle: "Stop payroll mistakes. Know exactly who's working, where they are, and what they're doing — in real time.",
-        description: "Every missed clock-in, bad time entry, and miscommunication costs you money. Fix it.",
-        ctaPrimary: "Get Control Today",
-        ctaSecondary: "See It In Action",
-        trustedBy: ""
+        title: "Run Your Jobsite From One Place",
+        subtitle: "Add your crew. Assign work. Stay in sync.",
+        description: "",
+        ctaPrimary: "Get Started",
+        ctaSecondary: "Watch Full Demo",
+        trustedBy: "",
+        videoFallback: "Video not playing?",
+        moreDemosLink: "See role-by-role demos"
       },
       
       // Features
@@ -212,12 +214,14 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Tome el Control de Sus Cuadrillas. Deje de Perder Dinero.",
-        subtitle: "Detenga los errores de nómina. Sepa exactamente quién está trabajando, dónde están y qué hacen — en tiempo real.",
-        description: "Cada fichaje perdido, entrada de tiempo incorrecta y mala comunicación le cuesta dinero. Arréglelo.",
-        ctaPrimary: "Tomar Control Hoy",
-        ctaSecondary: "Verlo En Acción",
-        trustedBy: ""
+        title: "Dirija su obra desde un solo lugar",
+        subtitle: "Agregue su cuadrilla. Asigne trabajo. Manténgase alineados.",
+        description: "",
+        ctaPrimary: "Comenzar",
+        ctaSecondary: "Ver demo completa",
+        trustedBy: "",
+        videoFallback: "¿El video no se reproduce?",
+        moreDemosLink: "Ver demos por rol"
       },
       
       // Features

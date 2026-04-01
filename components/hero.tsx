@@ -1,101 +1,199 @@
 "use client"
 
+import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ChevronDown } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { ArrowRight } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
+import { cn } from "@/lib/utils"
+
+const SALES_VIDEO_ID = "u_80ihIIxMQ"
+
+function buildHeroEmbedSrc(): string {
+  const p = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
+    loop: "1",
+    playlist: SALES_VIDEO_ID,
+    controls: "0",
+    modestbranding: "1",
+    playsinline: "1",
+    rel: "0",
+    showinfo: "0",
+  })
+  return `https://www.youtube.com/embed/${SALES_VIDEO_ID}?${p.toString()}`
+}
+
+function buildModalEmbedSrc(): string {
+  const p = new URLSearchParams({
+    autoplay: "1",
+    mute: "0",
+    controls: "1",
+    modestbranding: "1",
+    rel: "0",
+  })
+  return `https://www.youtube.com/embed/${SALES_VIDEO_ID}?${p.toString()}`
+}
 
 export default function Hero() {
   const { t } = useTranslation()
+  const [embedSrc, setEmbedSrc] = useState<string | null>(null)
+  const [modalOpen, setModalOpen] = useState(false)
 
-  const scrollToVideos = () => {
-    document.getElementById("role-demos")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      setEmbedSrc(buildHeroEmbedSrc())
+    })
+    return () => cancelAnimationFrame(id)
+  }, [])
+
+  const openSalesModal = useCallback(() => setModalOpen(true), [])
+  const scrollToRoleDemos = () => {
+    document.getElementById("role-demos")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
   }
 
   return (
     <>
-      <section className="relative min-h-[calc(100vh-3.5rem)] w-full overflow-hidden" aria-label="Hero section">
-        {/* Background: gradient only (no local video assets on landing) */}
+      <section
+        className="relative flex min-h-[calc(100vh-3.5rem)] w-full flex-col justify-center overflow-hidden"
+        aria-label="Hero section"
+      >
+        {/* Background: YouTube (deferred) + poster while loading */}
         <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 overflow-hidden bg-slate-950">
+            {!embedSrc && (
+              <img
+                src={`https://img.youtube.com/vi/${SALES_VIDEO_ID}/maxresdefault.jpg`}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+              />
+            )}
+            {embedSrc && (
+              <iframe
+                title="Constructify sales video"
+                src={embedSrc}
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[100vw] min-w-[177.77vh] max-w-none -translate-x-1/2 -translate-y-1/2 border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            )}
+          </div>
+          {/* Conversion overlay — rgba(0,0,0,0.35) */}
           <div
-            className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-800 to-blue-950"
+            className="hero-sales-video-overlay absolute inset-0 z-[1]"
             aria-hidden="true"
           />
+          {/* Extra legibility on small screens */}
           <div
-            className="absolute inset-0 z-[1] bg-gradient-to-b from-slate-900/80 via-slate-900/75 to-slate-800/70"
+            className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-transparent to-black/30 sm:from-black/10 sm:to-black/25"
             aria-hidden="true"
           />
         </div>
 
-        {/* Content */}
-        <div className="container relative z-10 flex max-w-screen-2xl flex-col items-center justify-center space-y-6 py-4 text-center md:py-6">
-          {/* Logo with Brand Title */}
-          <div className="flex flex-col items-center">
-            <img 
-              src="/images/3d logo.png" 
-              alt="Constructify Logo" 
-              className="h-56 w-auto md:h-72 lg:h-84 drop-shadow-2xl"
+        {/* CTA stack */}
+        <div className="container relative z-10 mx-auto flex max-w-screen-2xl flex-col items-center px-4 py-10 text-center md:px-6 md:py-14">
+          <div className="mb-6 flex flex-col items-center sm:mb-8">
+            <img
+              src="/images/3d logo.png"
+              alt="Constructify"
+              className="h-20 w-auto drop-shadow-2xl md:h-24"
             />
-            <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-white -mt-6">
+            <span className="mt-1 text-lg font-bold tracking-tight text-white/95 md:text-xl">
               Constructify
-            </h1>
-          </div>
-          
-          {/* Pain-Driven Headline */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mt-4 max-w-3xl mx-auto leading-tight">
-            {t('hero.title')}
-          </h2>
-          
-          {/* Elegant Continuous Spacer Line */}
-          <div className="w-full max-w-2xl">
-            <div className="h-0.5 bg-gradient-to-r from-transparent via-white/40 via-white/70 via-white/40 to-transparent animate-pulse shadow-sm"></div>
-          </div>
-          
-          {/* Hero Content - Properly Spaced */}
-          <div className="space-y-3 max-w-2xl mx-auto">
-            <p className="text-xl font-semibold tracking-tight text-white/95 sm:text-2xl">
-              {t('hero.subtitle')}
-            </p>
-            <p className="mx-auto max-w-[42rem] leading-normal text-white/75 sm:text-lg sm:leading-8">
-              {t('hero.description')}
-            </p>
-            <p className="mx-auto max-w-[42rem] leading-normal text-white/60 sm:text-base italic">
-              Most companies don&apos;t realize how much they&apos;re losing until they see it.
-            </p>
-            <p className="text-xs text-white/40 tracking-wide mt-1">
-              Built by people who actually understand construction operations.
-            </p>
+            </span>
           </div>
 
-          {/* Dual CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
-            <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">
-              <Button 
-                size="lg" 
-                className="w-full sm:w-auto font-black px-10 text-lg h-14 uppercase tracking-wide bg-green-400 hover:bg-green-500 text-constructify-navy border-0 rounded-lg"
+          <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
+            {t("hero.title")}
+          </h1>
+
+          <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl">
+            {t("hero.subtitle")}
+          </p>
+
+          <div className="mt-8 flex w-full max-w-lg flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
+            <a
+              href={`${APP_BASE_URL}/auth/signup`}
+              target="_self"
+              rel="noopener"
+              className="inline-block rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
+            >
+              <Button
+                size="lg"
+                className="h-14 w-full min-w-[200px] border-0 bg-green-400 px-10 text-lg font-black uppercase tracking-wide text-constructify-navy hover:bg-green-500 sm:w-auto"
               >
-                {t('hero.ctaPrimary')}
+                {t("hero.ctaPrimary")}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </a>
-            <button
+            <Button
               type="button"
-              onClick={scrollToVideos}
-              className="flex items-center gap-2 px-8 h-14 rounded-xl border border-white/30 bg-white/10 text-white font-semibold text-base hover:bg-white/20 transition-colors backdrop-blur-sm"
-              aria-label="See how Constructify works"
+              size="lg"
+              variant="outline"
+              onClick={() => {
+                openSalesModal()
+              }}
+              className={cn(
+                "h-14 border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur-sm",
+                "hover:bg-white/20 hover:text-white"
+              )}
             >
-              {t('hero.ctaSecondary')}
-              <ChevronDown className="h-4 w-4" aria-hidden="true" />
-            </button>
+              {t("hero.ctaSecondary")}
+            </Button>
           </div>
 
-          {/* Social proof nudge */}
-          <p className="text-sm text-white/50 tracking-wide">
-            Most companies fix payroll issues in the first week.
+          <p className="mt-6 text-xs text-white/65">
+            <button
+              type="button"
+              onClick={openSalesModal}
+              className="font-medium underline decoration-white/40 underline-offset-2 hover:text-white"
+            >
+              {t("hero.videoFallback")}
+            </button>
+            {" · "}
+            <button
+              type="button"
+              onClick={scrollToRoleDemos}
+              className="underline decoration-white/40 underline-offset-2 hover:text-white"
+            >
+              {t("hero.moreDemosLink")}
+            </button>
           </p>
         </div>
       </section>
+
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="max-h-[90vh] w-[min(100vw-1rem,56rem)] max-w-none gap-0 overflow-hidden border border-slate-700 bg-black p-0 text-white sm:rounded-xl">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Constructify — full demo</DialogTitle>
+            <DialogDescription>
+              Sales overview video with playback controls.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="relative aspect-video w-full bg-black">
+            <iframe
+              title="Constructify sales video — full player"
+              src={modalOpen ? buildModalEmbedSrc() : undefined}
+              className="absolute inset-0 h-full w-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
-
