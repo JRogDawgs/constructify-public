@@ -14,7 +14,7 @@ import { ArrowRight } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
 import { cn } from "@/lib/utils"
 
-const SALES_VIDEO_ID = "u_80ihIIxMQ"
+const SALES_VIDEO_ID = "loUDEy9Duv0"
 
 function buildHeroEmbedSrc(): string {
   const p = new URLSearchParams({
