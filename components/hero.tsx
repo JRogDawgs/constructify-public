@@ -109,9 +109,9 @@ export default function Hero() {
             <img
               src="/images/3d logo.png"
               alt="Constructify"
-              className="h-20 w-auto drop-shadow-2xl md:h-24"
+              className="h-40 w-auto drop-shadow-2xl md:h-48"
             />
-            <span className="mt-1 text-lg font-bold tracking-tight text-white/95 md:text-xl">
+            <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
               Constructify
             </span>
           </div>
@@ -147,7 +147,7 @@ export default function Hero() {
                 openSalesModal()
               }}
               className={cn(
-                "h-14 border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur-sm",
+                "h-14 w-full min-w-[200px] border-white/40 bg-white/10 px-10 text-lg font-semibold text-white backdrop-blur-sm sm:w-auto",
                 "hover:bg-white/20 hover:text-white"
               )}
             >
