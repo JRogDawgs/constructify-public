@@ -21,6 +21,7 @@ const footerLinks = {
   legal: [
     { href: "/terms", label: "Terms of Service" },
     { href: "/privacy", label: "Privacy Policy" },
+    { href: "/sms-consent", label: "SMS Consent" },
   ],
   social: [
     { href: "https://facebook.com/constructify", icon: Facebook, label: "Facebook" },
