@@ -44,20 +44,27 @@ export default function SmsConsentPage() {
 
                 <p>Message frequency varies based on activity.</p>
                 <p>Message and data rates may apply.</p>
+                <p>SMS consent is not a condition of purchase.</p>
 
                 <p>Reply STOP to opt out at any time.</p>
                 <p>Reply HELP for help.</p>
 
                 <p className="m-0">
                   Privacy Policy:{" "}
-                  <Link href="/privacy" className="text-primary underline underline-offset-4">
-                    /privacy
+                  <Link
+                    href="https://constructifylabs.com/privacy"
+                    className="text-primary underline underline-offset-4"
+                  >
+                    https://constructifylabs.com/privacy
                   </Link>
                 </p>
                 <p className="m-0">
                   Terms &amp; Conditions:{" "}
-                  <Link href="/terms" className="text-primary underline underline-offset-4">
-                    /terms
+                  <Link
+                    href="https://constructifylabs.com/terms"
+                    className="text-primary underline underline-offset-4"
+                  >
+                    https://constructifylabs.com/terms
                   </Link>
                 </p>
               </section>
