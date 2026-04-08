@@ -61,6 +61,8 @@ const VALID_ROUTES: ReadonlySet<string> = new Set([
   '/dashboard/admin/activity',
   '/dashboard/admin/video-library',
   '/dashboard/admin/system-sync',
+  '/procore',
+  '/procore/setup',
   '/dashboard/admin/training',
   '/dashboard/supervisor',
   '/dashboard/workers',
