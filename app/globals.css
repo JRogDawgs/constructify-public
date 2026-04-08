@@ -208,13 +208,7 @@
   /* Dark gradient header matching Constructify Field - overridden by inline classes */
 }
 
-/* Hero header: horizontal nav scroll on narrow viewports */
-.navbar-nav-scroll {
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
-}
-
+/* Hero header: thin scrollbar where WebKit/Blink expose ::-webkit-scrollbar (Firefox keeps default) */
 .navbar-nav-scroll::-webkit-scrollbar {
   height: 4px;
 }
