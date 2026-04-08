@@ -8,20 +8,12 @@ import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { LayoutDashboard, Menu } from "lucide-react"
+import { LayoutDashboard } from "lucide-react"
 
 export default function Navbar() {
   const { t } = useTranslation()
@@ -42,53 +34,16 @@ export default function Navbar() {
   const linkIsActive = (href: string) =>
     pathname === href || (href !== "/" && pathname?.startsWith(href))
 
-  const desktopLinkClass = (href: string) => {
+  const navLinkClass = (href: string) => {
     const active = linkIsActive(href)
-    return `inline-flex items-center justify-center rounded-xl text-base font-semibold transition-all duration-300 hover:bg-white/20 hover:text-white h-14 px-3 xl:px-4 border hover:border-constructify-gold hover:shadow-md navbar-link shrink-0 ${
-      active
-        ? "bg-white/10 text-constructify-gold border-constructify-gold/60 border-b-2 border-b-constructify-gold shadow-sm"
-        : "border-transparent"
-    }`
-  }
-
-  const mobileLinkClass = (href: string) => {
-    const active = linkIsActive(href)
-    return `flex w-full items-center rounded-xl border px-4 py-3 text-base font-semibold transition-colors navbar-link ${
-      active
-        ? "border-constructify-gold/60 bg-white/10 text-constructify-gold"
-        : "border-transparent text-white hover:bg-white/10"
-    }`
-  }
-
-  const renderAuthSection = (compact: boolean) => {
-    return (
-      <a
-        href={`${APP_BASE_URL}/auth/login`}
-        target="_self"
-        rel="noopener"
-        aria-label="Log in or sign up"
-        className={compact ? "inline-flex min-w-0" : undefined}
-      >
-        <Button
-          size={compact ? "default" : "lg"}
-          className={`font-black border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-xl uppercase tracking-wide relative overflow-hidden group navbar-auth-button ${
-            compact
-              ? "h-11 px-3 text-xs sm:px-5 sm:text-sm sm:h-12 lg:h-14 lg:px-8 lg:text-lg"
-              : "px-8 text-lg h-14"
-          }`}
-          onMouseEnter={(e) => {
-            e.currentTarget.classList.add("navbar-auth-button:hover")
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.classList.remove("navbar-auth-button:hover")
-          }}
-          variant="outline"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700" />
-          <span className="relative truncate">{t("nav.signin")}</span>
-        </Button>
-      </a>
-    )
+    return `inline-flex shrink-0 items-center justify-center rounded-xl border font-semibold transition-all duration-300 hover:bg-white/20 hover:text-white hover:border-constructify-gold hover:shadow-md navbar-link whitespace-nowrap
+      h-10 px-2.5 text-sm sm:h-11 sm:px-3 sm:text-[0.9375rem]
+      lg:h-14 lg:px-3 lg:text-base xl:px-4
+      ${
+        active
+          ? "bg-white/10 text-constructify-gold border-constructify-gold/60 border-b-2 border-b-constructify-gold shadow-sm"
+          : "border-transparent"
+      }`
   }
 
   const ownersPortalButtonClass =
@@ -98,10 +53,10 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 w-full max-w-[100vw] overflow-x-hidden">
         <div className="mx-auto flex h-20 min-w-0 max-w-[100vw] items-center justify-between gap-2 px-3 sm:h-24 sm:gap-3 sm:px-4 lg:px-6 xl:px-8 bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 border-b border-slate-700/50 shadow-lg backdrop-blur-sm navbar-header-container">
-          <div className="flex min-w-0 flex-1 items-center">
+          <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="mr-2 flex shrink-0 items-center space-x-2 sm:mr-4 lg:mr-8 xl:mr-12"
+              className="flex shrink-0 items-center sm:mr-1 lg:mr-8 xl:mr-12"
               aria-label="Home"
             >
               <img
@@ -111,20 +66,21 @@ export default function Navbar() {
               />
             </Link>
             <nav
-              className="hidden min-w-0 items-center gap-2 text-lg font-medium lg:flex xl:gap-4"
+              className="navbar-nav-scroll min-h-[2.5rem] min-w-0 flex-1 overflow-x-auto overflow-y-hidden overscroll-x-contain lg:min-h-0 lg:flex-initial lg:overflow-visible"
               aria-label="Main navigation"
             >
-              {navigationLinks.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={desktopLinkClass(href)}
-                  aria-label={label}
-                  aria-current={linkIsActive(href) ? "page" : undefined}
-                >
-                  {label}
-                </Link>
-              ))}
+              <div className="flex h-full w-max flex-nowrap items-center gap-1 pr-1 sm:gap-1.5 lg:h-auto lg:w-auto lg:gap-2 lg:pr-0 xl:gap-4">
+                {navigationLinks.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={navLinkClass(href)}
+                    aria-current={linkIsActive(href) ? "page" : undefined}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
             </nav>
           </div>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-3 lg:gap-4">
@@ -161,61 +117,28 @@ export default function Navbar() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <div className="hidden min-[380px]:block lg:hidden">
-              {renderAuthSection(true)}
-            </div>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 shrink-0 text-white hover:bg-white/10 hover:text-white lg:hidden"
-                  aria-label="Open menu"
-                >
-                  <Menu className="h-6 w-6" aria-hidden />
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side="right"
-                className="z-[100] w-[min(100vw-1rem,22rem)] border-slate-700 bg-slate-900 text-white"
+            <a
+              href={`${APP_BASE_URL}/auth/login`}
+              target="_self"
+              rel="noopener"
+              aria-label="Log in or sign up"
+              className="inline-flex min-w-0 max-w-full"
+            >
+              <Button
+                size="default"
+                className="navbar-auth-button relative h-10 overflow-hidden rounded-xl border-2 px-2.5 text-[0.65rem] font-black uppercase tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group sm:h-12 sm:px-4 sm:text-xs lg:h-14 lg:px-8 lg:text-lg"
+                onMouseEnter={(e) => {
+                  e.currentTarget.classList.add("navbar-auth-button:hover")
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.classList.remove("navbar-auth-button:hover")
+                }}
+                variant="outline"
               >
-                <SheetHeader className="text-left">
-                  <SheetTitle className="text-white">Menu</SheetTitle>
-                </SheetHeader>
-                <nav
-                  className="mt-6 flex flex-col gap-2 border-t border-slate-700 pt-4"
-                  aria-label="Mobile navigation"
-                >
-                  {navigationLinks.map(({ href, label }) => (
-                    <SheetClose key={href} asChild>
-                      <Link
-                        href={href}
-                        className={mobileLinkClass(href)}
-                        aria-current={linkIsActive(href) ? "page" : undefined}
-                      >
-                        {label}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                  <SheetClose asChild>
-                    <a
-                      href={`${APP_BASE_URL}/owners`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-full items-center gap-2 rounded-xl border border-transparent px-4 py-3 text-base font-semibold text-white hover:bg-white/10"
-                    >
-                      <LayoutDashboard className="h-5 w-5 shrink-0 text-amber-300" aria-hidden />
-                      Owners Portal
-                    </a>
-                  </SheetClose>
-                  <div className="min-[380px]:hidden pt-2">
-                    <SheetClose asChild>{renderAuthSection(true)}</SheetClose>
-                  </div>
-                </nav>
-              </SheetContent>
-            </Sheet>
-            <div className="hidden lg:block">{renderAuthSection(false)}</div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full transition-transform duration-700 group-hover:translate-x-[-200%]" />
+                <span className="relative truncate">{t("nav.signin")}</span>
+              </Button>
+            </a>
           </div>
         </div>
       </header>

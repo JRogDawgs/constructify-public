@@ -73,7 +73,6 @@ export function ProcoreEntry() {
 
   useEffect(() => {
     if (user === undefined) return
-    if (phase === "config_error" || phase === "fatal") return
 
     if (user === null) {
       if (loginRedirectStarted.current) return
@@ -146,7 +145,7 @@ export function ProcoreEntry() {
       searchString.length > 0 ? `/procore/setup?${searchString}` : "/procore/setup"
     procoreLog("redirect target chosen", { target: next })
     router.replace(next)
-  }, [user, searchString, searchParams, router, phase])
+  }, [user, searchString, searchParams, router])
 
   if (phase === "config_error") {
     return (

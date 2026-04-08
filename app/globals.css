@@ -208,6 +208,26 @@
   /* Dark gradient header matching Constructify Field - overridden by inline classes */
 }
 
+/* Horizontal nav on small viewports: momentum scroll + thin bar */
+.navbar-nav-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+}
+
+.navbar-nav-scroll::-webkit-scrollbar {
+  height: 5px;
+}
+
+.navbar-nav-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: rgba(148, 163, 184, 0.45);
+}
+
+.navbar-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .navbar-auth-button {
   background: linear-gradient(135deg, hsl(var(--constructify-navy-dark)) 0%, hsl(220 80% 8%) 100%);
   color: white;
