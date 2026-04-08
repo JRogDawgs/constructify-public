@@ -21,6 +21,7 @@ const footerLinks = {
   legal: [
     { href: "/terms", label: "Terms of Service" },
     { href: "/privacy", label: "Privacy Policy" },
+    { href: "/account-deletion", label: "Account deletion" },
     { href: "/sms-consent", label: "SMS Consent" },
   ],
   social: [
