@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/dialog"
 import { ArrowRight } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
-import { cn } from "@/lib/utils"
 
+/** Looped muted hero backdrop */
 const SALES_VIDEO_ID = "loUDEy9Duv0"
+/** Opens only from “Watch Full Demo” / video fallback link */
+const FULL_DEMO_VIDEO_ID = "u_80ihIIxMQ"
 
 function buildHeroEmbedSrc(): string {
   const p = new URLSearchParams({
@@ -39,7 +41,7 @@ function buildModalEmbedSrc(): string {
     modestbranding: "1",
     rel: "0",
   })
-  return `https://www.youtube.com/embed/${SALES_VIDEO_ID}?${p.toString()}`
+  return `https://www.youtube.com/embed/${FULL_DEMO_VIDEO_ID}?${p.toString()}`
 }
 
 export default function Hero() {
@@ -139,20 +141,19 @@ export default function Hero() {
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
             </a>
-            <Button
-              type="button"
-              size="lg"
-              variant="outline"
-              onClick={() => {
-                openSalesModal()
-              }}
-              className={cn(
-                "h-14 w-full min-w-[200px] border-white/40 bg-white/10 px-10 text-lg font-semibold text-white backdrop-blur-sm sm:w-auto",
-                "hover:bg-white/20 hover:text-white"
-              )}
-            >
-              {t("hero.ctaSecondary")}
-            </Button>
+            <div className="inline-block rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg">
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                onClick={() => {
+                  openSalesModal()
+                }}
+                className="h-14 w-full min-w-[200px] border-0 bg-slate-950/80 px-10 text-lg font-black uppercase tracking-wide text-white backdrop-blur-sm hover:bg-slate-900/90 hover:text-white sm:w-auto"
+              >
+                {t("hero.ctaSecondary")}
+              </Button>
+            </div>
           </div>
 
           <p className="mt-6 text-xs text-white/65">
