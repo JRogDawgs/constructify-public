@@ -19,8 +19,8 @@ const footerLinks = {
     { href: `${APP_BASE_URL}/owners`, label: "Owners Portal", external: true },
   ],
   legal: [
-    { href: "/terms", label: "Terms of Service" },
     { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
     { href: "/account-deletion", label: "Account deletion" },
     { href: "/sms-consent", label: "SMS Consent" },
   ],
@@ -115,8 +115,6 @@ const FooterSection = memo(({
 FooterSection.displayName = "FooterSection"
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
-
   return (
     <footer
       className="relative w-full max-w-[100vw] overflow-x-hidden px-4 py-4 sm:px-6 bg-slate-900"
@@ -155,7 +153,7 @@ export default function Footer() {
           
           <div className="border-t border-slate-700 mt-4 pt-3">
             <p className="text-center text-slate-400 text-xs">
-              © {currentYear} Constructify, Inc. All rights reserved.
+              © 2026 Constructify Labs LLC. All rights reserved.
             </p>
           </div>
         </div>

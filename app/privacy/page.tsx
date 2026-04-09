@@ -65,6 +65,9 @@ export default function PrivacyPage() {
                     <li><strong>Service Improvement:</strong> Monitor performance, identify issues, and improve user experience</li>
                     <li><strong>Security:</strong> Protect against fraud, unauthorized access, and maintain data integrity</li>
                   </ul>
+                  <p className="mt-4">
+                    We do not use your personal information to train external third-party artificial intelligence models for their general models or services.
+                  </p>
                 </div>
 
                 <div>

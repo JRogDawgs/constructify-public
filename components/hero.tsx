@@ -44,6 +44,12 @@ function buildModalEmbedSrc(): string {
   return `https://www.youtube.com/embed/${FULL_DEMO_VIDEO_ID}?${p.toString()}`
 }
 
+/** Same silver frame + inner footprint for Get Started and Watch Full Demo */
+const HERO_CTA_SILVER_FRAME =
+  "block min-w-0 rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
+const HERO_CTA_INNER =
+  "h-14 w-full min-h-14 rounded-md border-0 px-6 text-lg font-black uppercase tracking-wide inline-flex items-center justify-center gap-2 shadow-none"
+
 export default function Hero() {
   const { t } = useTranslation()
   const [embedSrc, setEmbedSrc] = useState<string | null>(null)
@@ -127,22 +133,23 @@ export default function Hero() {
               {t("hero.subtitle")}
             </p>
 
-            <div className="mt-8 flex w-full max-w-lg flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
+            <div className="mt-8 grid w-full max-w-lg grid-cols-1 gap-3 sm:max-w-2xl sm:grid-cols-2 sm:gap-4">
               <a
                 href={`${APP_BASE_URL}/auth/signup`}
                 target="_self"
                 rel="noopener"
-                className="inline-block rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
+                className={HERO_CTA_SILVER_FRAME}
               >
                 <Button
                   size="lg"
-                  className="h-14 w-full min-w-[200px] border-0 bg-green-400 px-10 text-lg font-black uppercase tracking-wide text-constructify-navy hover:bg-green-500 sm:w-auto"
+                  variant="outline"
+                  className={`${HERO_CTA_INNER} border-0 bg-green-400 text-constructify-navy hover:bg-green-500 hover:text-constructify-navy`}
                 >
                   {t("hero.ctaPrimary")}
-                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
                 </Button>
               </a>
-              <div className="inline-block rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg">
+              <div className={HERO_CTA_SILVER_FRAME}>
                 <Button
                   type="button"
                   size="lg"
@@ -150,9 +157,13 @@ export default function Hero() {
                   onClick={() => {
                     openSalesModal()
                   }}
-                  className="h-14 w-full min-w-[200px] border-0 bg-slate-950/80 px-10 text-lg font-black uppercase tracking-wide text-white backdrop-blur-sm hover:bg-slate-900/90 hover:text-white sm:w-auto"
+                  className={`${HERO_CTA_INNER} border-0 bg-slate-950/90 text-white hover:bg-slate-900/95 hover:text-white`}
                 >
                   {t("hero.ctaSecondary")}
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 opacity-0"
+                    aria-hidden="true"
+                  />
                 </Button>
               </div>
             </div>
