@@ -7,7 +7,6 @@ export default function TermsPage() {
       <div className="relative min-h-[calc(100vh-4rem)]">
         <PageBackdrop />
 
-        {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
           <div className="space-y-8">
             <div className="space-y-6 text-center">
@@ -19,94 +18,84 @@ export default function TermsPage() {
               </p>
             </div>
 
-            {/* Terms Content */}
             <div className="mx-auto max-w-4xl prose prose-gray dark:prose-invert">
               <section className="space-y-6">
-                <p className="text-muted-foreground sm:text-lg">
-                  Effective Date: February 26, 2025
-                </p>
-                <p>
-                  Please read these Terms of Service (&quot;Terms&quot;) carefully before using Constructify (&quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) software, website, and related services (collectively, the &quot;Services&quot;).
-                </p>
-                <p>
-                  By accessing or using the Services, you agree to be bound by these Terms.
-                </p>
-
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">1. Eligibility</h2>
+                  <h2 className="text-2xl font-semibold mb-4">1. Overview</h2>
                   <p>
-                    You must be at least 18 years old and legally capable of entering into binding agreements to use the Services. If you are using the Services on behalf of a company or organization, you represent that you have authority to bind that entity.
+                    These Terms of Service (&quot;Terms&quot;) govern your access to and use of software, websites, and related services offered by Constructify Labs LLC (&quot;Constructify,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) (collectively, the &quot;Services&quot;). By using the Services, you agree to these Terms.
+                  </p>
+                  <p className="text-muted-foreground sm:text-lg m-0">
+                    Effective date: April 9, 2026
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">2. Description of Services</h2>
+                  <h2 className="text-2xl font-semibold mb-4">2. Use of Service</h2>
                   <p>
-                    Constructify provides construction workforce management and operational software, including but not limited to scheduling, time tracking, compliance tracking, workforce management tools, and AI-powered assistance (&quot;Ceebo&quot;).
+                    The Services are provided for legitimate business and operational use in connection with construction workforce and field operations. You agree to use the Services only in compliance with applicable law, these Terms, and any instructions or policies we publish for the Services.
                   </p>
                   <p>
-                    The Services are intended to assist businesses in managing operations but do not replace professional judgment.
+                    If you use the Services on behalf of a company or organization, you represent that you have authority to bind that entity to these Terms.
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">3. AI Disclaimer (Ceebo)</h2>
+                  <h2 className="text-2xl font-semibold mb-4">3. License Grant</h2>
                   <p>
-                    Ceebo and any AI-generated outputs are provided for informational purposes only.
+                    Subject to your ongoing compliance with these Terms, Constructify grants you a limited, non-exclusive, non-transferable, revocable license to access and use the Services for your internal business purposes during your subscription or other authorized relationship with us.
                   </p>
-                  <p>Ceebo:</p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>Does not provide legal advice</li>
-                    <li>Does not provide safety certification</li>
-                    <li>Does not guarantee regulatory compliance</li>
-                    <li>Does not provide payroll or accounting advice</li>
-                    <li>Does not replace licensed professionals</li>
+                  <p>
+                    This license is granted subject to the restrictions outlined in these Terms and any applicable proprietary software license provided with the Services.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl font-semibold mb-4">4. Acceptable Use</h2>
+                  <p>You agree not to misuse the Services. For example, you must not:</p>
+                  <ul className="list-disc pl-6 mt-2 space-y-2">
+                    <li>Use the Services in violation of law or third-party rights</li>
+                    <li>Attempt to gain unauthorized access to the Services, other accounts, or our systems</li>
+                    <li>Interfere with or disrupt the integrity or performance of the Services</li>
+                    <li>Use automated means to access the Services in a way that places unreasonable load on our infrastructure</li>
+                    <li>Upload unlawful, fraudulent, or harmful content</li>
                   </ul>
                   <p>
-                    Users are solely responsible for verifying all AI-generated information before relying on it.
+                    You may not attempt to replicate, duplicate, or recreate the platform&apos;s workflows, structure, or feature design for the purpose of building a competing product or service.
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">4. User Responsibilities</h2>
-                  <p>You are solely responsible for:</p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>The accuracy of data entered into the Services</li>
-                    <li>Compliance with labor laws and safety regulations</li>
-                    <li>Payroll decisions and workforce management</li>
-                    <li>Ensuring certifications and compliance records are accurate</li>
-                    <li>Any actions taken based on platform outputs</li>
-                  </ul>
+                  <h2 className="text-2xl font-semibold mb-4">5. SMS Communications</h2>
                   <p>
-                    Constructify does not verify the accuracy of user-submitted data.
+                    By providing a mobile phone number to Constructify, you may receive SMS messages from Constructify Labs related to account notifications, onboarding, employee invitations, and work-related operational updates. Message frequency may vary. Message and data rates may apply, depending on your carrier and plan.
+                  </p>
+                  <p>
+                    You may opt out of SMS at any time by replying <strong>STOP</strong> to any message. After you opt out, you may receive a one-time confirmation message. For help with SMS, reply <strong>HELP</strong> or contact us at{" "}
+                    <a href="mailto:support@constructifylabs.com" className="text-primary underline underline-offset-4">support@constructifylabs.com</a>.
+                  </p>
+                  <p>
+                    Constructify does not share, sell, rent, or disclose mobile phone numbers or SMS opt-in data to third parties for marketing or promotional purposes. Mobile information is used only to provide services directly related to your account, employment-related onboarding, and platform operations.
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">5. Accounts and Security</h2>
+                  <h2 className="text-2xl font-semibold mb-4">6. Disclaimers</h2>
                   <p>
-                    You are responsible for maintaining the confidentiality of account credentials. You agree to notify us immediately of any unauthorized access. You are responsible for all activity under your account.
+                    The Services are provided on an &quot;as is&quot; and &quot;as available&quot; basis. To the fullest extent permitted by law, Constructify disclaims warranties of merchantability, fitness for a particular purpose, and non-infringement, and any warranties arising from course of dealing or usage.
+                  </p>
+                  <p>
+                    All outputs, recommendations, and system indicators are provided as support tools and should not be solely relied upon for operational, legal, safety, or compliance decisions.
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">6. Subscriptions, Fees, and Payments</h2>
-                  <p>Certain features require paid subscriptions.</p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>Fees are billed in advance.</li>
-                    <li>Subscriptions automatically renew unless canceled.</li>
-                    <li>Failure to pay may result in suspension or termination.</li>
-                    <li>All fees are non-refundable unless required by law.</li>
-                  </ul>
+                  <h2 className="text-2xl font-semibold mb-4">7. Limitation of Liability</h2>
                   <p>
-                    We reserve the right to modify pricing with reasonable notice.
+                    To the fullest extent permitted by law, Constructify and its affiliates will not be liable for any indirect, incidental, special, consequential, or exemplary damages, or for lost profits, revenues, or data, arising out of or related to your use of the Services.
                   </p>
-                </div>
-
-                <div>
-                  <h2 className="text-2xl font-semibold mb-4">7. License Grant</h2>
                   <p>
-                    Subject to compliance with these Terms, we grant you a limited, non-exclusive, non-transferable license to access and use the Services for internal business purposes.
+                    To the fullest extent permitted by law, Constructify&apos;s total liability for any claim arising out of or relating to the Services is limited to the amount you paid us for the Services in the twelve (12) months before the event giving rise to the claim (or, if no fees applied, one hundred U.S. dollars (USD $100)).
                   </p>
                   <p>
                     This license is granted subject to the restrictions outlined in these Terms and any applicable proprietary software license provided with the Services.
@@ -123,7 +112,13 @@ export default function TermsPage() {
                 <div>
                   <h2 className="text-2xl font-semibold mb-4">8. Intellectual Property</h2>
                   <p>
-                    All software, content, branding, and materials are owned by Constructify or its licensors and are protected by intellectual property laws.
+                    The Services, including software, branding, documentation, and related content, are owned by Constructify or its licensors and are protected by applicable intellectual property laws.
+                  </p>
+                  <p>
+                    In addition to the protections described above, the Constructify platform, including its structure, workflows, system design, and feature behavior, is proprietary to Constructify Labs LLC. Use of the Services is also governed by our proprietary software license, which restricts copying, modification, distribution, and competitive replication of the platform or its components.
+                  </p>
+                  <p>
+                    The current proprietary license terms are published in the LICENSE file associated with Constructify&apos;s software.
                   </p>
                   <p>
                     In addition to the protections described above, the Constructify platform, including its structure, workflows, system design, and feature behavior, is proprietary to Constructify Labs LLC. Use of the Services is also governed by our proprietary software license, which restricts copying, modification, distribution, and competitive replication of the platform or its components.
@@ -134,14 +129,7 @@ export default function TermsPage() {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">9. Acceptable Use</h2>
-                  <p>You agree not to:</p>
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>Upload unlawful, fraudulent, or harmful content</li>
-                    <li>Attempt to disrupt system security</li>
-                    <li>Use automated scraping tools</li>
-                    <li>Interfere with other users</li>
-                  </ul>
+                  <h2 className="text-2xl font-semibold mb-4">9. Changes to Service</h2>
                   <p>
                     You may not attempt to replicate, duplicate, or recreate the platform&apos;s workflows, structure, or feature design for the purpose of building a competing product or service.
                   </p>
@@ -151,15 +139,16 @@ export default function TermsPage() {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">10. Data Ownership</h2>
+                  <h2 className="text-2xl font-semibold mb-4">10. Contact</h2>
+                  <p><strong>Constructify Labs LLC</strong></p>
+                  <p>Louisville, Kentucky, United States</p>
                   <p>
-                    You retain ownership of your data.
+                    Email:{" "}
+                    <a href="mailto:support@constructifylabs.com" className="text-primary underline underline-offset-4">support@constructifylabs.com</a>
                   </p>
                   <p>
-                    You grant Constructify a limited license to host, process, and display your data solely for providing Services.
-                  </p>
-                  <p>
-                    We are not responsible for data loss caused by user error, third-party integrations, or force majeure events.
+                    Website:{" "}
+                    <a href="https://constructifylabs.com" className="text-primary underline underline-offset-4">https://constructifylabs.com</a>
                   </p>
                 </div>
 
@@ -312,10 +301,9 @@ export default function TermsPage() {
         </div>
       </div>
 
-      {/* CTA Section without video background */}
       <div className="relative">
         <CTA />
       </div>
     </div>
   )
-} 
+}

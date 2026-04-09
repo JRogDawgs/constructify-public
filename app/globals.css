@@ -219,12 +219,12 @@
 /* Horizontal nav on small viewports: thin bar (Blink/WebKit via pseudo-elements below) */
 
 .navbar-nav-scroll::-webkit-scrollbar {
-  height: 5px;
+  height: 4px;
 }
 
 .navbar-nav-scroll::-webkit-scrollbar-thumb {
   border-radius: 9999px;
-  background-color: rgba(148, 163, 184, 0.45);
+  background-color: rgba(148, 163, 184, 0.4);
 }
 
 .navbar-nav-scroll::-webkit-scrollbar-track {

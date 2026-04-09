@@ -19,8 +19,8 @@ const footerLinks = {
     { href: `${APP_BASE_URL}/owners`, label: "Owners Portal", external: true },
   ],
   legal: [
-    { href: "/terms", label: "Terms of Service" },
     { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
     { href: "/account-deletion", label: "Account deletion" },
     { href: "/sms-consent", label: "SMS Consent" },
   ],
@@ -91,7 +91,7 @@ const FooterSection = memo(({
         ))}
       </div>
     ) : title === "Solutions" ? (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+      <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-x-4 gap-y-1">
         {links.map(({ href, label, external }) => (
           <div key={`${href}-${label}`}>
             <FooterLink href={href} label={label} external={external} />
@@ -113,10 +113,11 @@ const FooterSection = memo(({
 FooterSection.displayName = "FooterSection"
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
-
   return (
-    <footer className="relative w-full max-w-[100vw] overflow-x-hidden px-4 py-4 sm:px-6 bg-slate-900" role="contentinfo">
+    <footer
+      className="relative w-full max-w-[100vw] overflow-x-hidden px-4 py-4 sm:px-6 bg-slate-900"
+      role="contentinfo"
+    >
       <div className="mx-auto max-w-screen-2xl min-w-0">
         <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-4 sm:p-6">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 sm:gap-6 items-start">
@@ -141,7 +142,7 @@ export default function Footer() {
             </div>
             
             {/* Company, Legal, and Social - Takes 2 columns with 3-column grid inside */}
-            <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-lg border border-slate-700/50">
+            <div className="md:col-span-2 grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 p-4 rounded-lg border border-slate-700/50">
               <FooterSection title="Company" links={footerLinks.company} />
               <FooterSection title="Legal" links={footerLinks.legal} />
               <FooterSection title="Connect" links={footerLinks.social} />
@@ -150,7 +151,7 @@ export default function Footer() {
           
           <div className="border-t border-slate-700 mt-4 pt-3">
             <p className="text-center text-slate-400 text-xs">
-              © {currentYear} Constructify, Inc. All rights reserved.
+              © 2026 Constructify Labs LLC. All rights reserved.
             </p>
           </div>
         </div>

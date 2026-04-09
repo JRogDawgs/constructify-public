@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/dialog"
 import { ArrowRight } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
-import { cn } from "@/lib/utils"
 
+/** Looped muted hero backdrop */
 const SALES_VIDEO_ID = "loUDEy9Duv0"
+/** Opens only from “Watch Full Demo” / video fallback link */
+const FULL_DEMO_VIDEO_ID = "u_80ihIIxMQ"
 
 function buildHeroEmbedSrc(): string {
   const p = new URLSearchParams({
@@ -39,8 +41,22 @@ function buildModalEmbedSrc(): string {
     modestbranding: "1",
     rel: "0",
   })
-  return `https://www.youtube.com/embed/${SALES_VIDEO_ID}?${p.toString()}`
+  return `https://www.youtube.com/embed/${FULL_DEMO_VIDEO_ID}?${p.toString()}`
 }
+
+/** Same silver frame + inner footprint for Get Started and Watch Full Demo */
+const HERO_CTA_SILVER_FRAME =
+  "block min-w-0 rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
+const HERO_CTA_INNER =
+  "h-14 w-full min-h-14 rounded-md border-0 px-6 text-lg font-black uppercase tracking-wide inline-flex items-center justify-center gap-2 shadow-none"
+
+/** Matches navbar header: thin silver gradient on each edge of the hero blur panel */
+const HERO_BLUR_FRAME_EDGES =
+  "pointer-events-none absolute -inset-3 z-0 rounded-[1.25rem] sm:-inset-5 sm:rounded-3xl md:-inset-6"
+const HERO_BLUR_SILVER_EDGE_H =
+  "absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300/75 to-transparent"
+const HERO_BLUR_SILVER_EDGE_V =
+  "absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-300/75 to-transparent"
 
 export default function Hero() {
   const { t } = useTranslation()
@@ -110,54 +126,65 @@ export default function Hero() {
               aria-hidden
               className="pointer-events-none absolute -inset-3 z-[-1] rounded-[1.25rem] bg-[hsl(220_60%_15%_/_0.36)] backdrop-blur-lg sm:-inset-5 sm:rounded-3xl md:-inset-6"
             />
-            <div className="mb-6 flex flex-col items-center sm:mb-8">
-              <img
-                src="/images/3d logo.png"
-                alt="Constructify"
-                className="h-40 w-auto drop-shadow-2xl md:h-48"
-              />
-              <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
-                Constructify
-              </span>
+            <div aria-hidden className={HERO_BLUR_FRAME_EDGES}>
+              <div className={`${HERO_BLUR_SILVER_EDGE_H} top-0`} />
+              <div className={`${HERO_BLUR_SILVER_EDGE_H} bottom-0`} />
+              <div className={`${HERO_BLUR_SILVER_EDGE_V} left-0`} />
+              <div className={`${HERO_BLUR_SILVER_EDGE_V} right-0`} />
             </div>
+            <div className="relative z-10 flex w-full flex-col items-center">
+              <div className="mb-6 flex flex-col items-center sm:mb-8">
+                <img
+                  src="/images/3d logo.png"
+                  alt="Constructify"
+                  className="h-40 w-auto drop-shadow-2xl md:h-48"
+                />
+                <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
+                  Constructify
+                </span>
+              </div>
 
-            <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
-              {t("hero.title")}
-            </h1>
+              <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
+                {t("hero.title")}
+              </h1>
 
-            <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl">
-              {t("hero.subtitle")}
-            </p>
+              <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl">
+                {t("hero.subtitle")}
+              </p>
 
-            <div className="mt-8 flex w-full max-w-lg flex-col gap-3 sm:max-w-2xl sm:flex-row sm:gap-4">
-              <a
-                href={`${APP_BASE_URL}/auth/signup`}
-                target="_self"
-                rel="noopener"
-                className="min-w-0 flex-1 block w-full rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
-              >
-                <Button
-                  size="lg"
-                  className="h-14 w-full border-0 bg-green-400 px-10 text-lg font-black uppercase tracking-wide text-constructify-navy hover:bg-green-500"
+              <div className="mt-8 grid w-full max-w-lg grid-cols-1 gap-3 sm:max-w-2xl sm:grid-cols-2 sm:gap-4">
+                <a
+                  href={`${APP_BASE_URL}/auth/signup`}
+                  target="_self"
+                  rel="noopener"
+                  className={HERO_CTA_SILVER_FRAME}
                 >
-                  {t("hero.ctaPrimary")}
-                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                </Button>
-              </a>
-              <div className="min-w-0 flex-1 w-full rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg">
-                <button
-                  type="button"
-                  onClick={() => {
-                    openSalesModal()
-                  }}
-                  className={cn(
-                    "inline-flex h-14 w-full items-center justify-center rounded-md border-0 bg-slate-950 px-10 text-lg font-semibold text-white transition-colors",
-                    "hover:bg-slate-900",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-300"
-                  )}
-                >
-                  {t("hero.ctaSecondary")}
-                </button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className={`${HERO_CTA_INNER} border-0 bg-green-400 text-constructify-navy hover:bg-green-500 hover:text-constructify-navy`}
+                  >
+                    {t("hero.ctaPrimary")}
+                    <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  </Button>
+                </a>
+                <div className={HERO_CTA_SILVER_FRAME}>
+                  <Button
+                    type="button"
+                    size="lg"
+                    variant="outline"
+                    onClick={() => {
+                      openSalesModal()
+                    }}
+                    className={`${HERO_CTA_INNER} border-0 bg-slate-950/90 text-white hover:bg-slate-900/95 hover:text-white`}
+                  >
+                    {t("hero.ctaSecondary")}
+                    <ArrowRight
+                      className="h-4 w-4 shrink-0 opacity-0"
+                      aria-hidden="true"
+                    />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

@@ -30,23 +30,18 @@ export default function Navbar() {
     [t]
   )
 
-  const linkIsActive = (href: string) =>
-    pathname === href || (href !== "/" && pathname?.startsWith(href))
-
-  const navLinkClass = (href: string) => {
-    const active = linkIsActive(href)
+  const linkClass = (href: string) => {
+    const isActive =
+      pathname === href || (href !== "/" && pathname?.startsWith(href))
     return `inline-flex shrink-0 items-center justify-center rounded-xl border font-semibold transition-all duration-300 hover:bg-white/20 hover:text-white hover:border-constructify-gold hover:shadow-md navbar-link whitespace-nowrap
-      h-10 px-2.5 text-sm sm:h-11 sm:px-3 sm:text-[0.9375rem]
-      lg:h-14 lg:px-3 lg:text-base xl:px-4
+      h-10 px-2.5 text-xs sm:h-11 sm:px-3 sm:text-sm md:text-base
+      lg:h-14 lg:px-4 lg:text-base
       ${
-        active
+        isActive
           ? "bg-white/10 text-constructify-gold border-constructify-gold/60 border-b-2 border-b-constructify-gold shadow-sm"
           : "border-transparent"
       }`
   }
-
-  const ownersPortalButtonClass =
-    "group relative inline-flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-slate-600/70 bg-gradient-to-br from-slate-800/90 to-slate-900/90 text-slate-200 shadow-md transition-all duration-300 hover:border-amber-400/80 hover:from-slate-700/95 hover:to-slate-800/95 hover:text-amber-300 hover:shadow-lg hover:shadow-amber-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 sm:h-14 sm:w-14"
 
   return (
     <>
@@ -55,26 +50,32 @@ export default function Navbar() {
           <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
             <Link
               href="/"
-              className="flex shrink-0 items-center sm:mr-1 lg:mr-8 xl:mr-12"
+              className="flex shrink-0 items-center lg:mr-8 xl:mr-12"
               aria-label="Home"
             >
               <img
                 src="/images/3d logo.png"
                 alt="Constructify Logo"
-                className="h-11 w-auto max-h-14 filter drop-shadow-lg sm:h-14"
+                className="h-11 w-auto max-h-14 filter drop-shadow-lg sm:h-14 lg:h-16"
               />
             </Link>
             <nav
-              className="navbar-nav-scroll min-h-[2.5rem] min-w-0 flex-1 overflow-x-auto overflow-y-hidden overscroll-x-contain lg:min-h-0 lg:flex-initial lg:overflow-visible"
+              className="navbar-nav-scroll text-lg font-medium min-h-[2.5rem] min-w-0 flex-1 overflow-x-auto overflow-y-hidden overscroll-x-contain lg:min-h-0 lg:flex-initial lg:overflow-visible"
               aria-label="Main navigation"
             >
-              <div className="flex h-full w-max flex-nowrap items-center gap-1 pr-1 sm:gap-1.5 lg:h-auto lg:w-auto lg:gap-2 lg:pr-0 xl:gap-4">
+              <div className="flex h-full w-max flex-nowrap items-center gap-1 pr-1 sm:gap-1.5 lg:h-auto lg:w-auto lg:gap-2 lg:pr-0 xl:gap-6">
                 {navigationLinks.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
-                    className={navLinkClass(href)}
-                    aria-current={linkIsActive(href) ? "page" : undefined}
+                    className={linkClass(href)}
+                    aria-label={label}
+                    aria-current={
+                      pathname === href ||
+                      (href !== "/" && pathname?.startsWith(href))
+                        ? "page"
+                        : undefined
+                    }
                   >
                     {label}
                   </Link>
@@ -90,7 +91,7 @@ export default function Navbar() {
                     href={`${APP_BASE_URL}/owners`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={ownersPortalButtonClass}
+                    className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-slate-600/70 bg-gradient-to-br from-slate-800/90 to-slate-900/90 text-slate-200 shadow-md transition-all duration-300 hover:border-amber-400/80 hover:from-slate-700/95 hover:to-slate-800/95 hover:text-amber-300 hover:shadow-lg hover:shadow-amber-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 sm:h-12 sm:w-12 lg:h-14 lg:w-14"
                     aria-label="Owners Portal — opens in a new tab"
                   >
                     <span
@@ -108,7 +109,9 @@ export default function Navbar() {
                   sideOffset={8}
                   className="border-slate-600 bg-slate-950 px-3 py-2 text-white shadow-xl"
                 >
-                  <p className="text-sm font-semibold tracking-tight">Owners Portal</p>
+                  <p className="text-sm font-semibold tracking-tight">
+                    Owners Portal
+                  </p>
                   <p className="text-xs font-normal text-slate-400">
                     Owner & admin dashboard
                   </p>
@@ -120,11 +123,11 @@ export default function Navbar() {
               target="_self"
               rel="noopener"
               aria-label="Log in or sign up"
-              className="inline-flex min-w-0 max-w-full"
+              className="inline-flex min-w-0"
             >
               <Button
                 size="default"
-                className="navbar-auth-button relative h-10 overflow-hidden rounded-xl border-2 px-2.5 text-[0.65rem] font-black uppercase tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group sm:h-12 sm:px-4 sm:text-xs lg:h-14 lg:px-8 lg:text-lg"
+                className="navbar-auth-button relative h-10 overflow-hidden rounded-xl border-2 px-2.5 text-[0.65rem] font-black uppercase tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group sm:h-11 sm:px-4 sm:text-xs md:h-12 md:px-6 md:text-sm lg:h-14 lg:px-8 lg:text-lg"
                 onMouseEnter={(e) => {
                   e.currentTarget.classList.add("navbar-auth-button:hover")
                 }}
@@ -134,7 +137,9 @@ export default function Navbar() {
                 variant="outline"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full transition-transform duration-700 group-hover:translate-x-[-200%]" />
-                <span className="relative truncate">{t("nav.signin")}</span>
+                <span className="relative truncate max-w-[5.5rem] sm:max-w-none">
+                  {t("nav.signin")}
+                </span>
               </Button>
             </a>
           </div>

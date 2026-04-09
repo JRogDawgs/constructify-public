@@ -18,8 +18,12 @@ const nextConfig = {
   },
   output: 'standalone',
   webpack: (config) => {
-    config.cache = false;
-    return config;
+    // Disabling webpack cache makes every build extremely slow and often looks "stuck"
+    // on Windows. Opt in only when debugging stale bundles: DISABLE_WEBPACK_CACHE=1 npm run build
+    if (process.env.DISABLE_WEBPACK_CACHE === '1') {
+      config.cache = false
+    }
+    return config
   },
   /* CSP: middleware.ts only — duplicate CSP here blocked <video> and conflicted with Firebase/Google rules. */
 }
