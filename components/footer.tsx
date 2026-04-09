@@ -4,6 +4,7 @@ import Link from "next/link"
 import { X, Youtube } from "lucide-react"
 import { memo } from "react"
 import { APP_BASE_URL } from "@/lib/appConfig"
+import { marketingBlueBarClassName } from "@/lib/marketingChrome"
 
 const footerLinks = {
   solutions: [
@@ -115,14 +116,14 @@ FooterSection.displayName = "FooterSection"
 export default function Footer() {
   return (
     <footer
-      className="relative w-full max-w-[100vw] overflow-x-hidden px-4 py-4 sm:px-6 bg-slate-900"
+      className={`relative w-full max-w-[100vw] overflow-x-hidden px-4 py-4 sm:px-6 ${marketingBlueBarClassName} before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-px before:bg-gradient-to-r before:from-transparent before:via-slate-300/75 before:to-transparent`}
       role="contentinfo"
     >
       <div className="mx-auto max-w-screen-2xl min-w-0">
-        <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-4 sm:p-6">
+        <div className="rounded-2xl border border-white/15 bg-[hsl(222_50%_10%_/_0.45)] p-4 sm:p-6 backdrop-blur-sm">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 sm:gap-6 items-start">
             {/* Logo and Description - Takes 2 columns */}
-            <div className="md:col-span-2 space-y-2 p-4 rounded-lg border border-slate-700/50">
+            <div className="md:col-span-2 space-y-2 rounded-lg border border-white/10 p-4">
               <div className="flex items-center space-x-2">
                 <img 
                   src="/images/3d logo.png" 
@@ -137,20 +138,20 @@ export default function Footer() {
             </div>
             
             {/* Solutions - Takes 2 columns with 2-column grid inside */}
-            <div className="md:col-span-2 p-4 rounded-lg border border-slate-700/50">
+            <div className="md:col-span-2 rounded-lg border border-white/10 p-4">
               <FooterSection title="Solutions" links={footerLinks.solutions} />
             </div>
             
             {/* Company, Legal, and Social - Takes 2 columns with 3-column grid inside */}
-            <div className="md:col-span-2 grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 p-4 rounded-lg border border-slate-700/50">
+            <div className="md:col-span-2 grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 rounded-lg border border-white/10 p-4">
               <FooterSection title="Company" links={footerLinks.company} />
               <FooterSection title="Legal" links={footerLinks.legal} />
               <FooterSection title="Connect" links={footerLinks.social} />
             </div>
           </div>
           
-          <div className="border-t border-slate-700 mt-4 pt-3">
-            <p className="text-center text-slate-400 text-xs">
+          <div className="mt-4 border-t border-white/15 pt-3">
+            <p className="text-center text-slate-300/90 text-xs">
               © 2026 Constructify Labs LLC. All rights reserved.
             </p>
           </div>
