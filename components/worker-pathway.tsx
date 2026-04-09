@@ -18,7 +18,7 @@ export default function WorkerPathway() {
           Are You a Worker?
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-700 text-lg leading-relaxed">
-          Track your hours, tasks, and certifications in one place. Stay job-ready.
+          Track your hours, tasks, and certifications in one place — and stay job-ready.
         </p>
         <div className="mt-8">
           <a href={`${APP_BASE_URL}/auth/register`} target="_self" rel="noopener" className="inline-block p-[6px] rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 shadow-lg">

@@ -8,21 +8,21 @@ const steps = [
     icon: UserPlus2,
     title: "Add Your Crew",
     description:
-      "Set up workers, roles, and certifications in minutes. No IT needed. No long onboarding.",
+      "Set up workers, roles, and certifications in minutes.",
   },
   {
     number: "02",
     icon: ClipboardList,
     title: "Assign Work",
     description:
-      "Supervisors assign jobs clearly before the shift starts. Every worker knows exactly what to do.",
+      "Every worker knows exactly what to do before the shift starts.",
   },
   {
     number: "03",
     icon: Activity,
     title: "Track Everything",
     description:
-      "Clock-ins, tasks, and progress — all in real time. No chasing. No guessing.",
+      "Clock-ins, tasks, and progress — all live, all accurate.",
   },
 ]
 
@@ -38,13 +38,10 @@ export default function HowItWorksSection() {
             id="how-it-works-heading"
             className="text-3xl font-black text-slate-900 sm:text-4xl md:text-5xl"
           >
-            Get Up and Running Fast
+            Get Up and Running in Minutes
           </h2>
           <p className="mt-4 text-slate-600 sm:text-lg">
-            Three steps. Minutes to set up. Immediate results.
-          </p>
-          <p className="mt-2 text-sm font-bold text-amber-600 uppercase tracking-widest">
-            Set up today. Run better tomorrow.
+            No complicated setup. No long onboarding. Immediate impact.
           </p>
         </div>
 

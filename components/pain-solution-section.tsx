@@ -3,16 +3,16 @@
 import { CheckCircle2, XCircle } from "lucide-react"
 
 const painPoints = [
-  "Missed clock-ins = bad payroll data",
-  "Payroll disputes eating time and trust",
-  "No visibility into where crews actually are",
-  "Supervisors guessing instead of managing",
+  "Missed clock-ins = inaccurate payroll",
+  "Payroll disputes wasting time and trust",
+  "No real visibility into where crews actually are",
+  "Supervisors managing off guesses instead of data",
 ]
 
 const solutions = [
   "Real-time clock-ins from any device",
   "Automatic records — no disputes",
-  "Live crew status and location",
+  "Live crew visibility across every job",
   "Supervisors manage with data, not guesswork",
 ]
 
@@ -36,7 +36,7 @@ export default function PainSolutionSection() {
               What&apos;s Costing You Money Right Now
             </h2>
             <p className="text-sm font-semibold text-red-600 uppercase tracking-wide mb-4">
-              This is happening every single day on your jobs:
+              This is happening on your jobs every single day:
             </p>
             <ul className="space-y-4">
               {painPoints.map((point, i) => (
@@ -57,10 +57,10 @@ export default function PainSolutionSection() {
               The Fix
             </div>
             <h2 className="text-2xl font-black text-slate-900 sm:text-3xl mb-6 leading-tight">
-              Here&apos;s What Changes With Constructify
+              What Changes With Constructify
             </h2>
             <p className="text-sm font-semibold text-green-700 uppercase tracking-wide mb-4">
-              Here&apos;s what your operation looks like with Constructify:
+              Here&apos;s what your operation looks like when it&apos;s dialed in:
             </p>
             <ul className="space-y-4">
               {solutions.map((solution, i) => (

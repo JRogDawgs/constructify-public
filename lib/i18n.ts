@@ -22,10 +22,11 @@ const resources = {
       
       // Homepage
       hero: {
-        title: "Run Your Jobsite From One Place",
-        subtitle: "Add your crew. Assign work. Stay in sync.",
+        title: "Run Your Entire Operation Without the Chaos",
+        subtitle:
+          "Stop guessing. Stop chasing. Stop losing money every day on your jobs. Get full control of your crews, schedules, and jobsite activity — all in one place.",
         description: "",
-        ctaPrimary: "Get Started",
+        ctaPrimary: "Get Control Today",
         ctaSecondary: "Watch Full Demo",
         trustedBy: "",
         videoFallback: "Video not playing?",

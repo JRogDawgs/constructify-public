@@ -133,7 +133,7 @@ export default function Hero() {
               <div className={`${HERO_BLUR_SILVER_EDGE_V} right-0`} />
             </div>
             <div className="relative z-10 flex w-full flex-col items-center">
-              <div className="mb-6 flex flex-col items-center sm:mb-8">
+              <div className="mb-6 flex w-full flex-col items-center sm:mb-8">
                 <img
                   src="/images/3d logo.png"
                   alt="Constructify"
@@ -142,6 +142,10 @@ export default function Hero() {
                 <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
                   Constructify
                 </span>
+                <div
+                  aria-hidden
+                  className="mx-auto mt-3 h-[3px] w-[min(40rem,90%)] max-w-full shrink-0 rounded-full bg-gradient-to-r from-transparent via-[rgb(192_183_162_/_0.62)] to-transparent sm:mt-4 sm:h-1 sm:via-[rgb(189_183_171_/_0.55)]"
+                />
               </div>
 
               <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">

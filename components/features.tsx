@@ -8,19 +8,19 @@ import { APP_BASE_URL } from "@/lib/appConfig"
 const features = [
   {
     name: "Workforce Control",
-    description: "No more guessing who should be where.",
+    description: "Know exactly who should be where — at all times.",
     icon: Users,
     id: "workforce-control",
   },
   {
     name: "Scheduling & Time",
-    description: "Clean payroll. No disputes.",
+    description: "Accurate payroll. No disputes. No surprises.",
     icon: Clock,
     id: "scheduling",
   },
   {
     name: "Compliance",
-    description: "Never get caught with expired certifications.",
+    description: "Never miss certifications or requirements again.",
     icon: Shield,
     id: "compliance",
   },
@@ -76,10 +76,10 @@ export default function Features() {
             id="features-title"
             className="font-black text-4xl leading-[1.0] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900"
           >
-            Built for Real Construction Operations
+            Built for Real Jobsite Control
           </h2>
           <p className="mt-4 text-slate-600 sm:text-lg">
-            Four areas where Constructify saves you time and money every week.
+            Where Constructify saves you time and money every week:
           </p>
         </div>
         <div

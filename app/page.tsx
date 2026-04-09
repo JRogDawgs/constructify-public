@@ -29,9 +29,11 @@ export default function Home() {
 
           {/* 3. Mid CTA — after video section */}
           <MidCTASection
-            headline="Ready to Run Tighter Jobs?"
-            subtext="Stop losing money to bad data. Start managing your crews the right way."
+            headline="Ready to Stop Losing Money on Your Jobs?"
+            subtext="Bad data, missed clock-ins, and poor visibility are costing you more than you think. Constructify fixes it — fast."
             ctaLabel="Get Control Today"
+            emphasis={"You're already paying for the problem. This is the solution."}
+            footnote=""
           />
 
           {/* 4. Divider — dark-to-light visual transition */}
@@ -53,9 +55,11 @@ export default function Home() {
 
           {/* 7. Mid CTA — after role section */}
           <MidCTASection
-            headline="Every Role. Covered. Every Day."
-            subtext="Admins get control. Supervisors get clarity. Workers get simplicity."
+            headline="Admins get control. Supervisors get clarity. Workers get simplicity."
+            subtext={"You're already paying for inefficiency. This fixes it."}
             ctaLabel="Get Control Today"
+            emphasis=""
+            footnote=""
           />
 
           {/* 8. How It Works — 3 simple steps */}

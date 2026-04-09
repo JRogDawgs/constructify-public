@@ -20,25 +20,25 @@ export type DemoVideoEntry = {
 export const DEMO_VIDEOS: Record<DemoRoleId, DemoVideoEntry> = {
   admin: {
     id: "admin",
-    title: "Admin Dashboard",
+    title: "Admin",
     subtitle:
-      "See every crew, every job, every project — from one screen. Total visibility for the people running the operation.",
+      "See everything happening across every job — instantly. Know who's working, where they are, and what's getting done — without digging or chasing.",
     youtubeId: "mBcd2ZYKKYs",
     thumbnailUrl: "https://img.youtube.com/vi/mBcd2ZYKKYs/hqdefault.jpg",
   },
   supervisor: {
     id: "supervisor",
-    title: "Supervisor Dashboard",
+    title: "Supervisor",
     subtitle:
-      "Assign jobs, track crews in real time, and hold your team accountable — without the back-and-forth.",
+      "Run your crews without the constant back-and-forth. Assign work clearly. Track progress live. Hold your team accountable without babysitting.",
     youtubeId: "9WLFjxS8OE8",
     thumbnailUrl: "https://img.youtube.com/vi/9WLFjxS8OE8/hqdefault.jpg",
   },
   worker: {
     id: "worker",
-    title: "Worker Dashboard",
+    title: "Worker",
     subtitle:
-      "Clock in, see your tasks, and track your hours and certs — everything a worker needs, nothing they don't.",
+      "Show up, clock in, and know exactly what to do. Simple, fast, and built for the field — no confusion, no wasted time.",
     youtubeId: "MT3HWUy034k",
     thumbnailUrl: "https://img.youtube.com/vi/MT3HWUy034k/hqdefault.jpg",
   },

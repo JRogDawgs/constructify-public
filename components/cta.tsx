@@ -30,9 +30,7 @@ export default function CTA() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
                   <h2 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
-                    GET CONTROL
-                    <br />
-                    OF YOUR CREWS
+                    Take Control of Your Crews Today
                   </h2>
                   <div className="w-32 h-1 bg-white/30 mx-auto rounded-full"></div>
                 </motion.div>
@@ -44,8 +42,8 @@ export default function CTA() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  Stop losing money to bad data and missed clock-ins.
-                  Run tighter jobs starting today.
+                  Stop losing money to bad data, missed clock-ins, and poor visibility.
+                  Run tighter, more profitable jobs starting now.
                 </motion.p>
 
                 {/* CTA Buttons */}

@@ -6,43 +6,43 @@ const roles = [
   {
     icon: BarChart3,
     role: "Admin",
-    headline: "Run the whole operation from one place.",
+    headline: "Run the entire operation from one system.",
     color: "text-blue-600",
     iconBg: "bg-blue-50",
     borderColor: "border-blue-200",
     cardBg: "bg-blue-50/40",
     benefits: [
-      "Know who's working, where, and on what",
-      "Manage crews, projects, and users from one place",
-      "See reports instantly — no spreadsheets",
+      "See all crews, jobs, and activity instantly",
+      "Manage everything without spreadsheets",
+      "Get real-time reporting without digging",
     ],
   },
   {
     icon: Users,
     role: "Supervisor",
-    headline: "Assign work and track crews in real time.",
+    headline: "Know exactly what's happening on your jobs.",
     color: "text-amber-600",
     iconBg: "bg-amber-50",
     borderColor: "border-amber-200",
     cardBg: "bg-amber-50/40",
     benefits: [
-      "Know exactly what's happening on your jobs",
       "Assign work clearly before the shift starts",
+      "Track crews in real time",
       "Hold teams accountable without chasing",
     ],
   },
   {
     icon: HardHat,
     role: "Worker",
-    headline: "Clock in, see your tasks, and get to work.",
+    headline: "Know your job. Get it done. Move on.",
     color: "text-green-600",
     iconBg: "bg-green-50",
     borderColor: "border-green-200",
     cardBg: "bg-green-50/40",
     benefits: [
-      "Know exactly what's expected every day",
-      "Simple mobile clock in/out — no hassle",
-      "Track your own hours and certifications",
+      "Clear daily tasks",
+      "Fast mobile clock-in/out",
+      "Track hours and certifications easily",
     ],
   },
 ]
@@ -59,11 +59,11 @@ export default function RoleValueSection() {
             id="role-value-heading"
             className="text-3xl font-black text-slate-900 sm:text-4xl md:text-5xl leading-tight"
           >
-            Every Role. Fully Dialed In.
+            Every Role. Fully Under Control.
           </h2>
           <p className="mt-4 text-slate-600 sm:text-lg max-w-2xl mx-auto">
-            Everyone from the office to the field gets exactly what they need.
-            No guessing. No overlap. No confusion.
+            Everyone knows exactly what to do, when to do it, and where to be.
+            No confusion. No overlap. No chasing.
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export default function RoleValueSection() {
         </div>
 
         <p className="mt-12 text-center text-lg font-semibold text-slate-600">
-          Everyone knows what&apos;s happening. No confusion. No chasing.
+          No confusion. No overlap. No chasing.
         </p>
       </div>
     </section>

@@ -8,12 +8,18 @@ interface MidCTASectionProps {
   headline: string
   subtext: string
   ctaLabel?: string
+  /** Amber emphasis line; omit or pass empty string to hide */
+  emphasis?: string
+  /** Small italic line under emphasis; omit or pass empty string to hide */
+  footnote?: string
 }
 
 export default function MidCTASection({
   headline,
   subtext,
   ctaLabel = "Get Control Today",
+  emphasis = "You're already paying for inefficiency. This fixes it.",
+  footnote = "Doing nothing is what keeps costing you.",
 }: MidCTASectionProps) {
   return (
     <section className="bg-slate-900 py-16 md:py-20" aria-label="Call to action">
@@ -22,12 +28,14 @@ export default function MidCTASection({
           {headline}
         </h2>
         <p className="mt-4 text-slate-300 text-lg max-w-xl mx-auto">{subtext}</p>
-        <p className="mt-3 text-sm font-bold text-amber-400 uppercase tracking-widest">
-          You&apos;re already paying for inefficiency. This fixes it.
-        </p>
-        <p className="mt-1 text-xs text-slate-500 italic">
-          Doing nothing is what keeps costing you.
-        </p>
+        {emphasis ? (
+          <p className="mt-3 text-sm font-bold text-amber-400 uppercase tracking-widest">
+            {emphasis}
+          </p>
+        ) : null}
+        {footnote ? (
+          <p className="mt-1 text-xs text-slate-500 italic">{footnote}</p>
+        ) : null}
         <div className="mt-8">
           <a
             href={`${APP_BASE_URL}/auth/signup`}

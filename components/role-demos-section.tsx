@@ -56,13 +56,13 @@ export default function RoleDemosSection() {
             id="role-demos-heading"
             className="text-3xl font-bold tracking-tight text-white md:text-4xl"
           >
-            See It Working in Real Jobs
+            See Exactly How This Works on Real Jobs
           </h2>
           <p className="mt-3 text-lg text-slate-300 md:text-xl">
-            Watch how admins, supervisors, and workers actually use Constructify day to day.
+            Watch how contractors run tighter, more profitable jobs using Constructify every single day.
           </p>
           <p className="mt-2 text-sm text-slate-400">
-            Short walkthroughs. Real workflows. Share with your team in minutes.
+            Short walkthroughs. Real crews. Real results.
           </p>
         </div>
 
