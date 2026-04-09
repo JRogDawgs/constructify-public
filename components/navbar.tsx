@@ -74,7 +74,7 @@ export default function Navbar() {
                     className={linkClass(href)}
                     aria-label={label}
                     aria-current={
-                      pathname === href || pathname?.startsWith(href)
+                      pathname === href || pathname?.startsWith(`${href}/`)
                         ? "page"
                         : undefined
                     }
