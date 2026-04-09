@@ -103,56 +103,63 @@ export default function Hero() {
           />
         </div>
 
-        {/* CTA stack */}
+        {/* CTA stack — single panel: blur layer + content (no ring/shadow wrapper) */}
         <div className="container relative z-10 mx-auto flex max-w-screen-2xl flex-col items-center px-4 py-10 text-center md:px-6 md:py-14">
-          <div className="mb-6 flex flex-col items-center sm:mb-8">
-            <img
-              src="/images/3d logo.png"
-              alt="Constructify"
-              className="h-40 w-auto drop-shadow-2xl md:h-48"
+          <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-1 sm:px-2">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-3 z-[-1] rounded-[1.25rem] bg-[hsl(220_60%_15%_/_0.36)] backdrop-blur-lg sm:-inset-5 sm:rounded-3xl md:-inset-6"
             />
-            <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
-              Constructify
-            </span>
-          </div>
+            <div className="mb-6 flex flex-col items-center sm:mb-8">
+              <img
+                src="/images/3d logo.png"
+                alt="Constructify"
+                className="h-40 w-auto drop-shadow-2xl md:h-48"
+              />
+              <span className="mt-2 text-4xl font-bold tracking-tight text-white/95 md:text-[2.5rem]">
+                Constructify
+              </span>
+            </div>
 
-          <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
-            {t("hero.title")}
-          </h1>
+            <h1 className="max-w-4xl text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
+              {t("hero.title")}
+            </h1>
 
-          <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl">
-            {t("hero.subtitle")}
-          </p>
+            <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-white/95 drop-shadow sm:text-xl md:text-2xl">
+              {t("hero.subtitle")}
+            </p>
 
-          <div className="mt-8 flex w-full max-w-lg flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:justify-center sm:gap-4">
-            <a
-              href={`${APP_BASE_URL}/auth/signup`}
-              target="_self"
-              rel="noopener"
-              className="inline-block rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
-            >
-              <Button
-                size="lg"
-                className="h-14 w-full min-w-[200px] border-0 bg-green-400 px-10 text-lg font-black uppercase tracking-wide text-constructify-navy hover:bg-green-500 sm:w-auto"
+            <div className="mt-8 flex w-full max-w-lg flex-col gap-3 sm:max-w-2xl sm:flex-row sm:gap-4">
+              <a
+                href={`${APP_BASE_URL}/auth/signup`}
+                target="_self"
+                rel="noopener"
+                className="min-w-0 flex-1 block w-full rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg"
               >
-                {t("hero.ctaPrimary")}
-                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-              </Button>
-            </a>
-            <Button
-              type="button"
-              size="lg"
-              variant="outline"
-              onClick={() => {
-                openSalesModal()
-              }}
-              className={cn(
-                "h-14 w-full min-w-[200px] border-white/40 bg-white/10 px-10 text-lg font-semibold text-white backdrop-blur-sm sm:w-auto",
-                "hover:bg-white/20 hover:text-white"
-              )}
-            >
-              {t("hero.ctaSecondary")}
-            </Button>
+                <Button
+                  size="lg"
+                  className="h-14 w-full border-0 bg-green-400 px-10 text-lg font-black uppercase tracking-wide text-constructify-navy hover:bg-green-500"
+                >
+                  {t("hero.ctaPrimary")}
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Button>
+              </a>
+              <div className="min-w-0 flex-1 w-full rounded-xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 p-[6px] shadow-lg">
+                <button
+                  type="button"
+                  onClick={() => {
+                    openSalesModal()
+                  }}
+                  className={cn(
+                    "inline-flex h-14 w-full items-center justify-center rounded-md border-0 bg-slate-950 px-10 text-lg font-semibold text-white transition-colors",
+                    "hover:bg-slate-900",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-300"
+                  )}
+                >
+                  {t("hero.ctaSecondary")}
+                </button>
+              </div>
+            </div>
           </div>
 
           <p className="mt-6 text-xs text-white/65">

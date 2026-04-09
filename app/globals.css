@@ -152,7 +152,7 @@
   .bg-constructify-header-gradient {
     background: linear-gradient(135deg, hsl(var(--constructify-navy-dark)) 0%, hsl(var(--constructify-navy)) 50%, hsl(var(--constructify-navy-medium)) 100%);
   }
-  
+
   /* Navy Blue Utilities */
   .bg-constructify-navy {
     background-color: hsl(var(--constructify-navy));
@@ -198,6 +198,14 @@
   }
 }
 
+.mouse-move-effect {
+  background: radial-gradient(
+    600px at var(--mouse-x, 50vw) var(--mouse-y, 50vh),
+    rgba(29, 78, 216, 0.15),
+    transparent 80%
+  );
+}
+
 /* Navbar specific styles */
 .navbar-link {
   color: white;
@@ -208,12 +216,7 @@
   /* Dark gradient header matching Constructify Field - overridden by inline classes */
 }
 
-/* Horizontal nav on small viewports: momentum scroll + thin bar */
-.navbar-nav-scroll {
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
-}
+/* Horizontal nav on small viewports: thin bar (Blink/WebKit via pseudo-elements below) */
 
 .navbar-nav-scroll::-webkit-scrollbar {
   height: 5px;

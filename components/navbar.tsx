@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import { APP_BASE_URL } from "@/lib/appConfig"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import {
   Tooltip,
   TooltipContent,
@@ -52,7 +51,7 @@ export default function Navbar() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 w-full max-w-[100vw] overflow-x-hidden">
-        <div className="mx-auto flex h-20 min-w-0 max-w-[100vw] items-center justify-between gap-2 px-3 sm:h-24 sm:gap-3 sm:px-4 lg:px-6 xl:px-8 bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 border-b border-slate-700/50 shadow-lg backdrop-blur-sm navbar-header-container">
+        <div className="relative mx-auto flex h-20 min-w-0 max-w-[100vw] items-center justify-between gap-2 px-3 sm:h-24 sm:gap-3 sm:px-4 lg:px-6 xl:px-8 bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 shadow-lg backdrop-blur-sm navbar-header-container after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:z-10 after:h-px after:bg-gradient-to-r after:from-transparent after:via-slate-300/75 after:to-transparent">
           <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
             <Link
               href="/"
@@ -84,7 +83,6 @@ export default function Navbar() {
             </nav>
           </div>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-3 lg:gap-4">
-            <ThemeToggle />
             <TooltipProvider delayDuration={200}>
               <Tooltip>
                 <TooltipTrigger asChild>

@@ -1,24 +1,11 @@
 import CTA from "@/components/cta"
+import PageBackdrop from "@/components/page-backdrop"
 
 export default function TermsPage() {
   return (
     <div className="relative min-h-screen w-full">
-      {/* Main Content Section with Video Background */}
-      <div className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-          </video>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-background/90" />
-        </div>
+      <div className="relative min-h-[calc(100vh-4rem)]">
+        <PageBackdrop />
 
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
@@ -121,6 +108,9 @@ export default function TermsPage() {
                   <p>
                     Subject to compliance with these Terms, we grant you a limited, non-exclusive, non-transferable license to access and use the Services for internal business purposes.
                   </p>
+                  <p>
+                    This license is granted subject to the restrictions outlined in these Terms and any applicable proprietary software license provided with the Services.
+                  </p>
                   <p>You may not:</p>
                   <ul className="list-disc pl-6 space-y-2">
                     <li>Reverse engineer the software</li>
@@ -135,6 +125,12 @@ export default function TermsPage() {
                   <p>
                     All software, content, branding, and materials are owned by Constructify or its licensors and are protected by intellectual property laws.
                   </p>
+                  <p>
+                    In addition to the protections described above, the Constructify platform, including its structure, workflows, system design, and feature behavior, is proprietary to Constructify Labs LLC. Use of the Services is also governed by our proprietary software license, which restricts copying, modification, distribution, and competitive replication of the platform or its components.
+                  </p>
+                  <p>
+                    The current proprietary license terms are published in the LICENSE file associated with Constructify&apos;s software.
+                  </p>
                 </div>
 
                 <div>
@@ -146,6 +142,9 @@ export default function TermsPage() {
                     <li>Use automated scraping tools</li>
                     <li>Interfere with other users</li>
                   </ul>
+                  <p>
+                    You may not attempt to replicate, duplicate, or recreate the platform&apos;s workflows, structure, or feature design for the purpose of building a competing product or service.
+                  </p>
                   <p>
                     We may suspend accounts for violations.
                   </p>
@@ -198,6 +197,9 @@ export default function TermsPage() {
                     <li>Non-infringement</li>
                     <li>Accuracy or reliability of outputs</li>
                   </ul>
+                  <p>
+                    All outputs, recommendations, and system indicators are provided as support tools and should not be solely relied upon for operational, legal, safety, or compliance decisions.
+                  </p>
                   <p>
                     You use the Services at your own risk.
                   </p>

@@ -1,16 +1,19 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function MouseMoveEffect() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const ref = useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    
+
     const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY })
+      const el = ref.current
+      if (!el) return
+      el.style.setProperty("--mouse-x", `${event.clientX}px`)
+      el.style.setProperty("--mouse-y", `${event.clientY}px`)
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -26,10 +29,8 @@ export default function MouseMoveEffect() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-      style={{
-        background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(29, 78, 216, 0.15), transparent 80%)`,
-      }}
+      ref={ref}
+      className="mouse-move-effect pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
     />
   )
 }

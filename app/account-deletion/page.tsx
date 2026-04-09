@@ -1,4 +1,5 @@
 import CTA from "@/components/cta"
+import PageBackdrop from "@/components/page-backdrop"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -10,19 +11,8 @@ export const metadata: Metadata = {
 export default function AccountDeletionPage() {
   return (
     <div className="relative min-h-screen w-full">
-      <div className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-background/90" />
-        </div>
+      <div className="relative min-h-[calc(100vh-4rem)]">
+        <PageBackdrop />
 
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
           <div className="space-y-8">

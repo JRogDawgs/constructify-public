@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import CTA from "@/components/cta"
 import { Mail } from "lucide-react"
+import PageBackdrop from "@/components/page-backdrop"
 
 export default function CareersPage() {
   const handleEmailClick = () => {
@@ -11,22 +12,8 @@ export default function CareersPage() {
 
   return (
     <div className="relative min-h-screen w-full">
-      {/* Main Content Section with Video Background */}
-      <div className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-          </video>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-background/90" />
-        </div>
+      <div className="relative min-h-[calc(100vh-4rem)]">
+        <PageBackdrop />
 
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">

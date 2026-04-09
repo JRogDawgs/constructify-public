@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Github, X, Linkedin, Facebook, Youtube } from "lucide-react"
+import { X, Youtube } from "lucide-react"
 import { memo } from "react"
 import { APP_BASE_URL } from "@/lib/appConfig"
 
@@ -25,9 +25,7 @@ const footerLinks = {
     { href: "/sms-consent", label: "SMS Consent" },
   ],
   social: [
-    { href: "https://facebook.com/constructify", icon: Facebook, label: "Facebook" },
-    { href: "https://x.com/ConstructifyLab", icon: X, label: "X (formerly Twitter)" },
-    { href: "https://linkedin.com/company/constructify", icon: Linkedin, label: "LinkedIn" },
+    { href: "https://x.com/ConstructifyLab", icon: X, label: "X (Constructify on X)" },
     { href: "https://www.youtube.com/@ConstructifyLabs", icon: Youtube, label: "YouTube" },
   ],
 }

@@ -1,31 +1,33 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { APP_BASE_URL } from "@/lib/appConfig"
-import { ArrowRight, Mail, Linkedin, Twitter } from "lucide-react"
+import { ArrowRight, type LucideIcon, Rocket, Handshake, Lightbulb } from "lucide-react"
+import PageBackdrop from "@/components/page-backdrop"
 
-// Enhanced profile card component with glassmorphism styling
-const ProfileCard = ({ name, role, description }: { name: string, role: string, description: string }) => (
+const ProfileCard = ({
+  name,
+  role,
+  description,
+  icon: Icon,
+}: {
+  name: string
+  role: string
+  description: string
+  icon: LucideIcon
+}) => (
   <div className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border-2 border-constructify-navy p-8 transition-all duration-300 hover:bg-white/20 hover:border-constructify-gold/50 hover:shadow-2xl hover:scale-105 page-card">
     <div className="absolute inset-0 bg-gradient-to-br from-constructify-blue/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
     <div className="relative space-y-4">
-      <div className="w-20 h-20 bg-gradient-to-br from-constructify-blue to-constructify-gold rounded-full mx-auto flex items-center justify-center">
-        <span className="text-2xl font-bold text-white">{name.split(' ').map(n => n[0]).join('')}</span>
+      <div
+        className="w-20 h-20 bg-gradient-to-br from-constructify-blue to-constructify-gold rounded-full mx-auto flex items-center justify-center transition-transform group-hover:scale-105"
+        aria-hidden
+      >
+        <Icon className="h-9 w-9 text-white" strokeWidth={1.75} />
       </div>
       <div className="text-center space-y-2">
         <h3 className="text-2xl font-semibold text-foreground">{name}</h3>
         <p className="text-sm text-constructify-gold font-medium uppercase tracking-wide">{role}</p>
         <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
-      </div>
-      <div className="flex justify-center space-x-4 pt-4">
-        <div className="w-8 h-8 bg-constructify-blue/20 rounded-full flex items-center justify-center transition-colors hover:bg-constructify-blue/40">
-          <Mail className="w-4 h-4 text-constructify-blue" />
-        </div>
-        <div className="w-8 h-8 bg-constructify-gold/20 rounded-full flex items-center justify-center transition-colors hover:bg-constructify-gold/40">
-          <Linkedin className="w-4 h-4 text-constructify-gold" />
-        </div>
-        <div className="w-8 h-8 bg-constructify-navy/20 rounded-full flex items-center justify-center transition-colors hover:bg-constructify-navy/40">
-          <Twitter className="w-4 h-4 text-constructify-navy" />
-        </div>
       </div>
     </div>
   </div>
@@ -35,26 +37,7 @@ export default function AboutPage() {
   return (
     <div className="relative">
       <div className="relative min-h-[calc(100vh-4rem)]">
-        {/* Background gradients matching home page */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
-          <div className="absolute right-0 top-0 h-[500px] w-[500px] bg-constructify-navy/10 blur-[100px]" />
-          <div className="absolute top-1/2 left-1/4 h-[300px] w-[300px] bg-constructify-gold/10 blur-[80px]" />
-          <div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-constructify-blue/10 blur-[100px]" />
-        </div>
-
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover opacity-30"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <PageBackdrop />
 
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
@@ -95,17 +78,20 @@ export default function AboutPage() {
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                 <ProfileCard
                   name="Tim Hamilton"
-                  role="Chief Executive Officer"
+                  role="Founder"
+                  icon={Rocket}
                   description="Tim has spent 25+ years inside construction operations. He founded Constructify after watching companies lose money daily to systems that weren't built for the field. He built the platform he always wished existed."
                 />
                 <ProfileCard
                   name="Jeff Rogers"
-                  role="Chief Operating Officer"
+                  role="Founder"
+                  icon={Handshake}
                   description="Jeff has worked both in the field and in operations management. He leads the product side of Constructify with one question in mind: does this actually make a foreman's job easier? If not, it doesn't ship."
                 />
                 <ProfileCard
                   name="Rob Hourigan"
-                  role="Chief Technology Officer"
+                  role="Founder"
+                  icon={Lightbulb}
                   description="Rob builds systems that work in the real world — fast, reliable, and secure. He makes sure Constructify performs whether you have 5 workers or 500, and that your data is never at risk."
                 />
               </div>
@@ -170,25 +156,32 @@ export default function AboutPage() {
                   Get set up in minutes. See what Constructify looks like for your crew size.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href={`${APP_BASE_URL}/auth/signup`} target="_self" rel="noopener">
-                  <Button 
-                    size="lg" 
-                    className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-demo-button"
+              <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 sm:flex-row">
+                <a
+                  href={`${APP_BASE_URL}/auth/signup`}
+                  target="_self"
+                  rel="noopener"
+                  className="min-w-0 flex-1 block w-full"
+                >
+                  <Button
+                    size="lg"
+                    className="h-14 w-full font-black uppercase tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden rounded-none border-2 border-constructify-navy px-8 text-lg navbar-demo-button"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
                     Get Control Today
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </a>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="font-black border-2 border-constructify-navy shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 rounded-none px-8 text-lg h-14 uppercase tracking-wide relative overflow-hidden group navbar-auth-button"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
-                  See It In Action
-                </Button>
+                <div className="min-w-0 flex-1 w-full">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-14 w-full font-black uppercase tracking-wide shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden rounded-none border-2 border-constructify-navy px-8 text-lg navbar-auth-button"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-700"></div>
+                    See It In Action
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

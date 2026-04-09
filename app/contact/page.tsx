@@ -4,31 +4,13 @@ import { APP_BASE_URL } from "@/lib/appConfig"
 import { ContactForm } from "./ContactForm"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, Users, Bot, Zap } from "lucide-react"
+import PageBackdrop from "@/components/page-backdrop"
 
 export default function ContactPage() {
   return (
     <div className="relative">
       <div className="relative min-h-[calc(100vh-4rem)]">
-        {/* Background gradients matching home page */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
-          <div className="absolute right-0 top-0 h-[500px] w-[500px] bg-constructify-gold/10 blur-[100px]" />
-          <div className="absolute top-1/3 right-1/4 h-[300px] w-[300px] bg-constructify-blue/10 blur-[80px]" />
-          <div className="absolute bottom-0 left-0 h-[500px] w-[500px] bg-constructify-navy/10 blur-[100px]" />
-        </div>
-
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover opacity-30"
-          >
-            <source src="/videos/construction-bg.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <PageBackdrop />
 
         {/* Content */}
         <div className="container relative z-10 mx-auto max-w-screen-2xl py-24 md:py-32">
