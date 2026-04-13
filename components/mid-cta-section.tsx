@@ -1,6 +1,5 @@
 "use client"
 
-import { useLayoutEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { APP_BASE_URL } from "@/lib/appConfig"
@@ -22,20 +21,6 @@ export default function MidCTASection({
   emphasis = "You're already paying for inefficiency. This fixes it.",
   footnote = "Doing nothing is what keeps costing you.",
 }: MidCTASectionProps) {
-  const paylineRef = useRef<HTMLParagraphElement>(null)
-
-  useLayoutEffect(() => {
-    if (!emphasis) return
-    const el = paylineRef.current
-    if (!el) return
-    el.style.setProperty(
-      "font-size",
-      "clamp(2.25rem, 1.35rem + 3.5vw, 4.75rem)",
-      "important",
-    )
-    el.style.setProperty("line-height", "1.1", "important")
-  }, [emphasis])
-
   return (
     <section className="bg-slate-900 py-16 md:py-20" aria-label="Call to action">
       <div className="container mx-auto max-w-3xl px-6 text-center">
@@ -44,11 +29,7 @@ export default function MidCTASection({
         </h2>
         <p className="mt-4 text-slate-300 text-lg max-w-xl mx-auto">{subtext}</p>
         {emphasis ? (
-          <p
-            ref={paylineRef}
-            data-constructify-mid-cta-payline
-            className="mt-3 max-w-4xl mx-auto font-black uppercase tracking-widest text-amber-400 text-balance"
-          >
+          <p className="mt-3 max-w-2xl mx-auto text-base font-bold uppercase tracking-wide text-amber-400 text-balance md:text-lg">
             {emphasis}
           </p>
         ) : null}

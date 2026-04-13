@@ -530,14 +530,7 @@
 
 /*
  * Home marketing — keep at END of this file so these rules win Tailwind utility order.
- * If you only see old styling on the public URL, redeploy: local `npm run dev` uses this repo immediately.
  */
-[data-constructify-mid-cta-payline] {
-  font-size: clamp(2.25rem, 1.35rem + 3.5vw, 4.75rem) !important;
-  line-height: 1.1 !important;
-  text-align: center !important;
-}
-
 [data-constructify-role-card],
 [data-constructify-role-card] h3,
 [data-constructify-role-card] p {
