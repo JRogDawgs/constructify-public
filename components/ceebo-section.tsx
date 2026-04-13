@@ -24,7 +24,7 @@ export default function CeeboSection() {
           Meet Ceebo — Your AI Assistant
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-700 text-lg leading-relaxed">
-          Ask questions. Check schedules. Get answers instantly.
+          Ask pricing, crews, clock-ins, subs, and fit — straight answers, then a clear next step on this site.
         </p>
         <div className="mt-10 flex flex-col items-center gap-4">
           <p className="text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">

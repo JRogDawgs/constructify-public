@@ -4,16 +4,19 @@ import React from "react"
 import { CeeboAvatar } from "./CeeboAvatar"
 import { CeeboQuickActions } from "./CeeboQuickActions"
 
-const GREETING_TEXT = "Hi, I'm Ceebo. How can I help you learn about Constructify?"
+const GREETING_TEXT =
+  "I'm Ceebo — I answer straight questions about Constructify before you burn time on a call."
+
 const CAPABILITY_TEXT =
-  "I can help you navigate pages, explain features, answer project questions, and translate languages."
+  "Pricing, crews, clock-ins, scheduling, subs, safety certs, fit for your size — and where to go next on this site. I'm not logged-in app support and I won't navigate a product screen for you."
 
 const EXAMPLE_PROMPTS = [
-  "How do I schedule a worker?",
-  "Where do I edit company settings?",
-  "Why can't this employee clock in?",
-  "Translate this message to Spanish.",
-  "Explain this dashboard.",
+  "How much does this cost for ~30 guys in the field?",
+  "My supers are drowning in last-minute crew changes — does this help?",
+  "We run subs and temps on the same jobs — how do you handle that mess?",
+  "My guys round hours up every week — can this tighten that up?",
+  "We're on QuickBooks and spreadsheets — where does Constructify actually fit?",
+  "We're small — is this overkill for a 12-person shop?",
 ]
 
 export interface CeeboWelcomeProps {
@@ -41,7 +44,7 @@ export const CeeboWelcome = React.memo(function CeeboWelcome({
       <div className="my-4 h-px w-full self-stretch bg-white/10" />
       <div className="mb-0 flex w-full flex-col items-center">
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-wide text-[#D2B48C]">
-          What you can ask
+          Ask it rough — I speak contractor
         </p>
         <div className="flex max-w-[340px] flex-col self-center">
           {EXAMPLE_PROMPTS.map((prompt, i) => (
@@ -57,7 +60,7 @@ export const CeeboWelcome = React.memo(function CeeboWelcome({
 
       <div className="my-4 h-px w-full self-stretch bg-white/10" />
       <p className="mb-3 text-center text-xs font-bold uppercase tracking-wide text-[#D2B48C]">
-        Quick actions
+        Quick starts
       </p>
       <CeeboQuickActions onSelect={onQuickAction} />
     </div>

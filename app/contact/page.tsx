@@ -75,8 +75,8 @@ export default function ContactPage() {
                     <div className="flex items-start gap-3">
                       <Bot className="h-6 w-6 text-constructify-blue mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-medium text-foreground">AI Support via Ceebo</h3>
-                        <p className="text-sm text-foreground/80">Ask Ceebo anything — scheduling, compliance, navigation — and get an answer fast.</p>
+                        <h3 className="font-medium text-foreground">Ceebo on the site</h3>
+                        <p className="text-sm text-foreground/80">On the marketing site, Ceebo is a sales and product Q&amp;A assistant — pricing, fit, demos, and next steps. Logged-in app support lives inside Constructify after you sign up.</p>
                       </div>
                     </div>
 

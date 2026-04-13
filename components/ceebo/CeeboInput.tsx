@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from "react"
 
 const PLACEHOLDER =
-  "Ask about this page, scheduling, workers, or translations…"
+  "Ask rough — pricing, crews, clock-ins, subs, safety, fit…"
 
 export interface CeeboInputProps {
   onSend: (text: string) => void

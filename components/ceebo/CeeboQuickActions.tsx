@@ -4,24 +4,24 @@ import React from "react"
 
 export const QUICK_ACTIONS = [
   {
-    id: "navigate",
-    label: "Navigate Help",
-    prompt: "Where do I find navigation and go to different pages?",
+    id: "pricing",
+    label: "Pricing / headcount",
+    prompt: "How much does Constructify cost and what do I need to tell you to get a real number?",
   },
   {
-    id: "explain",
-    label: "Explain This Page",
-    prompt: "Explain what this page does and how to use it.",
+    id: "time",
+    label: "Time & payroll pain",
+    prompt: "My guys jack their time and payroll is a fight every Friday — what actually changes with Constructify?",
   },
   {
-    id: "translate",
-    label: "Translate Text",
-    prompt: "Translate: ",
+    id: "subs",
+    label: "Subs & temp labor",
+    prompt: "We run subcontractors and temp labor on the same jobs — how does Constructify keep that from turning into chaos?",
   },
   {
-    id: "scheduling",
-    label: "Scheduling Help",
-    prompt: "How do I schedule a worker?",
+    id: "demos",
+    label: "Watch demos",
+    prompt: "Where are the role demos and what should I watch first?",
   },
 ] as const
 

@@ -8,8 +8,12 @@ import {
   buildSalesResponse,
   LOOP_GUARD_RESPONSE,
   CTA_ESCALATION_SUFFIX,
+  OBJECTION_CATEGORIES,
 } from "./ceeboKnowledge"
 import type { CeeboIntent } from "./ceeboKnowledge"
+import type { SalesCategory } from "./ceeboKnowledge"
+import { DEFAULT_CEEBO_SESSION } from "./ceeboKnowledge"
+import type { CeeboSessionState } from "./ceeboKnowledge"
 import type { ChatMessage } from "./CeeboMessageList"
 
 type ConversationStage =
@@ -18,6 +22,28 @@ type ConversationStage =
   | "EXPLAIN_VALUE"
   | "HANDLE_OBJECTION"
   | "CTA"
+
+function isObjectionIntent(intent: CeeboIntent): boolean {
+  return intent !== null && OBJECTION_CATEGORIES.has(intent as SalesCategory)
+}
+
+function mergeSession(
+  prev: CeeboSessionState,
+  patch: Partial<CeeboSessionState>
+): CeeboSessionState {
+  return {
+    ...prev,
+    ...patch,
+    objectionFlags: patch.objectionFlags ?? prev.objectionFlags,
+    askedPricing: patch.askedPricing ?? prev.askedPricing,
+    userType: patch.userType ?? prev.userType,
+    lastCategory:
+      patch.lastCategory !== undefined ? patch.lastCategory : prev.lastCategory,
+    lastCTA: patch.lastCTA !== undefined ? patch.lastCTA : prev.lastCTA,
+    lastReplyHadQuestion:
+      patch.lastReplyHadQuestion ?? prev.lastReplyHadQuestion,
+  }
+}
 
 export function CeeboChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -28,81 +54,99 @@ export function CeeboChat() {
   const [roadmapShown, setRoadmapShown] = useState(false)
   const [exchangeCount, setExchangeCount] = useState(0)
   const [ctaEscalationShown, setCtaEscalationShown] = useState(false)
+  const [session, setSession] = useState<CeeboSessionState>(DEFAULT_CEEBO_SESSION)
 
-  const handleSend = useCallback((text: string) => {
-    const trimmed = text.trim()
-    if (!trimmed) return
+  const handleSend = useCallback(
+    (text: string) => {
+      const trimmed = text.trim()
+      if (!trimmed) return
 
-    const userMsg: ChatMessage = {
-      id: `user-${Date.now()}`,
-      role: "user",
-      content: trimmed,
-      timestamp: Date.now(),
-    }
-    setMessages((prev) => [...prev, userMsg])
+      const userMsg: ChatMessage = {
+        id: `user-${Date.now()}`,
+        role: "user",
+        content: trimmed,
+        timestamp: Date.now(),
+      }
+      setMessages((prev) => [...prev, userMsg])
 
-    let response: string
-    let intent: CeeboIntent | null
-    let detectedSize: number | null
-    let shouldAppendRoadmap = false
+      let response: string
+      let intent: CeeboIntent
+      let detectedSize: number | null
+      let shouldAppendRoadmap = false
+      let sessionPatch: Partial<CeeboSessionState> = {}
 
-    const loopGuardActive =
-      exchangeCount >= 6 &&
-      companySize === null &&
-      conversationStage !== "CTA"
+      const loopGuardActive =
+        exchangeCount >= 6 &&
+        companySize === null &&
+        conversationStage !== "CTA"
 
-    if (loopGuardActive) {
-      response = LOOP_GUARD_RESPONSE
-      intent = null
-      detectedSize = null
-    } else {
-      const result = buildSalesResponse(
-        trimmed,
-        conversationStage,
-        companySize,
-        roadmapShown
-      )
-      response = result.response
-      intent = result.intent
-      detectedSize = result.detectedSize
-      shouldAppendRoadmap = result.shouldAppendRoadmap
-    }
+      if (loopGuardActive) {
+        response = LOOP_GUARD_RESPONSE
+        intent = null
+        detectedSize = null
+        setSession((prev) => mergeSession(prev, { lastReplyHadQuestion: false }))
+      } else {
+        const result = buildSalesResponse(
+          trimmed,
+          conversationStage,
+          companySize,
+          roadmapShown,
+          exchangeCount,
+          session
+        )
+        response = result.response
+        intent = result.intent
+        detectedSize = result.detectedSize
+        shouldAppendRoadmap = result.shouldAppendRoadmap
+        sessionPatch = result.sessionPatch
+      }
 
-    if (shouldAppendRoadmap) {
-      setRoadmapShown(true)
-    }
+      if (shouldAppendRoadmap) {
+        setRoadmapShown(true)
+      }
 
-    if (detectedSize !== null) {
-      setCompanySize(detectedSize)
-      setConversationStage("EXPLAIN_VALUE")
-    } else if (intent === "PRICING") {
-      setConversationStage("QUALIFY_SIZE")
-    } else if (
-      intent === "OBJECTION_COST" ||
-      intent === "OBJECTION_COMPLEXITY" ||
-      intent === "OBJECTION_GENERAL"
-    ) {
-      setConversationStage("HANDLE_OBJECTION")
-    } else if (intent !== null) {
-      setConversationStage("CTA")
-    }
+      if (detectedSize !== null) {
+        setCompanySize(detectedSize)
+        setConversationStage("EXPLAIN_VALUE")
+      } else if (intent === "PRICING") {
+        setConversationStage("QUALIFY_SIZE")
+      } else if (isObjectionIntent(intent)) {
+        setConversationStage("HANDLE_OBJECTION")
+      } else if (intent !== null) {
+        setConversationStage("CTA")
+      }
 
-    const ctaEscalationActive =
-      exchangeCount >= 8 && !ctaEscalationShown
-    if (ctaEscalationActive) {
-      response = `${response}${CTA_ESCALATION_SUFFIX}`
-      setCtaEscalationShown(true)
-    }
+      const ctaEscalationActive =
+        exchangeCount >= 8 &&
+        !ctaEscalationShown &&
+        sessionPatch.lastCTA !== "hard_close"
 
-    const ceeboMsg: ChatMessage = {
-      id: `ceebo-${Date.now()}`,
-      role: "ceebo",
-      content: response,
-      timestamp: Date.now(),
-    }
-    setMessages((prev) => [...prev, ceeboMsg])
-    setExchangeCount((c) => c + 1)
-  }, [conversationStage, companySize, roadmapShown, exchangeCount, ctaEscalationShown])
+      if (ctaEscalationActive) {
+        response = `${response}${CTA_ESCALATION_SUFFIX}`
+        setCtaEscalationShown(true)
+      }
+
+      const ceeboMsg: ChatMessage = {
+        id: `ceebo-${Date.now()}`,
+        role: "ceebo",
+        content: response,
+        timestamp: Date.now(),
+      }
+      setMessages((prev) => [...prev, ceeboMsg])
+      setExchangeCount((c) => c + 1)
+      if (Object.keys(sessionPatch).length > 0) {
+        setSession((prev) => mergeSession(prev, sessionPatch))
+      }
+    },
+    [
+      conversationStage,
+      companySize,
+      roadmapShown,
+      exchangeCount,
+      ctaEscalationShown,
+      session,
+    ]
+  )
 
   const handleQuickAction = useCallback((prompt: string) => {
     setInputValue(prompt)

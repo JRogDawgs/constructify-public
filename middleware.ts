@@ -67,6 +67,11 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    /*
+     * Skip middleware for all Next internals (_next/data, webpack-hmr, static, image, …).
+     * Matching only _next/static/_next/image lets other /_next/* requests inherit CSP and can
+     * break dev chunk loading (blank page + 404-ish asset behavior) on some setups.
+     */
+    "/((?!api|_next/|favicon.ico|.*\\..{1,12}$).*)",
   ],
 }
