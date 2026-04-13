@@ -1,6 +1,8 @@
 import { softClose } from "./cta"
 import type { AnswerMode } from "./answerDiscipline"
 import { normalizeForMatch } from "./normalize"
+import type { PathCloseContext } from "./pathControl"
+import { BROAD_VALUE_OVERVIEW } from "./topOfFunnel"
 import type { BrainIntent, SalesCategory } from "./types"
 
 export type PriorityHit = {
@@ -14,13 +16,41 @@ export type PriorityHit = {
   skipLead: boolean
 }
 
-type Row = { triggers: string[]; response: string; cat: SalesCategory | null; mode: AnswerMode }
+type Row = {
+  triggers: string[]
+  response: string
+  cat: SalesCategory | null
+  mode: AnswerMode
+  /** Answer already ends with a narrowing question */
+  skipQualifyOverride?: boolean
+}
 
 /**
  * Arbitration: highest-specificity wins (longest trigger). Runs BEFORE top50/category.
  * Copy stays grounded: role-based visibility, assignments, multi-party jobs — no fake compliance claims.
  */
 const ROWS: Row[] = [
+  {
+    triggers: [
+      "how can this app help my company",
+      "how can this help my company",
+      "how can constructify help my company",
+      "how can this help my business",
+      "what does this do for a business like mine",
+      "what is this app actually for",
+      "what does this app actually do",
+      "what problem does this solve",
+      "how does this help my business",
+      "what does this do for my business",
+      "how does this help me",
+      "what is this app for",
+      "why would i use this",
+    ],
+    response: BROAD_VALUE_OVERVIEW,
+    cat: "FEATURES",
+    mode: "STANDARD_SALES",
+    skipQualifyOverride: true,
+  },
   {
     triggers: [
       "procore and quickbooks",
@@ -161,7 +191,6 @@ const ROWS: Row[] = [
       "how much",
       "so what is this",
       "what is this",
-      "why would i use this",
       "does it work",
       "can it do payroll",
     ],
@@ -193,9 +222,61 @@ const ROWS: Row[] = [
     cat: "DIFFERENTIATION",
     mode: "STANDARD_SALES",
   },
+  {
+    triggers: [
+      "wait how does this actually work",
+      "how does this actually work",
+      "what do i do first",
+      "how do i start",
+      "what does setup look like",
+      "is this complicated",
+      "so what do i do first",
+      "how do you start",
+    ],
+    response:
+      "It's simple: stand up your company in the app, add your people and jobs, then run clock-in on one real job the same week. Field-first—supers see who's clocked where; crews get a fast clock habit. Not a six-month science fair.",
+    cat: "IMPLEMENTATION",
+    mode: "STANDARD_SALES",
+  },
+  {
+    triggers: [
+      "why not just use quickbooks",
+      "why not just use procore",
+      "why not just use spreadsheets",
+      "why not just use excel",
+      "why not just use a spreadsheet",
+      "we already track time in quickbooks",
+      "track time in procore",
+    ],
+    response:
+      "QuickBooks runs the books; Procore runs project information; spreadsheets don't stand in the mud at 6am. Constructify is the ops layer between scheduling, field clock-ins, and the truth payroll needs—not another pretty hours grid. Built for crews, not desk-only workflows.",
+    cat: "DIFFERENTIATION",
+    mode: "STANDARD_SALES",
+  },
+  {
+    triggers: [
+      "my guys wont use it",
+      "guys wont use it",
+      "crews wont use",
+      "sounds like a pain",
+      "setup will suck",
+      "this sounds like work",
+      "sounds complicated",
+      "dont have time for this",
+      "don't have time for this",
+    ],
+    response:
+      "You don't need to babysit every click. Field flow is meant to be simple: clock in, see what's assigned, move. Start one crew on one job—if supers save time on Friday, crews follow usefulness, not speeches.",
+    cat: "OBJECTIONS_ADOPTION",
+    mode: "STANDARD_SALES",
+  },
 ]
 
-export function matchPriorityIntel(norm: string, seed: number): PriorityHit | null {
+export function matchPriorityIntel(
+  norm: string,
+  seed: number,
+  pathCtx: PathCloseContext
+): PriorityHit | null {
   let best: { len: number; row: Row } | null = null
   for (const row of ROWS) {
     for (const t of row.triggers) {
@@ -212,9 +293,13 @@ export function matchPriorityIntel(norm: string, seed: number): PriorityHit | nu
     row.mode === "SHORT_PUNCHY" ||
     row.cat === "EXTERNAL_WORKFORCE" ||
     row.cat === "SECURITY_TRUST" ||
-    row.cat === "WHO_IS_THIS_FOR"
+    row.cat === "WHO_IS_THIS_FOR" ||
+    row.cat === "IMPLEMENTATION" ||
+    row.cat === "DIFFERENTIATION" ||
+    row.cat === "OBJECTIONS_ADOPTION" ||
+    row.skipQualifyOverride === true
   return {
-    response: `${row.response.trim()}${softClose(seed)}`,
+    response: `${row.response.trim()}${softClose(seed, pathCtx)}`,
     matchedCategory: row.cat,
     intent: (row.cat ?? "GENERAL_SALES_REDIRECT") as BrainIntent,
     answerMode: row.mode,

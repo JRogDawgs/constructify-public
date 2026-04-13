@@ -1,5 +1,6 @@
 import { softClose } from "./cta"
 import { normalizeForMatch } from "./normalize"
+import type { PathCloseContext } from "./pathControl"
 
 export type QaEntry = {
   /** Substrings after normalizeForMatch; longest match wins across bank */
@@ -95,7 +96,11 @@ export const TOP50_QA: QaEntry[] = [
 export const TOP50_QUESTION_COUNT = TOP50_QA.length
 
 /** Longest trigger match across TOP50_QA */
-export function matchTop50(userNormalized: string, seed: number): string | null {
+export function matchTop50(
+  userNormalized: string,
+  seed: number,
+  pathCtx: PathCloseContext
+): string | null {
   let bestLen = 0
   let bestIdx = -1
   TOP50_QA.forEach((entry, idx) => {
@@ -112,5 +117,5 @@ export function matchTop50(userNormalized: string, seed: number): string | null 
     }
   })
   if (bestIdx < 0) return null
-  return TOP50_QA[bestIdx].answer + softClose(seed + bestIdx)
+  return TOP50_QA[bestIdx].answer + softClose(seed + bestIdx, pathCtx)
 }

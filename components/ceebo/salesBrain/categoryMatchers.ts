@@ -282,6 +282,14 @@ const RAW: RawMatcher[] = [
   {
     category: "FEATURES",
     phrases: [
+      "how can this app help my company",
+      "how can this help my company",
+      "help my company",
+      "help my business",
+      "how can this help",
+      "what does this do for my business",
+      "what does this app do",
+      "what does constructify do",
       "what can it do",
       "capabilities",
       "what features",

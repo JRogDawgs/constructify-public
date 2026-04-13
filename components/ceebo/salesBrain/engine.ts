@@ -15,7 +15,13 @@ import {
 } from "./pricingMath"
 import type { CeeboSessionState } from "./sessionTypes"
 import type { BrainReplyWithSession } from "./sessionTypes"
+import { authorityStackLine } from "./confidenceStack"
 import { CTA_PRICING_PAGE, CTA_SIGNUP, softClose } from "./cta"
+import {
+  classifyPathStage,
+  ensureNoDeadEnd,
+  type PathCloseContext,
+} from "./pathControl"
 import { normalizeForMatch } from "./normalize"
 import { matchTop50 } from "./top50Bank"
 import type { BrainIntent, SalesCategory } from "./types"
@@ -24,6 +30,7 @@ import { refineUserType, userTypeLeadIn, type LeadCategory } from "./userTypeDet
 import { classifyAnswerMode, capSentences, type AnswerMode } from "./answerDiscipline"
 import { urgencyLine } from "./urgencyLayer"
 import { matchPriorityIntel } from "./priorityIntel"
+import { BROAD_VALUE_OVERVIEW, isBroadProductQuestion } from "./topOfFunnel"
 
 export const LOOP_GUARD_RESPONSE =
   `I need one real number from you to stop guessing — rough field headcount using Constructify in a busy week (even 5, 20, 80). ` +
@@ -34,9 +41,9 @@ export const DRIFT_REDIRECT =
   `I can't see your jobs from here—name the fire: payroll time truth, scheduling/crews, subs/temps, or certs/safety. ` +
   `Or drop a rough crew count and I'll aim pricing.`
 
-/** Self-serve first—no “book a call” dependency. */
+/** Late-chat nudge: one dominant move + optional proof. */
 export const CTA_ESCALATION_SUFFIX =
-  ` If you're ready to stop spinning: ${CTA_SIGNUP} Role demos: /#role-demos ${CTA_PRICING_PAGE}`
+  ` Your move: /signup on one crew and one job. If you still need visuals: /#role-demos`
 
 function hashSeed(s: string): number {
   let h = 0
@@ -66,6 +73,7 @@ function finalizeLayer(args: {
   answerMode?: AnswerMode
   skipQualify?: boolean
   skipLead?: boolean
+  pathCtx: PathCloseContext
 }): BrainReplyWithSession {
   const {
     norm,
@@ -92,6 +100,8 @@ function finalizeLayer(args: {
     }
   }
 
+  const pathCtx = args.pathCtx
+
   const answerMode =
     args.answerMode ?? classifyAnswerMode(norm, args.matchedCategory)
 
@@ -109,13 +119,19 @@ function finalizeLayer(args: {
     response = `${lead} ${response}`
   }
 
-  if (isDrift && isVagueInput(norm)) {
+  if (isDrift && isVagueInput(norm) && exchangeCount >= 1) {
     response = `${response.trimEnd()}${steerVagueSuffix(userType)}`
   }
 
   const u = urgencyLine(args.matchedCategory, answerMode)
   if (u) {
     response = `${response.trimEnd()}\n\n${u}`
+  }
+
+  const pathStage = classifyPathStage(pathCtx)
+  const auth = authorityStackLine(pathStage, answerMode, seed + exchangeCount)
+  if (auth) {
+    response = `${response.trimEnd()}\n\n${auth}`
   }
 
   const q = args.skipQualify
@@ -142,6 +158,8 @@ function finalizeLayer(args: {
     seed,
   })
   response = closeOut.text
+
+  response = ensureNoDeadEnd(response, seed, pathCtx)
 
   let objectionFlags = session.objectionFlags
   if (args.matchedCategory && OBJECTION_CATEGORIES.has(args.matchedCategory)) {
@@ -184,7 +202,8 @@ function pricingWithSize(
   roadmapShown: boolean,
   conversationStage: string,
   matchedCategory: ReturnType<typeof matchCategory>,
-  seed: number
+  seed: number,
+  pathCtx: PathCloseContext
 ): Omit<BrainReplyWithSession, "sessionPatch"> {
   const annual = getAnnualLicense(detectedSize)
   const perUserMonthlyTotal = Math.round(detectedSize * PER_USER_MONTHLY)
@@ -202,7 +221,7 @@ function pricingWithSize(
   const roadmapBlock = canShowRoadmap ? ` ${ROADMAP_SIGNAL} ${EARLY_ADOPTER_FRAME}` : ""
 
   return {
-    response: `${baseResponse}${roadmapBlock} Next step: ${softClose(seed)}`,
+    response: `${baseResponse}${roadmapBlock}${softClose(seed, pathCtx)}`,
     intent: "COMPANY_SIZE",
     detectedSize,
     shouldAppendRoadmap: canShowRoadmap,
@@ -225,6 +244,14 @@ export function buildBrainReply(
   const detectedSize = extractCompanySize(userInput)
   const matchedCategory = matchCategory(norm)
 
+  const pathCtx: PathCloseContext = {
+    exchangeCount,
+    companySize,
+    askedPricingSession: session.askedPricing,
+    norm,
+    matchedCategory,
+  }
+
   if (
     exchangeCount >= 6 &&
     companySize === null &&
@@ -245,6 +272,7 @@ export function buildBrainReply(
       isLoopGuard: true,
       isDrift: false,
       answerMode: "SHORT_PUNCHY",
+      pathCtx,
     })
   }
 
@@ -264,7 +292,8 @@ export function buildBrainReply(
       roadmapShown,
       conversationStage,
       matchedCategory,
-      seed
+      seed,
+      pathCtx
     )
     return finalizeLayer({
       ...inner,
@@ -278,10 +307,11 @@ export function buildBrainReply(
       isLoopGuard: false,
       isDrift: false,
       answerMode: "STANDARD_SALES",
+      pathCtx,
     })
   }
 
-  const priority = matchPriorityIntel(norm, seed)
+  const priority = matchPriorityIntel(norm, seed, pathCtx)
   if (priority) {
     return finalizeLayer({
       response: priority.response,
@@ -300,10 +330,11 @@ export function buildBrainReply(
       answerMode: priority.answerMode,
       skipQualify: priority.skipQualify,
       skipLead: priority.skipLead,
+      pathCtx,
     })
   }
 
-  const top50Hit = matchTop50(norm, seed)
+  const top50Hit = matchTop50(norm, seed, pathCtx)
   if (top50Hit) {
     const asked = pricingAsk(norm, null)
     const mode = classifyAnswerMode(norm, null)
@@ -322,6 +353,7 @@ export function buildBrainReply(
       isLoopGuard: false,
       isDrift: false,
       answerMode: mode,
+      pathCtx,
     })
   }
 
@@ -340,9 +372,9 @@ export function buildBrainReply(
       response =
         bodyForCategoryMode("FEATURES", mode) +
         ` ${ROADMAP_SIGNAL} ${EARLY_ADOPTER_FRAME}` +
-        softClose(seed)
+        softClose(seed, pathCtx)
     } else {
-      response = replyForCategoryMode(matchedCategory, seed, mode, true)
+      response = replyForCategoryMode(matchedCategory, seed, mode, true, pathCtx)
     }
 
     return finalizeLayer({
@@ -360,12 +392,34 @@ export function buildBrainReply(
       isLoopGuard: false,
       isDrift: false,
       answerMode: mode,
+      pathCtx,
+    })
+  }
+
+  if (isBroadProductQuestion(norm)) {
+    return finalizeLayer({
+      response: `${BROAD_VALUE_OVERVIEW}${softClose(seed, pathCtx)}`,
+      intent: "GENERAL_SALES_REDIRECT",
+      detectedSize: null,
+      shouldAppendRoadmap: false,
+      matchedCategory: "FEATURES",
+      norm,
+      seed,
+      session,
+      exchangeCount,
+      companySize,
+      askedPricingThisTurn: pricingAsk(norm, "FEATURES"),
+      isLoopGuard: false,
+      isDrift: false,
+      answerMode: "STANDARD_SALES",
+      skipQualify: true,
+      pathCtx,
     })
   }
 
   const driftMode = classifyAnswerMode(norm, null)
   return finalizeLayer({
-    response: `${DRIFT_REDIRECT}${softClose(seed + 3)}`,
+    response: `${DRIFT_REDIRECT}${softClose(seed + 3, pathCtx)}`,
     intent: "GENERAL_SALES_REDIRECT",
     detectedSize: null,
     shouldAppendRoadmap: false,
@@ -379,5 +433,6 @@ export function buildBrainReply(
     isLoopGuard: false,
     isDrift: true,
     answerMode: driftMode,
+    pathCtx,
   })
 }

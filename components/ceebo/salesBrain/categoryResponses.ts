@@ -1,9 +1,10 @@
 import type { AnswerMode } from "./answerDiscipline"
 import { softClose } from "./cta"
+import type { PathCloseContext } from "./pathControl"
 import type { SalesCategory } from "./types"
 
-function close(seed: number): string {
-  return softClose(seed)
+function close(seed: number, ctx?: PathCloseContext): string {
+  return softClose(seed, ctx)
 }
 
 const BODIES: Record<SalesCategory, string> = {
@@ -125,18 +126,20 @@ export function bodyForCategoryMode(
 export function replyForCategory(
   category: SalesCategory,
   seed: number,
-  withClose = true
+  withClose = true,
+  pathCtx?: PathCloseContext
 ): string {
   const body = bodyForCategory(category)
-  return withClose ? body + close(seed) : body
+  return withClose ? body + close(seed, pathCtx) : body
 }
 
 export function replyForCategoryMode(
   category: SalesCategory,
   seed: number,
   mode: AnswerMode,
-  withClose = true
+  withClose = true,
+  pathCtx?: PathCloseContext
 ): string {
   const body = bodyForCategoryMode(category, mode)
-  return withClose ? body + close(seed) : body
+  return withClose ? body + close(seed, pathCtx) : body
 }
