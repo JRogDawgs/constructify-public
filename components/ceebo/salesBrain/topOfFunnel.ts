@@ -3,8 +3,13 @@
  */
 
 export const BROAD_VALUE_OVERVIEW =
-  `Constructify helps construction teams run field workforce ops in one layer: who's assigned where, clock-in/out tied to real jobs, and visibility your supers can trust—so payroll, scheduling, and site reality stop fighting each other. ` +
-  `What's hitting hardest right now—time and payroll truth, scheduling and crews, or visibility across jobs and subs?`
+  `💥 You've got people moving across jobs and nobody owns the truth in one place—that's where margin dies.\n\n` +
+  `⚡ Constructify is one workforce ops layer for:\n` +
+  `• Who's assigned where\n` +
+  `• Clock-in/out tied to real jobs\n` +
+  `• What supers can trust when the week gets loud\n\n` +
+  `That keeps payroll, scheduling, and site reality aligned—not three different stories.\n\n` +
+  `What's loudest for you—time/payroll truth, scheduling and crews, or visibility across jobs and subs?`
 
 /** True when the user is asking what the product does for them (not pricing-only, not support micro-requests). */
 export function isBroadProductQuestion(norm: string): boolean {

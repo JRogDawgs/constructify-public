@@ -481,3 +481,66 @@
   background-color: rgba(0, 0, 0, 0.35);
 }
 
+/* CEEBO chat — subtle presence (no heavy animation libs) */
+@keyframes ceebo-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ceebo-bubble-animate {
+  animation: ceebo-bubble-in 200ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ceebo-bubble-animate {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ceebo-thinking-dots {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ceebo-thinking-dots {
+  display: inline-block;
+  min-width: 1.25em;
+  animation: ceebo-thinking-dots 1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ceebo-thinking-dots {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/*
+ * Home marketing — keep at END of this file so these rules win Tailwind utility order.
+ * If you only see old styling on the public URL, redeploy: local `npm run dev` uses this repo immediately.
+ */
+[data-constructify-mid-cta-payline] {
+  font-size: clamp(2.25rem, 1.35rem + 3.5vw, 4.75rem) !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+}
+
+[data-constructify-role-card],
+[data-constructify-role-card] h3,
+[data-constructify-role-card] p {
+  text-align: center !important;
+}
+

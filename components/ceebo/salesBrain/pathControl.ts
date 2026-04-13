@@ -64,7 +64,7 @@ export function primaryPathSuffix(seed: number, ctx: PathCloseContext): string {
   const demos = demoUrl()
 
   if (stage === "early") {
-    return `Next: name the loudest problem—payroll truth, scheduling/crews, stacked subs, or certs—so I stop guessing. Proof when you want it: ${demos}`
+    return `🚀 Next: name the loudest problem—payroll truth, scheduling/crews, stacked subs, or certs.\n\nProof when you want it:\n${demos}`
   }
 
   const pricingPriority =
@@ -74,13 +74,13 @@ export function primaryPathSuffix(seed: number, ctx: PathCloseContext): string {
 
   if (stage === "mid") {
     if (pricingPriority) {
-      return `Your move: /pricing for straight numbers first, then ${demos} to see field flows.`
+      return `🚀 Your move: /pricing first—straight numbers.\n\nThen watch field flows:\n${demos}`
     }
-    return `Your move: ${demos} first—fastest way to end confusion—then /pricing when the math matters.`
+    return `🚀 Your move: ${demos} first—fastest way to kill confusion.\n\n/pricing when the math is what's blocking you.`
   }
 
-  const secondary = Math.abs(seed) % 3 !== 0 ? ` If you need visuals first: ${demos}` : ""
-  return `Your move: /signup on one crew and one job—that's where this becomes real.${secondary}`
+  const secondary = Math.abs(seed) % 3 !== 0 ? `\n\nIf you need buy-in first:\n${demos}` : ""
+  return `🚀 Your move: /signup on one crew and one job—that's where this becomes real.${secondary}`
 }
 
 export function hasForwardMomentum(text: string): boolean {

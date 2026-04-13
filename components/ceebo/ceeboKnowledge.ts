@@ -28,3 +28,6 @@ export {
 } from "./salesBrain/pricingMath"
 
 export { TOP50_QA, TOP50_QUESTION_COUNT } from "./salesBrain/top50Bank"
+
+export { VIDEO_LIBRARY } from "./salesBrain/videoPrompts"
+export { detectChatLanguage } from "./salesBrain/languageDetect"

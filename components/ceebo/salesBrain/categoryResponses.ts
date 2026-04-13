@@ -9,9 +9,9 @@ function close(seed: number, ctx?: PathCloseContext): string {
 
 const BODIES: Record<SalesCategory, string> = {
   PRICING:
-    `Money questions are fair — payroll drama costs more than software almost every time. ` +
-    `We're per active user plus a tiered annual license; exact tiers live on the pricing page. ` +
-    `Ballpark how many people would actually clock in or use the app in a busy week—even a rough number—and I'll line up the math next message.`,
+    `💥 Money questions are fair—payroll drama usually costs more than the subscription.\n\n` +
+    `We're per active user + tiered annual license (all on /pricing).\n\n` +
+    `Ballpark who actually clocks in on a bad week—even a rough number—and I'll line up real math next message.`,
 
   FEATURES:
     `If your week is a fire drill of texts, paper, and "I thought he was on Job B," that's exactly where margin dies. ` +
@@ -29,9 +29,9 @@ const BODIES: Record<SalesCategory, string> = {
     `The point isn't a prettier calendar; it's fewer expensive mix-ups on site.`,
 
   EXTERNAL_WORKFORCE:
-    `Subs, temps, and leased crews are where visibility usually breaks first. ` +
-    `Constructify is for running mixed teams on real jobs — assignments, clock-ins, and accountability across who's actually on the clock. ` +
-    `You're not magically fixing every labor-law edge case in chat; you're giving supers a system people can actually follow.`,
+    `💥 Subs, temps, leased crews—visibility breaks here first.\n\n` +
+    `⚡ Assignments + clock-ins across who's actually on the clock, without pretending chat fixes labor law.\n\n` +
+    `You're giving supers a system people can actually follow.`,
 
   TRAINING_SAFETY:
     `Expired certs and missed safety touchpoints are the kind of "small" misses that turn into big checks. ` +
@@ -49,9 +49,9 @@ const BODIES: Record<SalesCategory, string> = {
     `Big bang isn't required — start with one crew, prove the time data, then roll wider.`,
 
   OBJECTIONS_PRICE:
-    `I get it — every line item gets scrutinized when material prices are nuts. ` +
-    `Flip it: one bad payroll week from padded hours or missed OT usually swallows the subscription. ` +
-    `Constructify buys you cleaner time truth and less firefighting; the pricing page is transparent so you're not guessing.`,
+    `💥 Every line item gets squeezed when material prices are nuts.\n\n` +
+    `Flip it: one bad payroll week from padded hours or missed OT often swallows the subscription.\n\n` +
+    `📊 Cleaner time truth + less firefighting—and pricing is published so you're not guessing.`,
 
   OBJECTIONS_ADOPTION:
     `"My guys won't use it" usually means the last tool looked like homework. ` +
@@ -59,9 +59,9 @@ const BODIES: Record<SalesCategory, string> = {
     `Pilot one crew on one job — if the supers won't fight you on it, you scale.`,
 
   OBJECTIONS_ALREADY_USING_SOMETHING:
-    `QuickBooks, Procore, spreadsheets — they're not the enemy. The enemy is no single place for "who's on the clock where." ` +
-    `Constructify isn't asking you to rip out your accounting stack; it's the ops layer for crews, time, and visibility. ` +
-    `Watch the demos — you'll see how it actually sits in a real day.`,
+    `QuickBooks / Procore / spreadsheets aren't the enemy.\n\n` +
+    `⚡ No single "who's on the clock where" story is.\n\n` +
+    `Constructify sits in the ops layer—crews, time, visibility—without ripping your accounting stack.\n\nWatch the demos to see a real day.`,
 
   OBJECTIONS_TOO_SMALL:
     `Small doesn't mean safe from payroll bleed — sometimes it's worse because one bad week is the whole margin. ` +
@@ -79,14 +79,14 @@ const BODIES: Record<SalesCategory, string> = {
     `Proof beats talk — role demos on the site show real flows, not slides.`,
 
   DIFFERENTIATION:
-    `A lot of tools either look pretty in the office or look rugged in the field — rarely both without chaos. ` +
-    `Constructify is aimed at construction ops: crews, time, visibility, compliance pressure — not generic "workforce optimization" bingo. ` +
-    `Judge us on whether your supers would actually run their week off it.`,
+    `⚡ Pretty office grid vs rugged field toy—most teams still get chaos between them.\n\n` +
+    `Constructify runs construction ops: crews, time, visibility, compliance pressure—not HR bingo.\n\n` +
+    `Judge it on whether supers would actually run their week off it.`,
 
   SECURITY_TRUST:
-    `Smart to ask — half the industry has been burned by vaporware. ` +
-    `You're on the public site: pricing is published, demos are on YouTube, signup routes to the real app. ` +
-    `No magic claims in chat—evaluate like a buyer: watch the flows, then take serious security questions through proper channels once you're actually vetting.`,
+    `🧠 Smart to ask—half the industry got burned by vaporware.\n\n` +
+    `📊 Public pricing, YouTube demos, signup to the real app.\n\n` +
+    `No magic claims in chat—watch flows first; serious security vetting belongs outside marketing copy.`,
 
   GENERAL_SALES_REDIRECT:
     `Straight talk: if field time, crew placement, or compliance tracking is costing you money or sleep, we're in your lane. ` +

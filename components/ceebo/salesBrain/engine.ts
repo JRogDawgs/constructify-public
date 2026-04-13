@@ -13,6 +13,7 @@ import {
   extractCompanySize,
   ROADMAP_SIGNAL,
 } from "./pricingMath"
+import type { ChatLangHint } from "./sessionTypes"
 import type { CeeboSessionState } from "./sessionTypes"
 import type { BrainReplyWithSession } from "./sessionTypes"
 import { authorityStackLine } from "./confidenceStack"
@@ -22,6 +23,7 @@ import {
   ensureNoDeadEnd,
   type PathCloseContext,
 } from "./pathControl"
+import { detectChatLanguage, spanishFoundationLine } from "./languageDetect"
 import { normalizeForMatch } from "./normalize"
 import { matchTop50 } from "./top50Bank"
 import type { BrainIntent, SalesCategory } from "./types"
@@ -31,19 +33,24 @@ import { classifyAnswerMode, capSentences, type AnswerMode } from "./answerDisci
 import { urgencyLine } from "./urgencyLayer"
 import { matchPriorityIntel } from "./priorityIntel"
 import { BROAD_VALUE_OVERVIEW, isBroadProductQuestion } from "./topOfFunnel"
+import {
+  matchVideoRoleQuery,
+  pickVideoAppendBlock,
+  videoRoleReply,
+} from "./videoPrompts"
 
 export const LOOP_GUARD_RESPONSE =
-  `I need one real number from you to stop guessing — rough field headcount using Constructify in a busy week (even 5, 20, 80). ` +
-  `Then I'll tie price to your world, not generic noise. ` +
-  `${CTA_PRICING_PAGE} ${CTA_SIGNUP}`
+  `📊 I need one real number so I stop guessing—rough field headcount on Constructify in a nasty busy week (even 5, 20, 80).\n\n` +
+  `Then I tie price to your world, not generic noise.\n\n` +
+  `${CTA_PRICING_PAGE}\n${CTA_SIGNUP}`
 
 export const DRIFT_REDIRECT =
-  `I can't see your jobs from here—name the fire: payroll time truth, scheduling/crews, subs/temps, or certs/safety. ` +
-  `Or drop a rough crew count and I'll aim pricing.`
+  `💥 I can't see your jobs from here—tell me what's actually burning.\n\n` +
+  `⚡ Payroll time truth, scheduling/crews, subs/temps, or certs/safety—or drop a rough crew count and I'll aim pricing.`
 
 /** Late-chat nudge: one dominant move + optional proof. */
 export const CTA_ESCALATION_SUFFIX =
-  ` Your move: /signup on one crew and one job. If you still need visuals: /#role-demos`
+  `\n\n🚀 Your move: /signup on one crew and one job.\nStill need visuals? /#role-demos`
 
 function hashSeed(s: string): number {
   let h = 0
@@ -74,6 +81,7 @@ function finalizeLayer(args: {
   skipQualify?: boolean
   skipLead?: boolean
   pathCtx: PathCloseContext
+  userLangHint: ChatLangHint
 }): BrainReplyWithSession {
   const {
     norm,
@@ -91,12 +99,19 @@ function finalizeLayer(args: {
   const shouldAppendRoadmap = args.shouldAppendRoadmap
 
   if (isLoopGuard) {
+    const loopPatch: Partial<CeeboSessionState> = { lastReplyHadQuestion: false }
+    let loopResponse = response
+    if (args.userLangHint === "es" && !session.spanishHintShown) {
+      loopResponse = `${response.trimEnd()}${spanishFoundationLine()}`
+      loopPatch.chatLanguage = "es"
+      loopPatch.spanishHintShown = true
+    }
     return {
-      response,
+      response: loopResponse,
       intent,
       detectedSize,
       shouldAppendRoadmap,
-      sessionPatch: { lastReplyHadQuestion: false },
+      sessionPatch: loopPatch,
     }
   }
 
@@ -161,6 +176,25 @@ function finalizeLayer(args: {
 
   response = ensureNoDeadEnd(response, seed, pathCtx)
 
+  response += pickVideoAppendBlock({
+    norm,
+    response,
+    exchangeCount,
+    seed,
+    intent,
+    companySize,
+    askedPricingSession: session.askedPricing,
+  })
+
+  const langPatch: Partial<CeeboSessionState> = {}
+  if (args.userLangHint === "es") {
+    langPatch.chatLanguage = "es"
+    if (!session.spanishHintShown) {
+      response = `${response.trimEnd()}${spanishFoundationLine()}`
+      langPatch.spanishHintShown = true
+    }
+  }
+
   let objectionFlags = session.objectionFlags
   if (args.matchedCategory && OBJECTION_CATEGORIES.has(args.matchedCategory)) {
     const id = args.matchedCategory
@@ -193,6 +227,7 @@ function finalizeLayer(args: {
       objectionFlags,
       lastCTA,
       lastReplyHadQuestion: Boolean(q),
+      ...langPatch,
     },
   }
 }
@@ -207,9 +242,11 @@ function pricingWithSize(
 ): Omit<BrainReplyWithSession, "sessionPatch"> {
   const annual = getAnnualLicense(detectedSize)
   const perUserMonthlyTotal = Math.round(detectedSize * PER_USER_MONTHLY)
-  const baseResponse = `At ${detectedSize} active users, your annual platform license is $${annual.toLocaleString()}/year, and per-user fees are $${PER_USER_MONTHLY.toFixed(
-    2
-  )} × ${detectedSize} users — about $${perUserMonthlyTotal.toLocaleString()}/month for those seats on top of the license. That's straight from the public pricing model — not a custom quote.`
+  const baseResponse =
+    `📊 At ${detectedSize} active users:\n` +
+    `• Annual platform license: $${annual.toLocaleString()}/year\n` +
+    `• Per-user fees: $${PER_USER_MONTHLY.toFixed(2)} × ${detectedSize} → ~$${perUserMonthlyTotal.toLocaleString()}/month on top for those seats\n\n` +
+    `That's the published model—not a custom quote invented in chat.`
 
   const canShowRoadmap =
     !roadmapShown &&
@@ -240,6 +277,7 @@ export function buildBrainReply(
   session: CeeboSessionState
 ): BrainReplyWithSession {
   const seed = hashSeed(userInput)
+  const userLangHint = detectChatLanguage(userInput)
   const norm = normalizeForMatch(userInput)
   const detectedSize = extractCompanySize(userInput)
   const matchedCategory = matchCategory(norm)
@@ -250,6 +288,29 @@ export function buildBrainReply(
     askedPricingSession: session.askedPricing,
     norm,
     matchedCategory,
+  }
+
+  const videoRole = matchVideoRoleQuery(norm)
+  if (videoRole !== null) {
+    return finalizeLayer({
+      response: `${videoRoleReply(videoRole)}${softClose(seed, pathCtx)}`,
+      intent: "GENERAL_SALES_REDIRECT",
+      detectedSize: null,
+      shouldAppendRoadmap: false,
+      matchedCategory: null,
+      norm,
+      seed,
+      session,
+      exchangeCount,
+      companySize,
+      askedPricingThisTurn: pricingAsk(norm, null),
+      isLoopGuard: false,
+      isDrift: false,
+      answerMode: "STANDARD_SALES",
+      skipQualify: true,
+      pathCtx,
+      userLangHint,
+    })
   }
 
   if (
@@ -273,6 +334,7 @@ export function buildBrainReply(
       isDrift: false,
       answerMode: "SHORT_PUNCHY",
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -308,6 +370,7 @@ export function buildBrainReply(
       isDrift: false,
       answerMode: "STANDARD_SALES",
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -331,6 +394,7 @@ export function buildBrainReply(
       skipQualify: priority.skipQualify,
       skipLead: priority.skipLead,
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -354,6 +418,7 @@ export function buildBrainReply(
       isDrift: false,
       answerMode: mode,
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -393,6 +458,7 @@ export function buildBrainReply(
       isDrift: false,
       answerMode: mode,
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -414,6 +480,7 @@ export function buildBrainReply(
       answerMode: "STANDARD_SALES",
       skipQualify: true,
       pathCtx,
+      userLangHint,
     })
   }
 
@@ -434,5 +501,6 @@ export function buildBrainReply(
     isDrift: true,
     answerMode: driftMode,
     pathCtx,
+    userLangHint,
   })
 }

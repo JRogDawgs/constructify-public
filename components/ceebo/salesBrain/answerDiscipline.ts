@@ -36,9 +36,22 @@ const MODE_MAX: Record<AnswerMode, number> = {
   TRUST_BUILDING: 8,
 }
 
-/** Hard cap on rambling; keeps closes/URLs intact when possible. */
+function isStructuredSalesLayout(text: string): boolean {
+  if (/[💥⚡📊🧠🚀]/u.test(text)) return true
+  if (/\n\s*•\s/.test(text) || /\n\s*[\u2022]\s/.test(text)) return true
+  if (/\n{2,}/.test(text)) return true
+  return false
+}
+
+/** Hard cap on rambling; preserves line breaks for structured CEEBO layouts. */
 export function capSentences(text: string, mode: AnswerMode): string {
   const max = MODE_MAX[mode]
+  if (isStructuredSalesLayout(text)) {
+    const lines = text.split(/\n/).map((l) => l.trim()).filter(Boolean)
+    const lineMax = mode === "SHORT_PUNCHY" ? 12 : mode === "STANDARD_SALES" ? 18 : 22
+    if (lines.length <= lineMax) return text.trim()
+    return lines.slice(0, lineMax).join("\n").trim()
+  }
   const parts = text.split(SENT_SPLIT).map((s) => s.trim()).filter(Boolean)
   if (parts.length <= max) return text.trim()
   return parts.slice(0, max).join(" ").trim()

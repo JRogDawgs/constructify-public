@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useState } from "react"
 import { Play, X } from "lucide-react"
 import {
   Carousel,
@@ -25,6 +25,15 @@ export default function RoleDemosSection() {
   const handleStop = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
     setPlaying(null)
+  }, [])
+
+  useLayoutEffect(() => {
+    document.querySelectorAll<HTMLElement>("[data-constructify-role-card]").forEach((root) => {
+      root.style.setProperty("text-align", "center", "important")
+      root.querySelectorAll("h3, p").forEach((node) => {
+        ;(node as HTMLElement).style.setProperty("text-align", "center", "important")
+      })
+    })
   }, [])
 
   useEffect(() => {
@@ -83,7 +92,10 @@ export default function RoleDemosSection() {
                   >
                     {/* Silver gradient border wrapper */}
                     <div className="h-full rounded-2xl p-[2.5px] bg-gradient-to-br from-white via-slate-300 to-slate-400 shadow-[0_0_12px_rgba(200,210,220,0.25)]">
-                    <article className="flex h-full flex-col overflow-hidden rounded-[14px] bg-slate-900">
+                    <article
+                      data-constructify-role-card
+                      className="flex h-full flex-col overflow-hidden rounded-[14px] bg-slate-900 text-center"
+                    >
                       <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
                         {isPlaying ? (
                           <>
@@ -131,7 +143,7 @@ export default function RoleDemosSection() {
                           </button>
                         )}
                       </div>
-                      <div className="flex flex-1 flex-col gap-1 p-5">
+                      <div className="flex flex-1 flex-col gap-1 p-5 text-center">
                         <h3 className="text-lg font-semibold text-white">
                           {item.title}
                         </h3>

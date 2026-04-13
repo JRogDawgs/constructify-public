@@ -213,6 +213,8 @@ const RAW: RawMatcher[] = [
   {
     category: "EXTERNAL_WORKFORCE",
     phrases: [
+      "multiple subcontractor companies",
+      "staffing agency",
       "subcontractor",
       "subcontractors",
       "subs on one job",
@@ -220,7 +222,6 @@ const RAW: RawMatcher[] = [
       "multi sub",
       "temp labor",
       "leased labor",
-      "staffing agency",
       "external workforce",
       "does this work for subs",
       "work for subs",
@@ -248,6 +249,10 @@ const RAW: RawMatcher[] = [
   {
     category: "IMPLEMENTATION",
     phrases: [
+      "how does onboarding work",
+      "how do i add my team",
+      "how do projects work",
+      "how does hierarchy work",
       "implementation",
       "how long setup",
       "how fast setup",
@@ -265,6 +270,8 @@ const RAW: RawMatcher[] = [
   {
     category: "WHO_IS_THIS_FOR",
     phrases: [
+      "many projects at once",
+      "multiple active jobs",
       "who is this for",
       "is this for me",
       "good fit",

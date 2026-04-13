@@ -2,6 +2,13 @@ import { softClose } from "./cta"
 import type { AnswerMode } from "./answerDiscipline"
 import { normalizeForMatch } from "./normalize"
 import type { PathCloseContext } from "./pathControl"
+import {
+  ENTERPRISE_FLEX,
+  EXAMPLE_MODE,
+  ONBOARDING_EASY,
+  SEE_COMPANY_STRUCTURE,
+  STACKED_SUBS_DOMINANCE,
+} from "./hierarchyWeapon"
 import { BROAD_VALUE_OVERVIEW } from "./topOfFunnel"
 import type { BrainIntent, SalesCategory } from "./types"
 
@@ -53,13 +60,75 @@ const ROWS: Row[] = [
   },
   {
     triggers: [
+      "how does onboarding work",
+      "how do i set this up",
+      "how do i add my team",
+      "how do projects work",
+      "how do i organize crews",
+      "how do subs fit in",
+      "how does this handle multiple companies",
+      "how does hierarchy work",
+      "team structure in the app",
+      "see my company in",
+    ],
+    response: SEE_COMPANY_STRUCTURE,
+    cat: "IMPLEMENTATION",
+    mode: "STANDARD_SALES",
+    skipQualifyOverride: true,
+  },
+  {
+    triggers: [
+      "still confused",
+      "explain it simpler",
+      "give me an example",
+      "how would this look for me",
+      "real world example",
+      "walk me through an example",
+    ],
+    response: EXAMPLE_MODE,
+    cat: "IMPLEMENTATION",
+    mode: "STANDARD_SALES",
+    skipQualifyOverride: true,
+  },
+  {
+    triggers: [
+      "is setup hard",
+      "how long does it take",
+      "how long does setup",
+      "how long to get started",
+      "is onboarding hard",
+      "how hard is setup",
+      "onboarding process",
+    ],
+    response: ONBOARDING_EASY,
+    cat: "IMPLEMENTATION",
+    mode: "STANDARD_SALES",
+    skipQualifyOverride: true,
+  },
+  {
+    triggers: [
+      "many projects at once",
+      "multiple active jobs",
+      "scaling construction",
+      "complex workforce",
+      "big operation",
+      "lots of jobs",
+      "run many jobs",
+    ],
+    response: ENTERPRISE_FLEX,
+    cat: "WHO_IS_THIS_FOR",
+    mode: "TRUST_BUILDING",
+    skipQualifyOverride: true,
+  },
+  {
+    triggers: [
       "procore and quickbooks",
       "quickbooks and procore",
       "why would i care",
       "already use procore and quickbooks",
     ],
     response:
-      "Procore coordinates project information; QuickBooks runs the books. Neither one stands in the mud and tells you who clocked in where. Constructify is the field ops layer—assignments + clock truth—so payroll stops being a negotiation.",
+      "Procore coordinates project info; QuickBooks runs the books.\n\n⚡ Neither one stands in the mud and tells you who clocked in where—Constructify is field ops: assignments + clock truth so payroll stops being a negotiation.",
     cat: "OBJECTIONS_ALREADY_USING_SOMETHING",
     mode: "SHORT_PUNCHY",
   },
@@ -87,11 +156,16 @@ const ROWS: Row[] = [
       "two supers",
       "2 supers",
       "supers on one job",
+      "staffing agency",
+      "leased labor",
+      "temp labor",
+      "multiple subcontractor companies",
+      "subs and staffing",
     ],
-    response:
-      "Stacked subs on one site is where most systems turn into group texts and denials. Constructify is built for real field ops: assignments and clock-ins tied to work, with role-based visibility so the GC side can run site-wide oversight while vendors and subs stay tied to their own crews—not a free-for-all where everybody reads everybody's payroll. One project can carry multiple companies when you run it that way—that's the differentiator.",
+    response: STACKED_SUBS_DOMINANCE,
     cat: "EXTERNAL_WORKFORCE",
     mode: "STANDARD_SALES",
+    skipQualifyOverride: true,
   },
   {
     triggers: [
@@ -100,7 +174,7 @@ const ROWS: Row[] = [
       "another timesheet app",
     ],
     response:
-      "If it were only a grid of hours, I'd tell you to skip it. Constructify is the ops layer—crews, jobs, who's on the clock where—so supers stop playing detective and payroll stops negotiating with fiction.",
+      "If it were only a grid of hours, I'd tell you to skip it.\n\n⚡ Constructify is the ops layer—crews, jobs, who's on the clock where—so supers stop playing detective and payroll stops negotiating with fiction.",
     cat: "DIFFERENTIATION",
     mode: "SHORT_PUNCHY",
   },
@@ -148,7 +222,7 @@ const ROWS: Row[] = [
       "role based access",
     ],
     response:
-      "Bigger operations don't need buzzwords—they need clean roles, controlled visibility, and field data that doesn't turn into politics. Constructify is aimed at construction workforce ops: who is assigned where, who clocked in, and what supers can trust when the job gets loud. Scale is active users plus license tiers—so you're not punished the second you add crews.",
+      "📊 Bigger operations don't need buzzwords—they need clean roles, controlled visibility, and field data that doesn't turn political.\n\n⚡ Constructify is workforce ops: who's assigned where, who clocked in, what supers trust when it's loud.\n\nScale tracks active users + license tiers—add crews without getting punished for it.",
     cat: "WHO_IS_THIS_FOR",
     mode: "TRUST_BUILDING",
   },
@@ -161,7 +235,7 @@ const ROWS: Row[] = [
       "enterprise ready",
     ],
     response:
-      "Serious question. What you get on the public side is transparent pricing, real app signup, and demos you can verify with your own eyes—no vaporware pitch in chat. For legal/security specifics beyond what marketing can responsibly claim here, that's a straight documentation / human conversation—but the product story is operations-grade field control, not a toy clock app.",
+      "🧠 Serious question—evaluate like a buyer.\n\n📊 Public pricing, real signup, demos you can verify with your eyes—no vaporware pitch in chat.\n\nDeep legal/security vetting belongs outside marketing copy; the product story is ops-grade field control, not a toy clock app.",
     cat: "SECURITY_TRUST",
     mode: "TRUST_BUILDING",
   },
@@ -218,7 +292,7 @@ const ROWS: Row[] = [
       "why constructify",
     ],
     response:
-      "Most apps are either a pretty office grid or a field toy. Constructify is aimed at construction ops: crews on jobs, clock truth, role visibility—so payroll and site reality stop arguing with each other.",
+      "⚡ Most apps are a pretty office grid or a rugged field toy—pick your chaos.\n\nConstructify runs construction ops: crews, jobs, clock truth, role visibility—payroll and site reality stay aligned.",
     cat: "DIFFERENTIATION",
     mode: "STANDARD_SALES",
   },
@@ -234,7 +308,7 @@ const ROWS: Row[] = [
       "how do you start",
     ],
     response:
-      "It's simple: stand up your company in the app, add your people and jobs, then run clock-in on one real job the same week. Field-first—supers see who's clocked where; crews get a fast clock habit. Not a six-month science fair.",
+      "⚡ Simple path:\n• Company in the app\n• People + jobs added\n• Clock one real job the same week\n\nField-first: supers see who's clocked where. Not a six-month science fair.",
     cat: "IMPLEMENTATION",
     mode: "STANDARD_SALES",
   },
@@ -249,7 +323,7 @@ const ROWS: Row[] = [
       "track time in procore",
     ],
     response:
-      "QuickBooks runs the books; Procore runs project information; spreadsheets don't stand in the mud at 6am. Constructify is the ops layer between scheduling, field clock-ins, and the truth payroll needs—not another pretty hours grid. Built for crews, not desk-only workflows.",
+      "QuickBooks runs books. Procore runs project info. Spreadsheets don't do 6am gates.\n\n⚡ Constructify is the ops layer between schedule, field clock-ins, and payroll truth—not another pretty hours grid.\n\nBuilt for crews, not desk-only workflows.",
     cat: "DIFFERENTIATION",
     mode: "STANDARD_SALES",
   },
@@ -266,7 +340,7 @@ const ROWS: Row[] = [
       "don't have time for this",
     ],
     response:
-      "You don't need to babysit every click. Field flow is meant to be simple: clock in, see what's assigned, move. Start one crew on one job—if supers save time on Friday, crews follow usefulness, not speeches.",
+      "💥 You don't need to babysit every click.\n\n⚡ Field flow is simple: clock in, see what's assigned, move.\n\nStart one crew on one job—if supers save time Friday, crews follow usefulness, not speeches.",
     cat: "OBJECTIONS_ADOPTION",
     mode: "STANDARD_SALES",
   },

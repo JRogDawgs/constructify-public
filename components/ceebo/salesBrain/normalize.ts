@@ -2,6 +2,8 @@
  * Normalize user text for substring phrase matching — rough speech, typos, punctuation.
  */
 
+import { applyLingoAliases } from "./lingoMap"
+
 const TYPO_REPLACEMENTS: readonly [RegExp, string][] = [
   [/schedualing|schedual/gi, "schedule"],
   [/timeshet|time shet/gi, "timesheet"],
@@ -24,7 +26,7 @@ const TYPO_REPLACEMENTS: readonly [RegExp, string][] = [
 ]
 
 export function normalizeForMatch(raw: string): string {
-  let s = raw.toLowerCase().trim()
+  let s = applyLingoAliases(raw).toLowerCase().trim()
   for (const [re, rep] of TYPO_REPLACEMENTS) {
     s = s.replace(re, rep)
   }

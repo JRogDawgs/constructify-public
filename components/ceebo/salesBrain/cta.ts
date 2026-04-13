@@ -28,7 +28,7 @@ export function ctaYoutubeRole(role: DemoRoleId): string {
 
 /** One-path-forward CTA tail; pass ctx from engine for conversation control. */
 export function softClose(seed: number, ctx?: PathCloseContext): string {
-  return ` ${primaryPathSuffix(seed, ctx ?? defaultPathCloseContext())}`
+  return `\n\n${primaryPathSuffix(seed, ctx ?? defaultPathCloseContext())}`
 }
 
 export type { PathCloseContext } from "./pathControl"

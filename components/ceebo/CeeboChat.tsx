@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { CeeboWelcome } from "./CeeboWelcome"
 import { CeeboMessageList } from "./CeeboMessageList"
 import { CeeboInput } from "./CeeboInput"
@@ -42,6 +42,8 @@ function mergeSession(
     lastCTA: patch.lastCTA !== undefined ? patch.lastCTA : prev.lastCTA,
     lastReplyHadQuestion:
       patch.lastReplyHadQuestion ?? prev.lastReplyHadQuestion,
+    chatLanguage: patch.chatLanguage ?? prev.chatLanguage,
+    spanishHintShown: patch.spanishHintShown ?? prev.spanishHintShown,
   }
 }
 
@@ -55,11 +57,41 @@ export function CeeboChat() {
   const [exchangeCount, setExchangeCount] = useState(0)
   const [ctaEscalationShown, setCtaEscalationShown] = useState(false)
   const [session, setSession] = useState<CeeboSessionState>(DEFAULT_CEEBO_SESSION)
+  const [ceeboThinking, setCeeboThinking] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  const thinkingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const replyInFlightRef = useRef(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const sync = () => setReducedMotion(mq.matches)
+    sync()
+    mq.addEventListener("change", sync)
+    return () => mq.removeEventListener("change", sync)
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current)
+      replyInFlightRef.current = false
+    },
+    []
+  )
+
+  const thinkingMs = reducedMotion ? 0 : 400
 
   const handleSend = useCallback(
     (text: string) => {
       const trimmed = text.trim()
-      if (!trimmed) return
+      if (!trimmed || replyInFlightRef.current) return
+
+      if (thinkingTimerRef.current) {
+        clearTimeout(thinkingTimerRef.current)
+        thinkingTimerRef.current = null
+      }
+
+      replyInFlightRef.current = true
 
       const userMsg: ChatMessage = {
         id: `user-${Date.now()}`,
@@ -74,6 +106,7 @@ export function CeeboChat() {
       let detectedSize: number | null
       let shouldAppendRoadmap = false
       let sessionPatch: Partial<CeeboSessionState> = {}
+      let loopGuardSessionUpdate = false
 
       const loopGuardActive =
         exchangeCount >= 6 &&
@@ -84,7 +117,7 @@ export function CeeboChat() {
         response = LOOP_GUARD_RESPONSE
         intent = null
         detectedSize = null
-        setSession((prev) => mergeSession(prev, { lastReplyHadQuestion: false }))
+        loopGuardSessionUpdate = true
       } else {
         const result = buildSalesResponse(
           trimmed,
@@ -101,21 +134,6 @@ export function CeeboChat() {
         sessionPatch = result.sessionPatch
       }
 
-      if (shouldAppendRoadmap) {
-        setRoadmapShown(true)
-      }
-
-      if (detectedSize !== null) {
-        setCompanySize(detectedSize)
-        setConversationStage("EXPLAIN_VALUE")
-      } else if (intent === "PRICING") {
-        setConversationStage("QUALIFY_SIZE")
-      } else if (isObjectionIntent(intent)) {
-        setConversationStage("HANDLE_OBJECTION")
-      } else if (intent !== null) {
-        setConversationStage("CTA")
-      }
-
       const ctaEscalationActive =
         exchangeCount >= 8 &&
         !ctaEscalationShown &&
@@ -123,19 +141,58 @@ export function CeeboChat() {
 
       if (ctaEscalationActive) {
         response = `${response}${CTA_ESCALATION_SUFFIX}`
-        setCtaEscalationShown(true)
       }
 
-      const ceeboMsg: ChatMessage = {
-        id: `ceebo-${Date.now()}`,
-        role: "ceebo",
-        content: response,
-        timestamp: Date.now(),
+      if (thinkingMs > 0) setCeeboThinking(true)
+
+      const flushReply = () => {
+        if (loopGuardSessionUpdate) {
+          setSession((prev) => mergeSession(prev, { lastReplyHadQuestion: false }))
+        }
+
+        if (shouldAppendRoadmap) {
+          setRoadmapShown(true)
+        }
+
+        if (detectedSize !== null) {
+          setCompanySize(detectedSize)
+          setConversationStage("EXPLAIN_VALUE")
+        } else if (intent === "PRICING") {
+          setConversationStage("QUALIFY_SIZE")
+        } else if (isObjectionIntent(intent)) {
+          setConversationStage("HANDLE_OBJECTION")
+        } else if (intent !== null) {
+          setConversationStage("CTA")
+        }
+
+        if (ctaEscalationActive) {
+          setCtaEscalationShown(true)
+        }
+
+        const ceeboMsg: ChatMessage = {
+          id: `ceebo-${Date.now()}`,
+          role: "ceebo",
+          content: response,
+          timestamp: Date.now(),
+          staggerReveal: true,
+        }
+        setMessages((prev) => [...prev, ceeboMsg])
+        setExchangeCount((c) => c + 1)
+        if (Object.keys(sessionPatch).length > 0) {
+          setSession((prev) => mergeSession(prev, sessionPatch))
+        }
+
+        replyInFlightRef.current = false
+        setCeeboThinking(false)
       }
-      setMessages((prev) => [...prev, ceeboMsg])
-      setExchangeCount((c) => c + 1)
-      if (Object.keys(sessionPatch).length > 0) {
-        setSession((prev) => mergeSession(prev, sessionPatch))
+
+      if (thinkingMs === 0) {
+        flushReply()
+      } else {
+        thinkingTimerRef.current = setTimeout(() => {
+          thinkingTimerRef.current = null
+          flushReply()
+        }, thinkingMs)
       }
     },
     [
@@ -145,6 +202,7 @@ export function CeeboChat() {
       exchangeCount,
       ctaEscalationShown,
       session,
+      thinkingMs,
     ]
   )
 
@@ -161,12 +219,17 @@ export function CeeboChat() {
           <CeeboWelcome onQuickAction={handleQuickAction} />
         </div>
       ) : (
-        <CeeboMessageList messages={messages} />
+        <CeeboMessageList
+          messages={messages}
+          showThinking={ceeboThinking}
+          reduceMotion={reducedMotion}
+        />
       )}
       <CeeboInput
         onSend={handleSend}
         value={inputValue}
         onChangeText={setInputValue}
+        busy={ceeboThinking}
       />
     </div>
   )

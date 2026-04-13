@@ -1,4 +1,7 @@
+import type { ChatLangHint } from "./languageDetect"
 import type { BrainReply, SalesCategory } from "./types"
+
+export type { ChatLangHint } from "./languageDetect"
 
 /** Who we're likely talking to — rule-based guess, refined over the session. */
 export type UserTypeGuess = "small_owner" | "gc_admin" | "subcontractor" | "unknown"
@@ -15,6 +18,10 @@ export interface CeeboSessionState {
   lastCTA: string | null
   /** So we never stack two questions in a row. */
   lastReplyHadQuestion: boolean
+  /** Hint from lightweight detection — future Spanish copy; replies stay English until then. */
+  chatLanguage?: ChatLangHint
+  /** One-time line offering Spanish when input looks Spanish. */
+  spanishHintShown?: boolean
 }
 
 export const DEFAULT_CEEBO_SESSION: CeeboSessionState = {
@@ -24,6 +31,7 @@ export const DEFAULT_CEEBO_SESSION: CeeboSessionState = {
   objectionFlags: [],
   lastCTA: null,
   lastReplyHadQuestion: false,
+  spanishHintShown: false,
 }
 
 export type BrainReplyWithSession = BrainReply & {

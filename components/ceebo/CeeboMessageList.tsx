@@ -2,16 +2,21 @@
 
 import React, { useEffect, useRef } from "react"
 import { CeeboMessageBubble } from "./CeeboMessageBubble"
+import { CeeboThinkingIndicator } from "./CeeboThinkingIndicator"
 
 export interface ChatMessage {
   id: string
   role: "ceebo" | "user"
   content: string
   timestamp?: number
+  /** Assistant message: reveal paragraphs progressively. */
+  staggerReveal?: boolean
 }
 
 export interface CeeboMessageListProps {
   messages: ChatMessage[]
+  showThinking?: boolean
+  reduceMotion?: boolean
 }
 
 function formatTime(date: Date): string {
@@ -23,6 +28,8 @@ function formatTime(date: Date): string {
 
 export const CeeboMessageList = React.memo(function CeeboMessageList({
   messages,
+  showThinking = false,
+  reduceMotion = false,
 }: CeeboMessageListProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -31,7 +38,7 @@ export const CeeboMessageList = React.memo(function CeeboMessageList({
       top: scrollRef.current.scrollHeight,
       behavior: "smooth",
     })
-  }, [messages])
+  }, [messages, showThinking])
 
   return (
     <div
@@ -44,6 +51,8 @@ export const CeeboMessageList = React.memo(function CeeboMessageList({
           role={msg.role}
           content={msg.content}
           showAvatar={msg.role === "ceebo"}
+          staggerReveal={msg.role === "ceebo" && Boolean(msg.staggerReveal)}
+          reduceMotion={reduceMotion}
           timestamp={
             msg.timestamp
               ? formatTime(new Date(msg.timestamp))
@@ -51,6 +60,7 @@ export const CeeboMessageList = React.memo(function CeeboMessageList({
           }
         />
       ))}
+      {showThinking && <CeeboThinkingIndicator />}
     </div>
   )
 })
