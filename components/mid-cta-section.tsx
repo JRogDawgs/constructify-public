@@ -29,7 +29,7 @@ export default function MidCTASection({
         </h2>
         <p className="mt-4 text-slate-300 text-lg max-w-xl mx-auto">{subtext}</p>
         {emphasis ? (
-          <p className="mt-3 max-w-2xl mx-auto text-base font-bold uppercase tracking-wide text-amber-400 text-balance md:text-lg">
+          <p className="mt-3 max-w-2xl mx-auto text-lg font-bold uppercase tracking-wide text-amber-400 text-balance md:text-xl">
             {emphasis}
           </p>
         ) : null}
