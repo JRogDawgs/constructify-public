@@ -19,7 +19,7 @@ export default function SmsConsentPage() {
             <div className="mx-auto max-w-4xl prose prose-gray dark:prose-invert">
               <section className="space-y-6">
                 <p className="m-0">
-                  By providing your phone number and clicking &ldquo;Create Account&rdquo; or accepting an employer invitation, you agree to receive SMS messages from Constructify related to your work activities.
+                  By providing your phone number and clicking &ldquo;Create Account&rdquo; or accepting an employer invitation and completing account setup, you agree to receive SMS messages from Constructify related to your work activities.
                 </p>
 
                 <div>
