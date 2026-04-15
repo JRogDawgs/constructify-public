@@ -77,6 +77,21 @@ export default function TermsPage() {
                   <p>
                     Constructify does not share, sell, rent, or disclose mobile phone numbers or SMS opt-in data to third parties for marketing or promotional purposes. Mobile information is used only to provide services directly related to your account, employment-related onboarding, and platform operations.
                   </p>
+
+                  <h3 className="text-xl font-semibold mb-3 mt-8">SMS Program Terms</h3>
+                  <p>Program Name: Constructify SMS Notifications</p>
+                  <p>
+                    By opting into SMS messages from Constructify, you agree to receive messages related to workforce operations, including task assignments, scheduling updates, clock-in/out confirmations, and project alerts.
+                  </p>
+                  <p>Message frequency varies (typically up to 5 messages per day).</p>
+                  <p>Message and data rates may apply.</p>
+                  <p>
+                    To opt out, reply STOP at any time.
+                    <br />
+                    For assistance, reply HELP or contact{" "}
+                    <a href="mailto:support@constructifylabs.com" className="text-primary underline underline-offset-4">support@constructifylabs.com</a>.
+                  </p>
+                  <p>Consent to receive SMS messages is not a condition of purchase.</p>
                 </div>
 
                 <div>

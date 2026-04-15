@@ -14,13 +14,14 @@ export default function SmsConsentPage() {
               <h1 className="bg-gradient-to-br from-foreground from-30% via-foreground/90 to-foreground/70 bg-clip-text pb-4 text-4xl font-medium tracking-tight text-transparent leading-[1.4] sm:text-5xl md:text-6xl lg:text-7xl">
                 Constructify SMS Consent
               </h1>
-              <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                By entering your phone number during account registration or when accepting an employer invitation, you consent to receive SMS messages from Constructify.
-              </p>
             </div>
 
             <div className="mx-auto max-w-4xl prose prose-gray dark:prose-invert">
               <section className="space-y-6">
+                <p className="m-0">
+                  By providing your phone number and creating an account or accepting an employer invitation, you agree to receive SMS messages from Constructify related to your work activities.
+                </p>
+
                 <div>
                   <p className="m-0">These messages may include:</p>
                   <ul className="list-disc pl-6 mt-2 space-y-2">
@@ -32,10 +33,9 @@ export default function SmsConsentPage() {
                   </ul>
                 </div>
 
-                <p>Message frequency varies based on activity.</p>
+                <p>Message frequency varies (typically up to 5 messages per day).</p>
                 <p>Message and data rates may apply.</p>
                 <p>SMS consent is not a condition of purchase.</p>
-
                 <p>Reply STOP to opt out at any time.</p>
                 <p>Reply HELP for help.</p>
 

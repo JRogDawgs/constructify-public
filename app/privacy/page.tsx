@@ -99,6 +99,9 @@ export default function PrivacyPage() {
                 <div>
                   <h2 className="text-2xl font-semibold mb-4">SMS Communications</h2>
                   <p>
+                    Consent to receive SMS messages is obtained during account registration or onboarding.
+                  </p>
+                  <p>
                     By providing a mobile phone number to Constructify, you may receive SMS messages from Constructify Labs related to account notifications, onboarding, employee invitations, and work-related operational updates. Message frequency may vary. Message and data rates may apply, depending on your carrier and plan.
                   </p>
                   <p>
